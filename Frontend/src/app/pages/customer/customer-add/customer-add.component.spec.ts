@@ -1,21 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { render, screen } from '@testing-library/angular';
 import { CustomerAddComponent } from './customer-add.component';
 
 describe('CustomerAddComponent', () => {
-  let component: CustomerAddComponent;
-  let fixture: ComponentFixture<CustomerAddComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [CustomerAddComponent]
-    });
-    fixture = TestBed.createComponent(CustomerAddComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create', async () => {
+    // render(CustomerAddComponent)
+    const { fixture } = await render(CustomerAddComponent);
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });
