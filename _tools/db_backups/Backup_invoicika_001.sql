@@ -1,3 +1,17 @@
+-- added drop to cleanup the previous data
+DROP TABLE IF EXISTS public."CustomerInvoiceGroupItemLines" CASCADE;
+DROP TABLE IF EXISTS public."CustomerInvoiceGroupLines" CASCADE;
+DROP TABLE IF EXISTS public."CustomerInvoiceLines" CASCADE;
+DROP TABLE IF EXISTS public."CustomerInvoices" CASCADE;
+DROP TABLE IF EXISTS public."ItemGroupItems" CASCADE;
+DROP TABLE IF EXISTS public."ItemGroups" CASCADE;
+DROP TABLE IF EXISTS public."Items" CASCADE;
+DROP TABLE IF EXISTS public."Customers" CASCADE;
+DROP TABLE IF EXISTS public."Users" CASCADE;
+DROP TABLE IF EXISTS public."Roles" CASCADE;
+DROP TABLE IF EXISTS public."VATs" CASCADE;
+DROP TABLE IF EXISTS public."__EFMigrationsHistory" CASCADE;
+
 --
 -- PostgreSQL database dump
 --
