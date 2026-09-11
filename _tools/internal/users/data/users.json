@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Jotaro Kujo",
+    "address": "123 Morioh Street, Sendai, Japan",
+    "phone": "+81-90-1234-5678",
+    "email": "jotaro.kujo@spw-foundation.org"
+  },
+  {
+    "name": "Joseph Joestar",
+    "address": "742 Evergreen Terrace, New York, USA",
+    "phone": "+1-555-0199",
+    "email": "joseph.joestar@realestate.com"
+  },
+  {
+    "name": "Dio Brando",
+    "address": "Cairo Citadel, Cairo, Egypt",
+    "phone": "+20-2-2345-6789",
+    "email": "dio.brando@vampire-world.com"
+  },
+  {
+    "name": "Giorno Giovanna",
+    "address": "Piazza del Plebiscito, Naples, Italy",
+    "phone": "+39-081-555-0123",
+    "email": "giorno.giovanna@passione.it"
+  },
+  {
+    "name": "Josuke Higashikata",
+    "address": "45 Morioh Grand Hotel, Sendai, Japan",
+    "phone": "+81-90-9876-5432",
+    "email": "josuke.higashikata@crazy-d.jp"
+  },
+  {
+    "name": "Walter White",
+    "address": "308 Negra Arroyo Lane, Albuquerque, NM, USA",
+    "phone": "+1-505-555-0156",
+    "email": "heisenberg@savewalterwhite.com"
+  },
+  {
+    "name": "Michael Scott",
+    "address": "1725 Slough Avenue, Scranton, PA, USA",
+    "phone": "+1-570-555-0133",
+    "email": "m.scott@dundermifflin.com"
+  },
+  {
+    "name": "Tony Soprano",
+    "address": "14 Aspen Drive, North Caldwell, NJ, USA",
+    "phone": "+1-973-555-0144",
+    "email": "anthony.soprano@bada-bing.com"
+  }
+]

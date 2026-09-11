@@ -1,6 +1,6 @@
 # Étape Attendu
-Choix de l'application Sélectionner une application conforme aux critères et la faire valider par le
-formateur.
+
+Choix de l'application
 Cadrage Définir la stratégie, le périmètre et l'analyse de risques.
 Développement Réaliser les tests manuels, d'API, l'automatisation et le pipeline.
 Rapport Rédiger le rapport de campagne et consolider les métriques.

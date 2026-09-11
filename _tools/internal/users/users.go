@@ -17,17 +17,21 @@ func NewDB(connection *sql.DB) *DB {
 
 type Customer struct {
 	CustomerId   uuid.UUID
-	Name         string
-	Address      string
-	PhoneNumber  string
-	Email        string
+	Name         string    `json:"name"`
+	Address      string    `json:"address"`
+	PhoneNumber  string    `json:"phone"`
+	Email        string    `json:"email"`
 	CreationDate time.Time //utc
 	UpdateDate   time.Time //utc
 }
 
-func NewCustomer() *Customer {
+func NewCustomer(name string, addr string, email string, phone string) *Customer {
 	return &Customer{
 		CustomerId:   uuid.New(),
+		Name:         name,
+		Address:      addr,
+		Email:        email,
+		PhoneNumber:  phone,
 		CreationDate: time.Time{}.UTC(),
 		UpdateDate:   time.Time{}.UTC(),
 	}
