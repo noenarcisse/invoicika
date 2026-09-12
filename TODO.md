@@ -14,17 +14,24 @@
 
 ## _TOOLS
 - [x] DB Injector
-- [ ] CLI autonome qui empeche les cmd a la main (cd /truc ; ./do.exe ; cd .. ; docker compose truc)
+- [x] CLI autonome qui empeche les cmd a la main (cd /truc ; ./do.exe ; cd .. ; docker compose truc)
+- [ ] Prep des states de DB alternatif
+- [ ] Aspiration des .sql ? + creation d'un fichier tmp pour lancer psql dessus?
+- [ ] Erreur si psql lance une err dans le cas de l'utilisation de state ?
+- [ ] Build du CLI
+- [ ] Distribution en Github Release
 
 ## BACKEND
-- [ ] sep 2 csproj 1 pour le backend deja la et un pour les Tests
-- [ ]split la solution pour les 2 csproj (remanier l'archi elle est pas bonne)
-- [ ]revoir comment on test en .net avec les 2 csproj separés y'avait des liens a faire dans VS
+- [ ] Branche de fix/backend-architecture
+- [ ] Fix d'archi -> Replacer WebAPI dans /Backend/
+- [ ] Remanier une .sln pour les 2 csproj
+- [ ] VS : Creer Backend/WebAPI.Tests, 
+- [ ] Relier les dépendances avec /WebAPI
 ## FRONT
 - [x] Fix les vulné possibles : npm audit + i
 ## DB
 - [x] Backup_001 (init)
-- [ ] Backup_002 (injected)
+- [x] Backup_002 (injected)
 
 
 # Étape Attendue
