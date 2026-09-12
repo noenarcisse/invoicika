@@ -24,7 +24,7 @@
 - [x] Fix les vulné possibles : npm audit + i
 ## DB
 - [x] Backup_001 (init)
-- [x] Backup_002 (injected)
+- [ ] Backup_002 (injected)
 
 
 # Étape Attendue
