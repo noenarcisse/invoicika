@@ -11,6 +11,8 @@
 - [ ] Setup JIRA  
 - [ ] Setup Squash
 - [ ] CI CD possible ? reliage avec git ?
+- [ ] Prep le dossier de rapport de tests
+- [ ] Prep la charte de test global avec perimetre, RM, etc
 
 ## _TOOLS
 - [x] DB Injector
@@ -27,6 +29,10 @@
 - [ ] Remanier une .sln pour les 2 csproj
 - [ ] VS : Creer Backend/WebAPI.Tests, 
 - [ ] Relier les dépendances avec /WebAPI
+- [ ] Fix les liens du docker-compose et les dockerfile :<br>
+    https://github.com/noenarcisse/invoicika/blob/main/docker-compose.yml <br>
+    https://github.com/noenarcisse/invoicika/blob/main/WebAPI/Dockerfile
+
 ## FRONT
 - [x] Fix les vulné possibles : npm audit + i
 ## DB
@@ -37,10 +43,10 @@
 # Étape Attendue
 
 - [x] Choix de l'application
-- [ ] Cadrage Définir la stratégie, le périmètre et l'analyse de risques.
-- [ ] Développement Réaliser les tests manuels, d'API, l'automatisation et le pipeline.
-- [ ] Rapport Rédiger le rapport de campagne et consolider les métriques.
-- [ ] Soutenance Présenter et défendre le travail devant le jury (jour dédié)
+- [ ] Cadrage : Définir la stratégie, le périmètre et l'analyse de risques.
+- [ ] Développement : Réaliser les tests manuels, d'API, l'automatisation et le pipeline.
+- [ ] Rapport : Rédiger le rapport de campagne et consolider les métriques.
+- [ ] Soutenance : Présenter et défendre le travail devant le jury (jour dédié)
 
 # Deliverables
 ## 3. Ce que vous devez produire
