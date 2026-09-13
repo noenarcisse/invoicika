@@ -51,6 +51,9 @@ Modifs apportées au projet initial
 - Changement de port pour la DB sur 5433 pour eviter les conflits avec un eventuel postgres natif sur la machine hote
 - Mise a jour le docker-compose.yml pour eviter les migration a la main de MS SQL -> PostGres
 - Ajout d'un injecteur de DB pour remplacer les noms des Customers entrés par le dev qui sont des acteurs de films un peu trop romantiques.
+- Mise a jour du Nuget MailKit 10 -> 16 (vulne)
+- Mise a jour de nombreux package JS sans --force (vulne)
+- Override de nombreux package JS sans --fore (vulne). Liste trouvable dans le package.json
 
 # **Tech Stack**
 
