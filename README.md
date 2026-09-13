@@ -17,28 +17,18 @@ https://github.com/noenarcisse/invoicika/releases <br>
 Préparer le .env avec les clés dans le docker-compose.yml
 
 ### Avec le CLI (recommandé)
+Requiert postgreSQL et Docker installé
 
 Depuis la racine du projet invoicika :
 ```ps
-./cli.exe -i
+./cli.exe -install
 ```
 En cas de reset de la base de données : 
 ```ps
-./cli.exe -s 1
+./cli.exe -state 1
 ```
 ### Sans le CLI
-```ps
-docker compose up -d --build
-```
-En cas de reset de la base de données : 
-
-```ps
-psql "postgresql://postgres:invoicika!123@localhost:5433/invoicikaDb" -f ./_tools/db_backups/Backup_invoicika_002.sql
-```
-Sans postgreSQL
-```ps
-docker compose down -v ; docker compose up -d --build
-```
+see : https://github.com/noenarcisse/invoicika/blob/main/README_alt_install.md
 
 ## Documentation
 | couche / ressource | url |
