@@ -12,8 +12,8 @@ services:
 
   backend:
     build:
-      context: ./WebAPI
-      dockerfile: Dockerfile
+      context: ./Backend
+      dockerfile: WebAPI/Dockerfile
     ports:
       - "5000:8080"
     environment:
