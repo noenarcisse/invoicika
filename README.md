@@ -21,11 +21,11 @@ Requiert postgreSQL et Docker installé
 
 Depuis la racine du projet invoicika :
 ```ps
-./_tools/cli.exe -install
+./cli.exe -install
 ```
 En cas de reset de la base de données : 
 ```ps
-./_tools/cli.exe -state 1
+./cli.exe -state 1
 ```
 ### Sans le CLI
 voir : https://github.com/noenarcisse/invoicika/blob/main/README_alt_install.md
