@@ -12,9 +12,8 @@ https://www.postgresql.org/download/
 git clone https://github.com/noenarcisse/invoicika.git ; cd invoicika
 ```
 
-Télécharger le cli.exe et le placer dans le dossier _tools du repository<br>
+Télécharger le cli.exe et le placer dans le repository<br>
 https://github.com/noenarcisse/invoicika/releases <br>
-Préparer le .env avec les valeurs présentes dans le docker-compose.yml
 
 ### Avec le CLI (recommandé)
 Requiert postgreSQL et Docker installé
