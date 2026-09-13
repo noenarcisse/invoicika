@@ -75,12 +75,14 @@ end:
 }
 
 // todo guards, rough for now
+// refacto en cut et check qu'on trouve bien le =
+// check l'empty val
 func extractVarData(line string) string {
 	splet := strings.Split(line, "=")
 	return strings.Trim(splet[1], " ")
 }
 
-// TODO : oof refacto
+// Extracts PORT local value from the yml
 func extractPort(line string) (string, error) {
 	before, _, ok := strings.Cut(line, ":")
 	if !ok {
@@ -95,6 +97,11 @@ func extractPort(line string) (string, error) {
 			}
 			m = i + 1
 		}
+	}
+
+	//defensif, m peut jamais etre -1
+	if n == -1 || m == -1 {
+		return "", errors.New("No digit found !")
 	}
 	return before[n:m], nil
 }
