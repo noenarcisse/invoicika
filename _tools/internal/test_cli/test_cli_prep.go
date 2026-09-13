@@ -1,6 +1,7 @@
 package testcli
 
 import (
+	"dbinjector/internal/yamlparser"
 	"fmt"
 	"os/exec"
 	"strings"
@@ -22,11 +23,12 @@ func Install() error {
 	return err
 }
 
-func ResetDB(env map[string]string) error {
+func ResetDB(dblogs *yamlparser.PsqlLogs) error {
 	cmd := fmt.Sprintf("postgresql://%s:%s@localhost:%s/%s -f ./db_backups/Backup_invoicika_001.sql",
-		env["DB_USER"], env["DB_PASSWORD"],
-		env["DB_PORT"],
-		env["DB_NAME"],
+		dblogs.User,
+		dblogs.Password,
+		dblogs.Port,
+		dblogs.Db,
 	)
 	err := runStep("psql", cmd)
 	return err
@@ -40,11 +42,12 @@ func ResetDB2() error {
 
 // todo
 // horrible l'acces map ici en direct sans check D:
-func setDBState(env map[string]string, states map[int]string, state int) error {
+func setDBState(dblogs *yamlparser.PsqlLogs, states map[int]string, state int) error {
 	cmd := fmt.Sprintf("postgresql://%s:%s@localhost:%s/%s -f ./db_backups/Backup_invoicika_001.sql",
-		env["DB_USER"], env["DB_PASSWORD"],
-		env["DB_PORT"],
-		env["DB_NAME"],
+		dblogs.User,
+		dblogs.Password,
+		dblogs.Port,
+		dblogs.Db,
 	)
 	err := runStep("psql", cmd+states[state])
 	return err

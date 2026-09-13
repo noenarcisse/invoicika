@@ -2,7 +2,7 @@ package database
 
 import (
 	"database/sql"
-	"dbinjector/pkg/dotenv"
+	"dbinjector/internal/yamlparser"
 	"fmt"
 
 	"github.com/lib/pq"
@@ -16,30 +16,13 @@ func NewDB(connection *sql.DB) *DB {
 	return &DB{connection}
 }
 
-func OpenDB() *sql.DB {
-	env, err := dotenv.NewDotEnvFile(".env")
-	if err != nil {
-		panic(err)
-	}
-
-	found, notfound, err := env.PickKeys(
-		"DB_PORT",
-		"DB_USER",
-		"DB_PASSWORD",
-		"DB_NAME",
-	)
-	if err != nil {
-		panic(err)
-	}
-	if len(notfound) > 0 {
-		panic("NOOOOOON")
-	}
+func OpenDB(dblogs *yamlparser.PsqlLogs) *sql.DB {
 
 	dsn := fmt.Sprintf("host=localhost port=%s user=%s password=%s dbname=%s sslmode=disable",
-		found["DB_PORT"],
-		found["DB_USER"],
-		found["DB_PASSWORD"],
-		found["DB_NAME"],
+		dblogs.Port,
+		dblogs.User,
+		dblogs.Password,
+		dblogs.Db,
 	)
 
 	dbConnect, err := sql.Open("postgres", dsn)

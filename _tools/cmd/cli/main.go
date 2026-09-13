@@ -4,7 +4,7 @@ import (
 	"dbinjector/internal/database"
 	testcli "dbinjector/internal/test_cli"
 	"dbinjector/internal/users"
-	"dbinjector/pkg/dotenv"
+	"dbinjector/internal/yamlparser"
 	"flag"
 	"fmt"
 )
@@ -29,23 +29,27 @@ func main() {
 
 	flag.Parse()
 
-	env, err := dotenv.NewDotEnvFile(".env")
+	dblogs, err := yamlparser.GetDBInfosFromYml("./docker-compose.yml")
 	if err != nil {
 		panic(err)
 	}
 
-	envVars, notfound, err := env.PickKeys(
-		"DB_PORT",
-		"DB_USER",
-		"DB_PASSWORD",
-		"DB_NAME",
-	)
-	if err != nil {
-		panic(err)
-	}
-	if len(notfound) > 0 {
-		panic("No environment vars found in the .env")
-	}
+	// env, err := dotenv.NewDotEnvFile(".env")
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// envVars, notfound, err := env.PickKeys(
+	// 	"DB_PORT",
+	// 	"DB_USER",
+	// 	"DB_PASSWORD",
+	// 	"DB_NAME",
+	// )
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// if len(notfound) > 0 {
+	// 	panic("No environment vars found in the .env")
+	// }
 
 	switch {
 	case help:
@@ -57,7 +61,7 @@ func main() {
 
 	case reset:
 		fmt.Println("Resetting DB")
-		err := testcli.ResetDB(envVars)
+		err := testcli.ResetDB(dblogs)
 		if err != nil {
 			err := testcli.ResetDB2()
 			if err != nil {
@@ -68,14 +72,14 @@ func main() {
 		fmt.Printf("Changing DB state to %d\n", state)
 		switch state {
 		case 1:
-			err := testcli.ResetDB(envVars)
+			err := testcli.ResetDB(dblogs)
 			if err != nil {
 				err := testcli.ResetDB2()
 				if err != nil {
 					panic(err)
 				}
 			}
-			conn := database.OpenDB()
+			conn := database.OpenDB(dblogs)
 			defer conn.Close()
 
 			database.NewDB(conn).Trunc("Customers")

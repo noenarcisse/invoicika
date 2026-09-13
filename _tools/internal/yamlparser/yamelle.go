@@ -12,7 +12,7 @@ import (
 // see https://github.com/yaml/go-yaml
 // if requires more leg work
 
-type psqlLogs struct {
+type PsqlLogs struct {
 	User     string
 	Password string
 	Db       string
@@ -20,9 +20,9 @@ type psqlLogs struct {
 }
 
 // Poor man's yml extraction
-func GetDBInfosFromYml(file string) (*psqlLogs, error) {
+func GetDBInfosFromYml(file string) (*PsqlLogs, error) {
 
-	dbLogs := psqlLogs{}
+	dbLogs := PsqlLogs{}
 
 	handle, err := os.Open(file) //todo err to deal with
 	if err != nil {
@@ -90,11 +90,11 @@ end:
 
 // Extracts the value from a key in a yml file
 func extractVarData(line string) (string, error) {
-	before, _, ok := strings.Cut(line, ":")
+	_, after, ok := strings.Cut(line, "=")
 	if !ok {
 		return "", errors.New("Missing separator '='")
 	}
-	val := strings.Trim(before, " ")
+	val := strings.Trim(after, " ")
 	if val == "" {
 		return "", errors.New("Empty val")
 	}
