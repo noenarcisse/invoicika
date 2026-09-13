@@ -12,23 +12,23 @@ https://www.postgresql.org/download/
 git clone https://github.com/noenarcisse/invoicika.git ; cd invoicika
 ```
 
-Télécharger le cli.exe et le placer dans le dossier du repository<br>
+Télécharger le cli.exe et le placer dans le dossier _tools du repository<br>
 https://github.com/noenarcisse/invoicika/releases <br>
-Préparer le .env avec les clés dans le docker-compose.yml
+Préparer le .env avec les valeurs présentes dans le docker-compose.yml
 
 ### Avec le CLI (recommandé)
 Requiert postgreSQL et Docker installé
 
 Depuis la racine du projet invoicika :
 ```ps
-./cli.exe -install
+./_tools/cli.exe -install
 ```
 En cas de reset de la base de données : 
 ```ps
-./cli.exe -state 1
+./_tools/cli.exe -state 1
 ```
 ### Sans le CLI
-see : https://github.com/noenarcisse/invoicika/blob/main/README_alt_install.md
+voir : https://github.com/noenarcisse/invoicika/blob/main/README_alt_install.md
 
 ## Documentation
 | couche / ressource | url |
@@ -47,16 +47,17 @@ see : https://github.com/noenarcisse/invoicika/blob/main/README_alt_install.md
 | employee1 | employee1 |
 | employee2 | employee2 |
 
-Modifs apportées au projet initial
+## Modifications apportées au projet initial
 - Changement de port pour la DB sur 5433 pour eviter les conflits avec un eventuel postgres natif sur la machine hote
 - Mise a jour le docker-compose.yml pour eviter les migration a la main de MS SQL -> PostGres
 - Ajout d'un injecteur de DB pour remplacer les noms des Customers entrés par le dev qui sont des acteurs de films un peu trop romantiques.
+- Modification de la structure du folder avec un /Backend, ajout d'une solution globale en slnx et ajout du projet WebAPI.Tests
+- Mise a jour du docker compose pour suivre la structure du dossier Backend
 - Mise a jour du Nuget MailKit 10 -> 16 (vulne)
 - Mise a jour de nombreux package JS sans --force (vulne)
 - Override de nombreux package JS sans --fore (vulne). Liste trouvable dans le package.json
 
-# **Tech Stack**
-
+# Tech Stack de l'application
 - Node
 - Angular 16
 - NG-Zorro
