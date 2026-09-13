@@ -24,7 +24,8 @@
 - [ ] Distribution en Github Release
 
 ## BACKEND
-- [ ] Branche de fix/backend-architecture
+- [x] Branche de fix/backend-architecture
+- [x] Fix d'une vulné sur MailKit 10 -> passage en 16
 - [ ] Fix d'archi -> Replacer WebAPI dans /Backend/
 - [ ] Remanier une .sln pour les 2 csproj
 - [ ] VS : Creer Backend/WebAPI.Tests, 
