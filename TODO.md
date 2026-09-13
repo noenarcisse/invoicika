@@ -26,11 +26,11 @@
 ## BACKEND
 - [x] Branche de fix/backend-architecture
 - [x] Fix d'une vulné sur MailKit 10 -> passage en 16
-- [ ] Fix d'archi -> Replacer WebAPI dans /Backend/
-- [ ] Remanier une .sln pour les 2 csproj
-- [ ] VS : Creer Backend/WebAPI.Tests, 
-- [ ] Relier les dépendances avec /WebAPI
-- [ ] Fix les liens du docker-compose et les dockerfile :<br>
+- [x] Fix d'archi -> Replacer WebAPI dans /Backend/
+- [x] Remanier une .sln pour les 2 csproj
+- [x] VS : Creer Backend/WebAPI.Tests, 
+- [x] Relier les dépendances avec /WebAPI
+- [x] Fix les liens du docker-compose et les dockerfile :<br>
     https://github.com/noenarcisse/invoicika/blob/main/docker-compose.yml <br>
     https://github.com/noenarcisse/invoicika/blob/main/WebAPI/Dockerfile
 
