@@ -24,5 +24,6 @@ go.work.sum
 # env file
 .env
 
-# custom for testing the tool
+# custom exclusion to test the CLI locally
 db_backups/*
+*yml
