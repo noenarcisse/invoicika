@@ -9,6 +9,9 @@ import (
 	"unicode"
 )
 
+// see https://github.com/yaml/go-yaml
+// if requires more leg work
+
 type psqlLogs struct {
 	User     string
 	Password string
@@ -16,20 +19,23 @@ type psqlLogs struct {
 	Port     string
 }
 
-func Test() {
+// Poor man's yml extraction
+func GetDBInfosFromYml(file string) (*psqlLogs, error) {
 
 	dbLogs := psqlLogs{}
 
-	handle, err := os.Open("../docker-compose.yml") //todo err to deal with
+	handle, err := os.Open(file) //todo err to deal with
 	if err != nil {
-		panic(err)
+		if os.IsNotExist(err) {
+			return nil, fmt.Errorf("File not found: %s. %w", file, err)
+		}
+		return nil, err
 	}
 	defer handle.Close()
 	fmt.Println("Opened file: " + handle.Name())
 
 	scanner := bufio.NewScanner(handle)
 	scanner.Split(bufio.ScanLines)
-	linenum := 1
 
 	startparsing := false
 	getPortLine := false
@@ -43,50 +49,63 @@ func Test() {
 			case getPortLine:
 				dbLogs.Port, err = extractPort(line)
 				if err != nil {
-					panic(err)
+					return nil, err
 				}
+				// todo rm this, go with ifs
 				goto end //breaks from switch && scan loops
 			case strings.Contains(line, "USER"):
-				dbLogs.User = extractVarData(line)
+				dbLogs.User, err = extractVarData(line)
+				if err != nil {
+					return nil, err
+				}
 			case strings.Contains(line, "PASSWORD"):
-				dbLogs.Password = extractVarData(line)
+				dbLogs.Password, err = extractVarData(line)
+				if err != nil {
+					return nil, err
+				}
 			case strings.Contains(line, "DB"):
-				dbLogs.Db = extractVarData(line)
+				dbLogs.Db, err = extractVarData(line)
+				if err != nil {
+					return nil, err
+				}
 			case strings.Contains(line, "ports"):
+				// if port is found, grabs next line
 				getPortLine = true
 			}
 		}
-
+		// if db is seen, grabs the keys
 		if strings.Contains(line, "db:") {
-			fmt.Printf("FOUND AT %d\n", linenum)
 			startparsing = true
 		}
 
-		linenum++
-
 		if scanner.Err() != nil {
-			panic(scanner.Err())
+			return nil, scanner.Err()
 		}
 	}
 
 end:
 
-	fmt.Printf("%+v", dbLogs)
+	return &dbLogs, nil
 }
 
-// todo guards, rough for now
-// refacto en cut et check qu'on trouve bien le =
-// check l'empty val
-func extractVarData(line string) string {
-	splet := strings.Split(line, "=")
-	return strings.Trim(splet[1], " ")
+// Extracts the value from a key in a yml file
+func extractVarData(line string) (string, error) {
+	before, _, ok := strings.Cut(line, ":")
+	if !ok {
+		return "", errors.New("Missing separator '='")
+	}
+	val := strings.Trim(before, " ")
+	if val == "" {
+		return "", errors.New("Empty val")
+	}
+	return val, nil
 }
 
 // Extracts PORT local value from the yml
 func extractPort(line string) (string, error) {
 	before, _, ok := strings.Cut(line, ":")
 	if !ok {
-		return "", errors.New("AIE pas de sep")
+		return "", errors.New("Missing separator ':'")
 	}
 	n, m := -1, -1
 	for i, c := range []rune(before) {
