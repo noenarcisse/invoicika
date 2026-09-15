@@ -22,7 +22,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./WebAPI:/app/webapi
+      - .Backend/WebAPI:/app/webapi
     networks:
       - invoicika_backend
 
