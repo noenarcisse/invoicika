@@ -53,6 +53,7 @@ voir : https://github.com/noenarcisse/invoicika/blob/main/README_alt_install.md
 - Ajout d'un injecteur de DB pour remplacer les noms des Customers entrés par le dev qui sont des acteurs de films un peu trop romantiques.
 - Modification de la structure du folder avec un /Backend, ajout d'une solution globale en slnx et ajout du projet WebAPI.Tests
 - Mise a jour du docker compose pour suivre la structure du dossier Backend
+- Passage en commentaire de la création de volume pour le WebAPI
 - Mise a jour du Nuget MailKit 10 -> 16 (vulne)
 - Mise a jour de nombreux package JS sans --force (vulne)
 - Override de nombreux package JS sans --fore (vulne). Liste trouvable dans le package.json
