@@ -88,4 +88,3 @@ risques résiduels et recommandations.
 ● Les anomalies détectées doivent être reproductibles : chaque rapport indique comment reproduire le défaut.
 ● Le pipeline d'intégration continue doit réellement s'exécuter (une exécution verte, ou justifiée, doit être visible).
 ● La date limite de rendu et le format de dépôt vous sont communiqués votre formateur.
-
