@@ -21,6 +21,7 @@ type PsqlLogs struct {
 }
 
 // Poor man's yml extraction
+// Highly concrete and bound to the format of the yml file
 func GetDBInfosFromYml(file string) (*PsqlLogs, error) {
 
 	dbLogs := PsqlLogs{}
@@ -48,37 +49,35 @@ func GetDBInfosFromYml(file string) (*PsqlLogs, error) {
 		line := scanner.Text()
 
 		if startparsing {
-			switch {
-			case getPortLine:
+
+			if getPortLine {
 				console.Printcln(console.BLUE, "Found PORT")
 				dbLogs.Port, err = extractPort(line)
 				if err != nil {
 					return nil, err
 				}
-				// todo rm this, go with ifs
-				goto end //breaks from switch && scan loops
-			case strings.Contains(line, "USER"):
-				console.Printcln(console.BLUE, "Found USER")
-				dbLogs.User, err = extractVarData(line)
-				if err != nil {
-					return nil, err
-				}
-			case strings.Contains(line, "PASSWORD"):
-				console.Printcln(console.BLUE, "Found PASSWORD")
+				break
+			}
 
-				dbLogs.Password, err = extractVarData(line)
+			if val, err, ok := tryFindValue(line, "USER"); ok {
 				if err != nil {
 					return nil, err
 				}
-			case strings.Contains(line, "DB"):
-				console.Printcln(console.BLUE, "Found DB")
-
-				dbLogs.Db, err = extractVarData(line)
+				dbLogs.User = val
+			}
+			if val, err, ok := tryFindValue(line, "PASSWORD"); ok {
 				if err != nil {
 					return nil, err
 				}
-			case strings.Contains(line, "ports"):
-				// if port is found, grabs next line
+				dbLogs.Password = val
+			}
+			if val, err, ok := tryFindValue(line, "DB"); ok {
+				if err != nil {
+					return nil, err
+				}
+				dbLogs.Db = val
+			}
+			if strings.Contains(line, "ports") {
 				getPortLine = true
 			}
 		}
@@ -92,9 +91,18 @@ func GetDBInfosFromYml(file string) (*PsqlLogs, error) {
 		}
 	}
 
-end:
-
 	return &dbLogs, nil
+}
+
+func tryFindValue(line string, word string) (string, error, bool) {
+	ok := strings.Contains(line, word)
+	var value string
+	var err error
+	if ok {
+		console.Printcln(console.BLUE, "Found USER")
+		value, err = extractVarData(line)
+	}
+	return value, err, ok
 }
 
 // Extracts the value from a key in a yml file
