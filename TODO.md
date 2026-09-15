@@ -18,7 +18,6 @@
 - [x] DB Injector
 - [x] CLI autonome qui empeche les cmd a la main (cd /truc ; ./do.exe ; cd .. ; docker compose truc)
 - [ ] Prep des states de DB alternatif
-- [ ] Aspiration des .sql ? + creation d'un fichier tmp pour lancer psql dessus?
 - [ ] Erreur si psql lance une err dans le cas de l'utilisation de state ?
 - [ ] Build du CLI
 - [ ] Distribution en Github Release
