@@ -62,7 +62,7 @@ func main() {
 		}
 
 	case reset:
-		console.Printcln(console.BLUE, "Resetting database")
+		console.Printcln(console.BLUE, "\nResetting DB to inital state")
 		err := testcli.ResetDB(dblogs)
 		if err != nil {
 			console.Printcln(console.RED, err.Error())
@@ -72,15 +72,18 @@ func main() {
 				os.Exit(1)
 			}
 		}
-	case state != 0:
+		console.Printcln(console.GREEN, "\nDB reset, DONE!")
 
+	case state != 0:
+		console.Printcln(console.BLUE, "\nChanging DB state to %d", state)
 		switch state {
 		case 1:
 			err := testcli.ResetDB(dblogs)
 			if err != nil {
 				err := testcli.ResetDB2()
 				if err != nil {
-					panic(err)
+					console.Printcln(console.RED, err.Error())
+					os.Exit(1)
 				}
 			}
 			conn := database.OpenDB(dblogs)
@@ -89,6 +92,7 @@ func main() {
 			database.NewDB(conn).Trunc("Customers")
 			cs, _ := users.GetAllUsers()
 			users.NewDB(conn).InjectUsers(cs)
+			console.Printcln(console.GREEN, "\nDB state changed to %d, DONE!", state)
 
 		case 2:
 			err := testcli.ApplyBackupFile(dblogs, "Backup_invoicika_003.sql")
@@ -96,12 +100,11 @@ func main() {
 				console.Printcln(console.RED, err.Error())
 				os.Exit(1)
 			}
-		default:
-			console.Printcln(console.BLUE, "State not implemented yet")
+			console.Printcln(console.GREEN, "\nDB state changed to %d, DONE!", state)
 
+		default:
+			console.Printcln(console.RED, "State not implemented yet")
 		}
-		console.Printcln(console.GREEN, "Changing DB state to %d", state)
-		// fmt.Printf("Changing DB state to %d\n", state)
 	default:
 		//unreachable with current flag parse
 	}

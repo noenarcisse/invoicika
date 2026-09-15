@@ -10,18 +10,29 @@ import (
 	"strings"
 )
 
-func runStep(name string, args string) error {
+type options struct {
+	WithOuts bool
+	WithErrs bool
+}
+
+func runStep(name string, args string, opt options) error {
 	splet := strings.Split(args, " ")
 
 	cmd := exec.Command(name, splet...)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = console.ColoredWriter{C: console.RED, W: os.Stderr}
+	if opt.WithOuts {
+		fmt.Println(name + " LOGS: ")
+		cmd.Stdout = os.Stdout
+	}
+	if opt.WithErrs {
+		console.Printcln(console.YELLOW, name+" ERRS: ")
+		cmd.Stderr = console.ColoredWriter{C: console.YELLOW, W: os.Stderr}
+	}
 
 	return cmd.Run()
 }
 
 func Install() error {
-	err := runStep("docker", "compose up -d --build")
+	err := runStep("docker", "compose up -d --build", options{true, true})
 	if err != nil {
 		var exitErr *exec.ExitError
 		if errors.As(err, &exitErr) {
@@ -33,7 +44,7 @@ func Install() error {
 func Remove() error {
 	//ne throw rien si la cmd ne fait rien ?! ne pas dismount = pas d'err selon docker?!
 	//aucun message en console ni out ni err :/
-	err := runStep("docker", "compose down -v")
+	err := runStep("docker", "compose down -v", options{true, true})
 	if err != nil {
 		var exitErr *exec.ExitError
 		if errors.As(err, &exitErr) {
@@ -45,39 +56,35 @@ func Remove() error {
 }
 
 func ResetDB(dblogs *yamlparser.PsqlLogs) error {
-	cmd := fmt.Sprintf("postgresql://%s:%s@localhost:%s/%s -f ./db_backups/Backup_invoicika_001.sql",
-		dblogs.User,
-		dblogs.Password,
-		dblogs.Port,
-		dblogs.Db,
-	)
-	err := runStep("psql", cmd)
-	return err
+	return ApplyBackupFile(dblogs, "Backup_invoicika_001.sql")
 }
 
 // fallback ?
 func ResetDB2() error {
-	err := runStep("docker", "compose down -v")
+	err := runStep("docker", "compose down -v", options{true, true})
 	return err
 }
 
 // Directly apply a backup file with psql cmd
 func ApplyBackupFile(dblogs *yamlparser.PsqlLogs, file string) error {
 
-	if _, err := os.Open(file); err != nil {
+	backupfolderpath := "/db_backups/"
+	fullfilepath := fmt.Sprintf(".%s%s", backupfolderpath, file)
+
+	if _, err := os.Open(fullfilepath); err != nil {
 		if errors.Is(err, os.ErrNotExist) {
 			//absorbtion de errstack
-			return fmt.Errorf("File not found: %s", file)
+			return fmt.Errorf("File not found in the %s folder: %s", backupfolderpath, file)
 		}
 	}
 
-	cmd := fmt.Sprintf("postgresql://%s:%s@localhost:%s/%s -f ./db_backups/%s",
+	cmd := fmt.Sprintf("postgresql://%s:%s@localhost:%s/%s -f %s",
 		dblogs.User,
 		dblogs.Password,
 		dblogs.Port,
 		dblogs.Db,
-		file,
+		fullfilepath,
 	)
-	err := runStep("psql", cmd)
+	err := runStep("psql", cmd, options{false, true})
 	return err
 }
