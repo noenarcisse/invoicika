@@ -21,8 +21,8 @@ services:
       - ConnectionStrings__DefaultConnection=Host=db;Database=invoicikaDb;Username=postgres;Password=invoicika!123
     depends_on:
       - db
-    volumes:
-      - .Backend/WebAPI:/app/webapi
+    # volumes:
+    #   - ./Backend/WebAPI:/app/webapi
     networks:
       - invoicika_backend
 
