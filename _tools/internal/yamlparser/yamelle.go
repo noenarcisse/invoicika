@@ -2,6 +2,7 @@ package yamlparser
 
 import (
 	"bufio"
+	"dbinjector/pkg/console"
 	"errors"
 	"fmt"
 	"os"
@@ -32,7 +33,9 @@ func GetDBInfosFromYml(file string) (*PsqlLogs, error) {
 		return nil, err
 	}
 	defer handle.Close()
-	fmt.Println("Opened file: " + handle.Name())
+
+	console.Printcln(console.GREEN, "Found YML file: %s", file)
+	console.Printcln(console.GREEN, "Opened YML file %s looking for DB logging infos", handle.Name())
 
 	scanner := bufio.NewScanner(handle)
 	scanner.Split(bufio.ScanLines)
@@ -47,6 +50,7 @@ func GetDBInfosFromYml(file string) (*PsqlLogs, error) {
 		if startparsing {
 			switch {
 			case getPortLine:
+				console.Printcln(console.BLUE, "Found PORT")
 				dbLogs.Port, err = extractPort(line)
 				if err != nil {
 					return nil, err
@@ -54,16 +58,21 @@ func GetDBInfosFromYml(file string) (*PsqlLogs, error) {
 				// todo rm this, go with ifs
 				goto end //breaks from switch && scan loops
 			case strings.Contains(line, "USER"):
+				console.Printcln(console.BLUE, "Found USER")
 				dbLogs.User, err = extractVarData(line)
 				if err != nil {
 					return nil, err
 				}
 			case strings.Contains(line, "PASSWORD"):
+				console.Printcln(console.BLUE, "Found PASSWORD")
+
 				dbLogs.Password, err = extractVarData(line)
 				if err != nil {
 					return nil, err
 				}
 			case strings.Contains(line, "DB"):
+				console.Printcln(console.BLUE, "Found DB")
+
 				dbLogs.Db, err = extractVarData(line)
 				if err != nil {
 					return nil, err

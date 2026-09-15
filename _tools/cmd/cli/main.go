@@ -5,13 +5,15 @@ import (
 	testcli "dbinjector/internal/test_cli"
 	"dbinjector/internal/users"
 	"dbinjector/internal/yamlparser"
+	"dbinjector/pkg/console"
 	"flag"
 	"fmt"
+	"os"
 )
 
 func main() {
 
-	var help, install, reset bool
+	var help, install, reset, delete bool
 	var state int
 
 	//flag -h
@@ -20,6 +22,9 @@ func main() {
 	//flag -i
 	flag.BoolVar(&install, "install", false, "Install the project with Docker")
 	flag.BoolVar(&install, "i", false, "Install the project with Docker")
+	//flag -d
+	flag.BoolVar(&delete, "delete", false, "Install the project with Docker")
+	flag.BoolVar(&delete, "d", false, "Install the project with Docker")
 	//flag -s
 	flag.IntVar(&state, "state", 0, "Swap the state of the Database")
 	flag.IntVar(&state, "s", 0, "Swap the state of the Database")
@@ -34,42 +39,41 @@ func main() {
 		panic(err)
 	}
 
-	// env, err := dotenv.NewDotEnvFile(".env")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// envVars, notfound, err := env.PickKeys(
-	// 	"DB_PORT",
-	// 	"DB_USER",
-	// 	"DB_PASSWORD",
-	// 	"DB_NAME",
-	// )
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// if len(notfound) > 0 {
-	// 	panic("No environment vars found in the .env")
-	// }
-
 	switch {
 	case help:
-		fmt.Println("Show help")
+		console.Printcln(console.BLUE, "Not implemented")
 
 	case install:
-		fmt.Println("Show install")
-		testcli.Install() //untested
+		console.Printcln(console.BLUE, "Installing containers")
+		err := testcli.Install()
+		if err != nil {
+			console.Printcln(console.RED, "Error happened while installing with Docker")
+			fmt.Println(err.Error())
+			return
+		}
+
+	case delete:
+		console.Printcln(console.BLUE, "Removing containers")
+		err := testcli.Remove()
+		if err != nil {
+			console.Printcln(console.RED, "Error happened while attempting to remove the containers with Docker")
+			fmt.Println(err.Error())
+			return
+		}
 
 	case reset:
-		fmt.Println("Resetting DB")
+		console.Printcln(console.BLUE, "Resetting database")
 		err := testcli.ResetDB(dblogs)
 		if err != nil {
+			console.Printcln(console.RED, err.Error())
 			err := testcli.ResetDB2()
 			if err != nil {
-				panic(err)
+				console.Printcln(console.RED, err.Error())
+				os.Exit(1)
 			}
 		}
 	case state != 0:
-		fmt.Printf("Changing DB state to %d\n", state)
+
 		switch state {
 		case 1:
 			err := testcli.ResetDB(dblogs)
@@ -86,9 +90,18 @@ func main() {
 			cs, _ := users.GetAllUsers()
 			users.NewDB(conn).InjectUsers(cs)
 
+		case 2:
+			err := testcli.ApplyBackupFile(dblogs, "Backup_invoicika_003.sql")
+			if err != nil {
+				console.Printcln(console.RED, err.Error())
+				os.Exit(1)
+			}
 		default:
-			fmt.Println("State not implemented yet")
+			console.Printcln(console.BLUE, "State not implemented yet")
+
 		}
+		console.Printcln(console.GREEN, "Changing DB state to %d", state)
+		// fmt.Printf("Changing DB state to %d\n", state)
 	default:
 		//unreachable with current flag parse
 	}
