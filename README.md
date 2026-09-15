@@ -47,6 +47,7 @@ voir : https://github.com/noenarcisse/invoicika/blob/main/README_alt_install.md
 | employee2 | employee2 |
 
 ## Modifications apportées au projet initial
+- Renommage du readme.md précédent pour l'archiver et créer ce readme.md orienté testing
 - Changement de port pour la DB sur 5433 pour eviter les conflits avec un eventuel postgres natif sur la machine hote
 - Mise a jour le docker-compose.yml pour eviter les migration a la main de MS SQL -> PostGres
 - Ajout d'un injecteur de DB pour remplacer les noms des Customers entrés par le dev qui sont des acteurs de films un peu trop romantiques.
@@ -56,14 +57,28 @@ voir : https://github.com/noenarcisse/invoicika/blob/main/README_alt_install.md
 - Mise a jour de nombreux package JS sans --force (vulne)
 - Override de nombreux package JS sans --fore (vulne). Liste trouvable dans le package.json
 
+# Specs de l'application
+Architecture frontend, backend et base de données détachés, le tout est containerisé en une composition avec Docker.
+Backend ASP.NET en MVC.
+
 # Tech Stack de l'application
-- Node
-- Angular 16
-- NG-Zorro
-- ASP.NET Core
-- .NET 10
-- PostGreSQL
-- Git & Github
+
+| couche | nom |
+|---|---|
+| infra | Git & Github |
+| infra | Docker |  
+| frontend | NodeJS |   
+| frontend | Typescript |   
+| frontend | Angular 16 |  
+| frontend | NG-Zorro |  
+| backend | C# | 
+| backend | .NET 10 | 
+| backend | ASP.NET Core |
+| backend | EF Core |
+| backend | QuestPDF |
+| backend | MailKit |
+| infra/db | PostGreSQL |
+
 
 # **Testing Stack**
 
