@@ -21,7 +21,7 @@ func runStep(name string, args string) error {
 }
 
 func Install() error {
-	err := runStep("docker", "compose up --build")
+	err := runStep("docker", "compose up -d --build")
 	if err != nil {
 		var exitErr *exec.ExitError
 		if errors.As(err, &exitErr) {
@@ -31,7 +31,9 @@ func Install() error {
 	return err
 }
 func Remove() error {
-	err := runStep("docker", "compose --progress auto down -v")
+	//ne throw rien si la cmd ne fait rien ?! ne pas dismount = pas d'err selon docker?!
+	//aucun message en console ni out ni err :/
+	err := runStep("docker", "compose down -v")
 	if err != nil {
 		var exitErr *exec.ExitError
 		if errors.As(err, &exitErr) {
@@ -59,20 +61,7 @@ func ResetDB2() error {
 	return err
 }
 
-// todo
-// horrible l'acces map ici en direct sans check D:
-func setDBState(dblogs *yamlparser.PsqlLogs, states map[int]string, state int) error {
-	cmd := fmt.Sprintf("postgresql://%s:%s@localhost:%s/%s -f ./db_backups/Backup_invoicika_001.sql",
-		dblogs.User,
-		dblogs.Password,
-		dblogs.Port,
-		dblogs.Db,
-	)
-	err := runStep("psql", cmd+states[state])
-	return err
-}
-
-// Backup_invoicika_001.sql
+// Directly apply a backup file with psql cmd
 func ApplyBackupFile(dblogs *yamlparser.PsqlLogs, file string) error {
 
 	if _, err := os.Open(file); err != nil {
