@@ -99,7 +99,7 @@ func tryFindValue(line string, word string) (string, error, bool) {
 	var value string
 	var err error
 	if ok {
-		console.Printcln(console.BLUE, "Found USER")
+		console.Printcln(console.BLUE, "Found %s", word)
 		value, err = extractVarData(line)
 	}
 	return value, err, ok
