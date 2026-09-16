@@ -52,6 +52,15 @@ func main() {
 			return
 		}
 
+		//modif forcée de la table customers apres install
+		conn := database.OpenDB(dblogs)
+		defer conn.Close()
+
+		database.NewDB(conn).Trunc("Customers")
+		cs, _ := users.GetAllUsers()
+		users.NewDB(conn).InjectUsers(cs)
+		console.Printcln(console.GREEN, "\nDB state changed to %d, DONE!", state)
+
 	case delete:
 		console.Printcln(console.BLUE, "Removing containers")
 		err := testcli.Remove()
