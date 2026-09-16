@@ -71,7 +71,7 @@ func ApplyBackupFile(dblogs *yamlparser.PsqlLogs, file string) error {
 	backupfolderpath := "/db_backups/"
 	fullfilepath := fmt.Sprintf(".%s%s", backupfolderpath, file)
 
-	if _, err := os.Open(fullfilepath); err != nil {
+	if _, err := os.Stat(fullfilepath); err != nil {
 		if errors.Is(err, os.ErrNotExist) {
 			//absorbtion de errstack
 			return fmt.Errorf("File not found in the %s folder: %s", backupfolderpath, file)
