@@ -1,0 +1,57 @@
+info:
+  name: AuthAsAdmin1
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:5000/api/Auth/login
+  body:
+    type: json
+    data: |-
+      {
+        "username": "admin1",
+        "password": "admin1"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if(res.status == 200){
+          const body = res.body
+          if (Object.keys(body).includes("token")) {
+              console.log("token key found")
+              bru.setVar("jwt",res.body.token)
+          }
+        }
+
+        console.log(bru.getVar("jwt")?? "Pas de token dans 'jwt'")
+
+        if(bru.getVar("jwt")){
+          const jwt = bru.getVar("jwt")
+          const splet = jwt.split(".")
+          mid = atob(splet[1])
+          console.log(mid)
+        }
+    - type: tests
+      code: |-
+        test("status 200", () => {
+          expect(res.status).to.eq(200)
+        })
+
+        test("res json well formed", () => {
+          expect(Object.keys(res.body)).to.contains("token")
+        })
+
+        test("res has token value", () => {
+          expect(res.body.token).to.not.be.empty
+        })
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
