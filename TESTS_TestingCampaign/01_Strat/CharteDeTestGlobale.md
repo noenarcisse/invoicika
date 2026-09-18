@@ -1,6 +1,6 @@
 # Charte de Test Globale
 
-Ce document formalise la stratégie de test qui guidera l'ensemble des activités QA sur le produit **EventFlow** durant toute la durée du projet.
+Ce document formalise la stratégie de test qui guidera l'ensemble des activités QA sur le produit **Invoicika** durant toute la durée du projet.
 
 ## 1. Définition du Périmètre de Test (Scope)
 
