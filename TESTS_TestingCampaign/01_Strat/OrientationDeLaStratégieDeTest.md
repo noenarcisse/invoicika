@@ -53,4 +53,4 @@ Voient la partie “users”
 | RM04 | Stocks | Produits avec stock de disponibilité, race condition / epuisement |
 | RM05 | Factures | Idempotence, une facture doit être unique, traçable et reproductible |
 | SEC01 | Injections | Les inputs utilisateurs sont affichés dans un dashboard html (sécurité / injection) |
-| SEC02 | Droits | Admins ont des droits sur le dashboard et les users absurdes. |
+| SEC02 | Droits | DRAFT Admins ont des droits sur le dashboard et les users absurdes. |
