@@ -5,6 +5,7 @@ import (
 	_ "embed"
 	"fmt"
 	"io/fs"
+	"os"
 	"path/filepath"
 	"time"
 )
@@ -26,6 +27,11 @@ type WalkerOptions struct {
 // code concrete, internal tool only
 func main() {
 
+	args := os.Args[1:]
+	if len(args) <= 0 {
+		panic("Nop args missing :< Gimme folder!")
+	}
+
 	opt := WalkerOptions{
 		Extensions: set[string]{
 			".md": struct{}{},
@@ -40,7 +46,7 @@ func main() {
 			"__pycache__":  struct{}{},
 		},
 	}
-	files, err := WalkThisWay("..", opt.Extensions, opt.IgnoredDirs)
+	files, err := WalkThisWay(args[0], opt.Extensions, opt.IgnoredDirs)
 	if err != nil {
 		panic(err)
 	}
@@ -58,7 +64,7 @@ func main() {
 
 	log := parser.CreateLogToHTML(drafts)
 	t := time.Now()
-	logfilename := fmt.Sprintf("log_%d", t.Unix())
+	logfilename := fmt.Sprintf("drafts_%d", t.Unix())
 	html2 := parser.PrepareHTMLContent(files, templateHtml, css, log, logfilename)
 	err = parser.WriteToSpecialFile(html2, logfilename, "html")
 	if err != nil {
