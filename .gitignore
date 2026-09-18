@@ -5,6 +5,7 @@
 
 # added
 *.exe
+drafts/*
 
 # dotenv files
 .env

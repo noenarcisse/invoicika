@@ -2,10 +2,18 @@ package main
 
 import (
 	"dbinjector/internal/parser"
+	_ "embed"
 	"fmt"
 	"io/fs"
 	"path/filepath"
+	"time"
 )
+
+//go:embed style.css
+var css string
+
+//go:embed template.html
+var templateHtml string
 
 type set[T comparable] = map[T]struct{}
 
@@ -15,7 +23,7 @@ type WalkerOptions struct {
 }
 
 // catch les draft et todo dans les fichiers .md en particulier
-// code concrete, internal tool
+// code concrete, internal tool only
 func main() {
 
 	opt := WalkerOptions{
@@ -24,9 +32,12 @@ func main() {
 		},
 		IgnoredDirs: set[string]{
 			".git":         struct{}{},
-			"node_modules": struct{}{},
+			".vscode":      struct{}{},
 			"bin":          struct{}{},
 			"obj":          struct{}{},
+			"node_modules": struct{}{},
+			".venv":        struct{}{},
+			"__pycache__":  struct{}{},
 		},
 	}
 	files, err := WalkThisWay("..", opt.Extensions, opt.IgnoredDirs)
@@ -44,6 +55,15 @@ func main() {
 
 	res := parser.CreateLog(drafts)
 	parser.WriteToConsole(res)
+
+	log := parser.CreateLogToHTML(drafts)
+	t := time.Now()
+	logfilename := fmt.Sprintf("log_%d", t.Unix())
+	html2 := parser.PrepareHTMLContent(files, templateHtml, css, log, logfilename)
+	err = parser.WriteToSpecialFile(html2, logfilename, "html")
+	if err != nil {
+		panic(err)
+	}
 
 }
 

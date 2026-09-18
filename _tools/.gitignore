@@ -27,3 +27,5 @@ go.work.sum
 # custom exclusion to test the CLI locally
 db_backups/*
 *yml
+
+drafts/*

@@ -40,7 +40,7 @@ func WriteToSpecialFile(s string, logfilename string, ext string) error {
 	filetowrite := logfilename + "." + ext
 	fmt.Printf("Logging in %s\n", filetowrite)
 
-	dirname := "logs"
+	dirname := "drafts"
 	err := createLogDir(dirname)
 	if err != nil {
 		return err
