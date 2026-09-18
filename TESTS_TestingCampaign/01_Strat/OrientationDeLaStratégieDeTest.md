@@ -1,6 +1,8 @@
 # Orientation de la stratégie de test
 Pour l'ensemble de la stratégie, je vais agir comme un tester externe, amené à tester l'application selon le modèle "Waterflow" car c'est ce qui est le plus proche de la réalité en venant tester un produit Open-source délivré il y a déjà 2 ans sur Github.
 
+Avec cette approche, je n'aurai que peut de manière de vérifier la régression et le pesticid paradox, arrivant en fin de cycle sans correction de "l'équipe dev" imaginaire.
+
 La stratégie principale va être axée sur du Risk Base Testing car même s’il n’y a pas de transfert d’argent direct, un service de facturation demande une rigueur absolue pour la justesse des données, maintenir un climat de confiance avec le client. Cela reste aussi un outil de communication qui permet de donner une image sérieuse et professionnelle de l’entreprise auprès des partis externes. <br/>
 De plus, une factuure va entraîner en réaction un paiement de la part du client.
 
