@@ -1,0 +1,30 @@
+# Invoicika
+Invoicika est une application de facturation qui permet à une entreprise de gérer des clients et des produits avec leur stocks pour générer et émettre des factures par email.
+
+Documentation de l’app par le développeur :<br>
+https://github.com/noenarcisse/invoicika/blob/main/README_init.md
+
+## Features
+- Création illimitée de factures : Générez des factures sans aucune restriction.
+- Envoi de factures par e-mail : Envoyez directement les factures aux clients par e-mail.
+- Génération de PDF : Exportez les factures au format PDF pour les partager et les stocker facilement.
+- Gestion des clients : Ajoutez, modifiez et gérez les clients avec plusieurs adresses de livraison.
+- Authentification et rôles : Connexion sécurisée et contrôle d'accès basé sur les rôles.
+- Gestion des produits clients : Ajoutez des produits liés aux clients pour un accès rapide.
+- Inscription et gestion du profil : Les utilisateurs peuvent s'inscrire et gérer leur profil.
+- Téléchargement d'images : Téléchargez et gérez les photos de profil et les logos de factures.
+- Gestion de la TVA : Gérez la TVA pour les factures clients.
+- Base de données : Conçue pour fonctionner avec PostgreSQL.
+
+## Specs 
+Architecture : front, back et DB détachés. Dockerisé en un “container compose”
+
+### Techstack de l’app : 
+- Git
+- Github
+- Docker
+- Angular / Typescript
+- C# ASP.NET Core, architecture MVC
+- Auth : JWT
+- EF Core
+- PostGreSQL
