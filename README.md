@@ -8,6 +8,10 @@ https://www.docker.com/products/docker-desktop/
 Installer PostGreSQL<br>
 https://www.postgresql.org/download/ 
 
+Add psql to your PATH
+(C:\Program Files\PostgreSQL\18\bin)
+<!-- postGres rate parfois son path dans windows -_- -->
+
 ```ps
 git clone https://github.com/noenarcisse/invoicika.git ; cd invoicika
 ```
