@@ -32,7 +32,7 @@ func main() {
 	flag.BoolVar(&reset, "reset", false, "Reset the state of the project")
 	flag.BoolVar(&reset, "r", false, "Reset the state of the project")
 
-	flag.Parse()
+	flag.Parse() // il logge plus d'err en cas de mis args?!
 
 	dblogs, err := yamlparser.GetDBInfosFromYml("./docker-compose.yml")
 	if err != nil {
@@ -44,6 +44,10 @@ func main() {
 		console.Printcln(console.BLUE, "Not implemented")
 
 	case install:
+
+		// y'a une bizarrerie ici, le -i semble interrompre l'install de docker?
+		//db vide ?!
+
 		console.Printcln(console.BLUE, "Installing containers")
 		err := testcli.Install()
 		if err != nil {
@@ -51,15 +55,6 @@ func main() {
 			fmt.Println(err.Error())
 			return
 		}
-
-		//modif forcée de la table customers apres install
-		conn := database.OpenDB(dblogs)
-		defer conn.Close()
-
-		database.NewDB(conn).Trunc("Customers")
-		cs, _ := users.GetAllUsers()
-		users.NewDB(conn).InjectUsers(cs)
-		console.Printcln(console.GREEN, "\nDB state changed to %d, DONE!", state)
 
 	case delete:
 		console.Printcln(console.BLUE, "Removing containers")
@@ -89,11 +84,13 @@ func main() {
 		case 1:
 			err := testcli.ResetDB(dblogs)
 			if err != nil {
-				err := testcli.ResetDB2()
-				if err != nil {
-					console.Printcln(console.RED, err.Error())
-					os.Exit(1)
-				}
+				console.Printcln(console.RED, err.Error())
+				os.Exit(1)
+				// err := testcli.ResetDB2()
+				// if err != nil {
+				// 	console.Printcln(console.RED, err.Error())
+				// 	os.Exit(1)
+				// }
 			}
 			conn := database.OpenDB(dblogs)
 			defer conn.Close()
@@ -115,6 +112,7 @@ func main() {
 			console.Printcln(console.RED, "State not implemented yet")
 		}
 	default:
+		console.Printcln(console.RED, "ERROR ARGS")
 		//unreachable with current flag parse
 	}
 }
