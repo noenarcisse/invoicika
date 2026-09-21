@@ -25,6 +25,7 @@ Requiert postgreSQL et Docker installé
 Depuis la racine du projet invoicika :
 ```ps
 ./cli.exe -install
+./cli.exe -state 1
 ```
 En cas de reset de la base de données : 
 ```ps
