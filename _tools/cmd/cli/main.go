@@ -56,6 +56,27 @@ func main() {
 			return
 		}
 
+		//pour faire ca, faut stabiliser la DB
+		//pour checker si un Exec(select 1 from "Customers" limit 1)
+		//des que ca lance plus d'err -> customers est créé et on peut injecter
+
+		// console.Printcln(console.BLUE, "\nChanging DB state to 1")
+		// conn := database.OpenDB(dblogs)
+		// defer conn.Close()
+
+		// err = database.NewDB(conn).Trunc("Customers")
+		// if err != nil {
+		// 	console.Printcln(console.RED, "TRUNC ERR:"+err.Error())
+		// 	os.Exit(1)
+		// }
+		// cs, err := users.GetAllUsers()
+		// if err != nil {
+		// 	console.Printcln(console.RED, err.Error())
+		// 	os.Exit(1)
+		// }
+		// users.NewDB(conn).InjectUsers(cs)
+		// console.Printcln(console.GREEN, "\nDB state changed to 1, DONE!")
+
 	case delete:
 		console.Printcln(console.BLUE, "Removing containers")
 		err := testcli.Remove()
