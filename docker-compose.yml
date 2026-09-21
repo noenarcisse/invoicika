@@ -20,9 +20,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=db;Database=invoicikaDb;Username=postgres;Password=invoicika!123
     depends_on:
-      - db
-    # volumes:
-    #   - ./Backend/WebAPI:/app/webapi
+      db:
+        condition: service_healthy
+    restart: on-failure
+    volumes:
+      - ./Backend/WebAPI:/app/webapi
     networks:
       - invoicika_backend
 
@@ -39,11 +41,11 @@ services:
     networks:
       - invoicika_backend
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      retries: 5
-      start_period: 10s
-      timeout: 5s
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U postgres -d invoicikaDb"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+      start_period: 5s
 
 networks:
   invoicika_backend:
