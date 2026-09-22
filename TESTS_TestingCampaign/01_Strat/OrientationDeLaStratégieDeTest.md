@@ -25,19 +25,18 @@ Tests a considerer :
 
 ### Test basé sur la conformité (Compliance-Based Testing)
 A cela doit être ajoutée une seconde stratégie pour vérifier le bon respect légal des factures émises sous la forme d'une liste de validation. <br>
-Les éléments dans cette liste ne sont pas optionnels.
-
-    DRAFT
-    Sur de la facturation, certaines choses ne sont pas "à risque business" mais "obligatoires légalement" (numérotation séquentielle, mentions légales, TVA). Même si le risque métier est faible, le risque juridique est non-négociable. Ça mérite sa propre checklist, indépendante de la matrice de criticité.
+Même si les risques ici ne pas à proprement parler des règles métier, il s'agit quand même de risques légaux, obligatoires en fonction des pays où sont émises les factures et pouvant entrainer des amendes pour les clients utilisant l'app.
+Les éléments dans cette liste sont liés à des règles fonctionnelles mais ne sont pas jamais optionnels.
 
 ## Stratégies secondaires :
 Je compte garder comme stratégie viable et intéressantes mais dépendantes du temps
 ### Test basé sur les données (Data-Driven / Boundary Testing)
-    DRAFT
-    Très pertinent pour la facturation : les bugs viennent souvent des cas limites numériques (montant à 0, montant négatif après remboursement, arrondi à la limite du centime, devise avec 0 décimales comme le Yen). Tu combines ça avec le RBT — tu identifies quelles zones à risque nécessitent un test aux limites approfondi.
+<!-- draft cleaner writing to be done -->
+Insister sur les valeurs limites comme le moindre nombre présent sur la facture doit être juste. Choix pertinents aussi pour accumuler et swap des datasets ?
 ### Tests exploratoires
-    DRAFT
-    Sur un module financier, une session exploratoire (sans script prédéfini) menée par quelqu'un qui connaît bien le métier trouve souvent des scénarios que personne n'a pensé à écrire (ex: résiliation + remboursement + changement de plan le même jour). Complément utile après avoir couvert les risques identifiés.
+<!-- draft cleaner writing to be done -->
+Les tests exploratoires ponctuels seront exécutés pour chercher des defauts possibles de manière plus créatives ou chercher les erreurs possibles basées sur de la documentation légal / métier lié au principe des facturations ou de règles financière possiblement non reprise dans les RM établies au départ.
+Complémentaire 
 
 ## Acteurs
 - **Employé** : Gère les produits, clients, stock, factures
@@ -48,7 +47,7 @@ Voient la partie “users”
 
 ## Regles metier : RM
 
-
+<!-- add les legal ici ! -->
 | ID | Nom de la règle métier | Descr |
 |---|---|---|
 | RM01 | Email | Format email, validation email fonctionnel? |
@@ -56,5 +55,11 @@ Voient la partie “users”
 | RM03 | TVA | TVA valeur limite et légale |
 | RM04 | Stocks | Produits avec stock de disponibilité, race condition / epuisement |
 | RM05 | Factures | Idempotence, une facture doit être unique, traçable et reproductible |
+
+
+## Exigences non fonctionnelles
+| ID | Nom de l'exigence | Descr |
+|---|---|---|
 | SEC01 | Injections | Les inputs utilisateurs sont affichés dans un dashboard html (sécurité / injection) |
-| SEC02 | Droits | DRAFT Admins ont des droits sur le dashboard et les users absurdes. |
+| SEC02 | Droits | Le role "user" n'a pas de privilèges qui dépasse le role "admin" |
+| SEC02 | Droits | DRAFT Les utilisateurs n'ont pas acces et ne peuvent pas modifier des informations chez les autres (IDOR?) |
