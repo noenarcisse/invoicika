@@ -1,0 +1,15 @@
+Vu sur le frontend : on ne peut pas supprimer des objets.
+
+J'ai investigué par l'API, les DELETE semble fonctionner avec l'auth sur le compte associé à la création dans la DB
+Un compte différent semble avoir un refus 403
+
+Test interrompu : hypothèse de bien surveiller les auth, droits, idor, coté API, le front semble bloqué
+
+Les items sont créés par un user qui leur est associés -> invitation a tester le IDOR et les droits admins/employees
+```sql
+select "ItemId", "Name", "Username" from "Items" i
+join "Users" u on i."User_id" = u."UserId"
+where "Name" ~* 'wedding'
+```
+Le Wedding Favors refusait d'etre supprimé y compris en API (500). Il s'agit possiblement d'un flaky. Je ne connais pas la raison.
+Suite a un reset de DB j'ai pu le supprimer par la suite.

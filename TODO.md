@@ -13,7 +13,8 @@ bug vu en static -> report ! (cors)
 
 ## TESTING
 - [x] Setup Bruno
-- [x] Setup JIRA  
+- [x] Setup JIRA
+- [ ] Passer le scouting en tag pas en EPIC, trier les bugs trouvés dans leurs sections correspondantes
 - [-] Setup Squash
 - [ ] CI CD possible ? reliage avec git ?
 - [ ] Prep le dossier de rapport de tests
