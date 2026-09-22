@@ -7,13 +7,22 @@ Ce document formalise la stratégie de test qui guidera l'ensemble des activité
 Il s'agit de cartographier précisément ce qui doit être testé (En Périmètre) et ce qui est volontairement exclu de notre campagne de test directe (Hors Périmètre).
 
 ### Périmètre (In-Scope)
-- 
+<!-- todo -->
+- Dashboard:  informations correctes affichées et enregistrées, CRUD fonctionnel, Gestion des produits et clients.
+- Authentication & Roles respecté sur les pages et les permissions.
+- Calcul de prix et VAT
+- Profil utilisateur
+- Images et uploads
+- Génération de factures
+- Front (angular avec testing library)
+- API (Swagger disponible)
+
 
 ### Périmètre BONUS
-- PDF des factures générés
+- Generation de PDFs et leur contenu (avec PdfPig). Je le considère comme à tester car c’est le produit final de l’app, son deliverable pour le client qui souhaite utiliser cette app. Il ne permet pas de tester le code de l’app mais ce qui en sort en e2e ?
 
 ### Hors Périmètre (Out-of-Scope)
-- Emails
+- La feature lié à l’envoi de mail
 
 ## 2. Critères d'Entrée et de Sortie (Qualité des Processus)
 
@@ -22,7 +31,9 @@ Les critères d'entrée et de sortie sécurisent le flux de travail QA pour évi
 ### Critères d'Entrée
 
 Pour que l'équipe QA commence à exécuter les tests sur un environnement donné, les conditions suivantes doivent être réunies :
-
+<!-- todo -->
+La feature est implémentée et fonctionnelle.
+Les tests et la feature sera passée en bloquée dans le cas contraire.
 <!-- docker qui tourne, enviro fonctionnel, les containers se lancent -->
 <!-- components fonctionnels -->
 - 
@@ -30,8 +41,13 @@ Pour que l'équipe QA commence à exécuter les tests sur un environnement donn�
 ### Critères de Sortie
 
 Pour déclarer la campagne de test terminée et donner un avis favorable (Go) pour la mise en production, il faut :
-<!-- minimum une couverture de 100% et PASS sur les test CRIT, HIGH et 100% sur les MED avec au moins 50% de PASS ?  -->
-- 
+|  | Couverture | Taux de PASS | 
+|---|---|---|
+| CRIT | 100% | 100% |
+| HIGH | 100% | 100% | 
+| MED | 100% | 50% | 
+| LOW | ? | ? |
+
 
 ## 3. Matrice de Risques Produit (Priorisation Risk-Based Testing)
 
