@@ -51,11 +51,11 @@ voir : https://github.com/noenarcisse/invoicika/blob/main/README_alt_install.md
 | employee1 | employee1 |
 | employee2 | employee2 |
 
-# Présentation de l'application
+## Présentation de l'application
 https://github.com/noenarcisse/invoicika/blob/main/TESTS_TestingCampaign/00_Presentation/Application.md
 
 ## Modifications apportées au projet initial
 https://github.com/noenarcisse/invoicika/blob/main/TESTS_TestingCampaign/00_Presentation/Modifications.md
 
-# **Testing Stack**
+## **Testing Stack**
 https://github.com/noenarcisse/invoicika/blob/main/TESTS_TestingCampaign/00_Presentation/TestingStack.md
