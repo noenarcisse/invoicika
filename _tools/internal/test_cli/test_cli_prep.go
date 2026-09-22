@@ -25,7 +25,8 @@ func runStep(name string, args string, opt options) error {
 	}
 	if opt.WithErrs {
 		console.Printcln(console.YELLOW, name+" ERRS: ")
-		cmd.Stderr = console.ColoredWriter{C: console.YELLOW, W: os.Stderr}
+		cmd.Stderr = os.Stderr
+		// cmd.Stderr = console.ColoredWriter{C: console.YELLOW, W: os.Stderr}
 	}
 
 	return cmd.Run()
