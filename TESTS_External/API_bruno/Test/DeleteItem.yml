@@ -1,0 +1,18 @@
+info:
+  name: DeleteItem
+  type: http
+  seq: 2
+
+http:
+  method: DELETE
+  url: http://localhost:5000/api/Items/35f4d80e-997c-4627-9543-c11cdd40633e
+  auth:
+    type: bearer
+    token: "{{jwt}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
