@@ -1,0 +1,11 @@
+# Modifications apportées au projet initial
+- Renommage du readme.md précédent pour l'archiver et créer ce readme.md orienté testing
+- Changement de port pour la DB sur 5433 pour eviter les conflits avec un eventuel postgres natif sur la machine hote
+- Mise a jour le docker-compose.yml pour eviter les migration a la main de MS SQL -> PostGres
+- Ajout d'un injecteur de DB pour remplacer les noms des Customers entrés par le dev qui sont des acteurs de films un peu trop romantiques.
+- Modification de la structure du folder avec un /Backend, ajout d'une solution globale en slnx et ajout du projet WebAPI.Tests
+- Mise a jour du docker compose pour suivre la structure du dossier Backend
+- Passage en commentaire de la création de volume pour le WebAPI
+- Mise a jour du Nuget MailKit 10 -> 16 (vulne)
+- Mise a jour de nombreux package JS sans --force (vulne)
+- Override de nombreux package JS sans --fore (vulne). Liste trouvable dans le package.json
