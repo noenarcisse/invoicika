@@ -1,16 +1,20 @@
 # PREP:
 
+davit a répondu pour le legal -> oui en plus pour les RM, p-e pas en prio1 par contre
+bug vu en static -> report ! (cors)
+
+
 ## GENERAL
 - [x] Prep le readme de test, recup les infos de base du readme du dev pour les techs
-- [ ] Ajouter les instructions et modif effectuée pour install
-- [ ] Prepa la campagne de test, design, exigences, RM etc.
+- [-] Ajouter les instructions et modif effectuée pour install
+- [-] Prepa la campagne de test, design, exigences, RM etc.
 
 - [ ] Aller tester l'envoie de mail si ca marche vraiment avec le SMPT (for fun, c'est hors scope anw)
 
 ## TESTING
-- [ ] Setup Bruno (hors WEB API ?) 
-- [ ] Setup JIRA  
-- [ ] Setup Squash
+- [x] Setup Bruno
+- [x] Setup JIRA  
+- [-] Setup Squash
 - [ ] CI CD possible ? reliage avec git ?
 - [ ] Prep le dossier de rapport de tests
 - [ ] Prep la charte de test global avec perimetre, RM, etc
@@ -18,10 +22,10 @@
 ## _TOOLS
 - [x] DB Injector
 - [x] CLI autonome qui empeche les cmd a la main (cd /truc ; ./do.exe ; cd .. ; docker compose truc)
-- [ ] Prep des states de DB alternatif
-- [ ] Erreur si psql lance une err dans le cas de l'utilisation de state ?
-- [ ] Build du CLI
-- [ ] Distribution en Github Release
+- [-] Prep des states de DB alternatif
+- [x] Erreur si psql lance une err dans le cas de l'utilisation de state ?
+- [-] Build du CLI
+- [-] Distribution en Github Release
 
 ## BACKEND
 - [x] Branche de fix/backend-architecture
@@ -44,7 +48,7 @@
 # Étape Attendue
 
 - [x] Choix de l'application
-- [ ] Cadrage : Définir la stratégie, le périmètre et l'analyse de risques.
+- [-] Cadrage : Définir la stratégie, le périmètre et l'analyse de risques.
 - [ ] Développement : Réaliser les tests manuels, d'API, l'automatisation et le pipeline.
 - [ ] Rapport : Rédiger le rapport de campagne et consolider les métriques.
 - [ ] Soutenance : Présenter et défendre le travail devant le jury (jour dédié)
