@@ -33,11 +33,20 @@ func runStep(name string, args string, opt options) error {
 }
 
 func Install() error {
+	err := runStep("docker", "compose up -d", options{true, true})
+	if err != nil {
+		if perr, ok := errors.AsType[*exec.ExitError](err); ok {
+			fmt.Println(perr.ExitCode())
+		}
+	}
+	return err
+}
+
+func Build() error {
 	err := runStep("docker", "compose up -d --build", options{true, true})
 	if err != nil {
-		var exitErr *exec.ExitError
-		if errors.As(err, &exitErr) {
-			fmt.Println(exitErr.ExitCode())
+		if perr, ok := errors.AsType[*exec.ExitError](err); ok {
+			fmt.Println(perr.ExitCode())
 		}
 	}
 	return err
@@ -47,12 +56,10 @@ func Remove() error {
 	//aucun message en console ni out ni err :/
 	err := runStep("docker", "compose down -v", options{true, true})
 	if err != nil {
-		var exitErr *exec.ExitError
-		if errors.As(err, &exitErr) {
-			fmt.Println(exitErr.ExitCode())
+		if perr, ok := errors.AsType[*exec.ExitError](err); ok {
+			fmt.Println(perr.ExitCode())
 		}
 	}
-
 	return err
 }
 
@@ -60,11 +67,11 @@ func ResetDB(dblogs *yamlparser.PsqlLogs) error {
 	return ApplyBackupFile(dblogs, "Backup_invoicika_001.sql")
 }
 
-// fallback ?
-func ResetDB2() error {
-	err := runStep("docker", "compose down -v", options{true, true})
-	return err
-}
+// fallback ? pire idée, utilisée dans un install pour reset, ca drop le container a peine créé
+// func ResetDB2() error {
+// 	err := runStep("docker", "compose down -v", options{true, true})
+// 	return err
+// }
 
 // Directly apply a backup file with psql cmd
 func ApplyBackupFile(dblogs *yamlparser.PsqlLogs, file string) error {

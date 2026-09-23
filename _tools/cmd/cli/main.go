@@ -2,6 +2,7 @@ package main
 
 import (
 	"dbinjector/internal/database"
+	"dbinjector/internal/netutils"
 	testcli "dbinjector/internal/test_cli"
 	"dbinjector/internal/users"
 	"dbinjector/internal/yamlparser"
@@ -13,7 +14,7 @@ import (
 
 func main() {
 
-	var help, install, reset, delete bool
+	var help, install, build, reset, delete bool
 	var state int
 
 	//flag -h
@@ -22,6 +23,10 @@ func main() {
 	//flag -i
 	flag.BoolVar(&install, "install", false, "Install the project with Docker")
 	flag.BoolVar(&install, "i", false, "Install the project with Docker")
+	//flag -b
+	buildmessage := "Install the project with Docker with --build flag"
+	flag.BoolVar(&build, "build", false, buildmessage)
+	flag.BoolVar(&build, "b", false, buildmessage)
 	//flag -d
 	flag.BoolVar(&delete, "delete", false, "Install the project with Docker")
 	flag.BoolVar(&delete, "d", false, "Install the project with Docker")
@@ -43,6 +48,22 @@ func main() {
 	case help:
 		console.Printcln(console.BLUE, "Not implemented")
 
+	case build:
+
+		// ping internet ici, le dev a fait une dependance npm i dans son dockerfile
+		// --build plante le front sans co
+		if !netutils.Ping("https://www.sonarsource.com/products/sonarqube/downloads/") {
+			console.Printcln(console.RED, "No internet connexion, Docker compose up with --build aborted")
+			return
+		}
+
+		console.Printcln(console.BLUE, "Installing containers")
+		err := testcli.Build()
+		if err != nil {
+			console.Printcln(console.RED, "Error happened while installing with Docker")
+			fmt.Println(err.Error())
+			return
+		}
 	case install:
 
 		// y'a une bizarrerie ici, le -i semble interrompre l'install de docker?
@@ -91,11 +112,11 @@ func main() {
 		err := testcli.ResetDB(dblogs)
 		if err != nil {
 			console.Printcln(console.RED, err.Error())
-			err := testcli.ResetDB2()
-			if err != nil {
-				console.Printcln(console.RED, err.Error())
-				os.Exit(1)
-			}
+			// err := testcli.ResetDB2()
+			// if err != nil {
+			// 	console.Printcln(console.RED, err.Error())
+			// 	os.Exit(1)
+			// }
 		}
 		console.Printcln(console.GREEN, "\nDB reset, DONE!")
 
