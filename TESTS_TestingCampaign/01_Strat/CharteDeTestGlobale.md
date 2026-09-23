@@ -8,38 +8,39 @@ Il s'agit de cartographier précisément ce qui doit être testé (En Périmètr
 
 ### Périmètre (In-Scope)
 <!-- todo -->
-- Dashboard:  informations correctes affichées et enregistrées, CRUD fonctionnel, Gestion des produits et clients.
+- Dashboard:  informations correctes affichées et enregistrées
+- Gestion des produits et clients.
 - Authentication & Roles respecté sur les pages et les permissions.
-- Calcul de prix et VAT
+- Calcul de prix et application de TVA
 - Profil utilisateur
 - Images et uploads
 - Génération de factures
-- Front (angular avec testing library)
+- CRUD dans la base de données
+- Frontend (angular avec testing library)
 - API (Swagger disponible)
 
 
 ### Périmètre BONUS
-- Generation de PDFs et leur contenu (avec PdfPig). Je le considère comme à tester car c’est le produit final de l’app, son deliverable pour le client qui souhaite utiliser cette app. Il ne permet pas de tester le code de l’app mais ce qui en sort en e2e ?
+- Generation de PDFs et leur contenu (avec PdfPig). Je le considère comme un périmètre intéressant à tester car c’est le but premier pour le client qui souhaite utiliser cette app. <br>
+Il est mis à l'écart car il ne permet pas de tester le code de l’app mais ce qui en sort en E2E.
 
 ### Hors Périmètre (Out-of-Scope)
 - La feature lié à l’envoi de mail
 
-## 2. Critères d'Entrée et de Sortie (Qualité des Processus)
-
-Les critères d'entrée et de sortie sécurisent le flux de travail QA pour éviter de tester un produit instable ou de livrer un produit contenant des anomalies majeures.
+## 2. Critères d'Entrée et de Sortie
 
 ### Critères d'Entrée
+Pour commencer à exécuter les tests sur un environnement donné, les conditions suivantes doivent être réunies :
 
-Pour que l'équipe QA commence à exécuter les tests sur un environnement donné, les conditions suivantes doivent être réunies :
-<!-- todo -->
-La feature est implémentée et fonctionnelle.
-Les tests et la feature sera passée en bloquée dans le cas contraire.
-<!-- docker qui tourne, enviro fonctionnel, les containers se lancent -->
-<!-- components fonctionnels -->
-- 
+- Le code compile.
+- La feature est implémentée et fonctionnelle dans la couche testée.
+- Les containers Docker tournent et leur communication fonctionnent.
+- Les ports nécéssaire des containers sont ouverts sur la machines local sans conflits.
+
+Les tests ne seront pas lancés et la feature sera passée en bloquée dans le cas contraire.
+
 
 ### Critères de Sortie
-
 Pour déclarer la campagne de test terminée et donner un avis favorable (Go) pour la mise en production, il faut :
 |  | Couverture | Taux de PASS | 
 |---|---|---|
@@ -51,16 +52,31 @@ Pour déclarer la campagne de test terminée et donner un avis favorable (Go) po
 
 ## 3. Matrice de Risques Produit (Priorisation Risk-Based Testing)
 
+La stratégie principale s'appuie sur le *Risk-Based Testing* étant donné l'aspect financier indirect. On ne génère pas un paiement mais on le provoque, les chiffres doivent donc être corrects.
+
+https://github.com/noenarcisse/invoicika/blob/main/TESTS_TestingCampaign/01_Strat/OrientationDeLaStratégieDeTest.md
+
 <!-- TODO provient du template a adapter -->
-
-La stratégie repose sur le *Risk-Based Testing* : nous testons en priorité ce qui peut détruire la valeur métier ou bloquer l'argent.
-
 **Formule de calcul :** Criticité (C) = Probabilité (P) X Impact (I) *(Échelle de 1 à 3)*
 
-| ID Risque | Fonctionnalité ciblée | Description de l'échec potentiel | P | I | Criticité | Stratégie d'atténuation QA (Réponse) |
+| ID Risque | RM | Fonctionnalité | Description de l'échec potentiel | P | I | C |
 |---|---|---|---|---|---|---|
-| **R-01** | **Tunnel / Stock** | Vente de billets supérieure à la capacité de la salle lors d'un pic d'achat (Race condition). | 3 | 3 | | |
-| **R-02** | **Sécurité Billets** | Un utilisateur modifie l'ID dans l'API et télécharge les billets d'un tiers (IDOR). | 2 | 3 | | |
-| **R-03** | **Tunnel / Limites** | Contournement de la limite de 6 billets par commande en attaquant l'API en direct. | 2 | 2 | | |
-| **R-04** | **Panier / Temps** | Le stock reste bloqué définitivement après l'abandon d'un panier (Échec d'expiration). | 2 | 2 | | |
-| **R-05** | **Paiement** | Écart d'arrondi ou de calcul entre le total affiché et le montant réellement prélevé. | 1 | 3 | | |
+| **R-01** | RM01 | **Customers** | Email invalide, le client ne recoit jamais sa facture | 3 | 3 | 9 |
+| **R-02** | RM02 |**Customers** | Le téléphone d'un client est invalide, impossible de le contacter | 3 | 1 | 3 |
+| **R-03** | RM04 | **Items** | Un client tente de commander plus d'objets que disponibles dans les stocks | ? | ? | ? |
+| **R-04** | RM04 |**Items** | Plusieurs clients tentent d'acheter trop d'objets en meme temps et dépasse le stock d'objet maximum | ? | ? | ? |
+| **R-05** | RM?? |**Invoices** | Erreur d'arrondi entre l'arrondi bancaire et l'arrondi mathématique | ? | ? | ? |
+| **R-06** | RM05 |**Invoices** | Duplicata de facture, 2 memes sets de données donnent 2 factures différentes | ? | ? | ? |
+| **R-07** | SEC03 |**Users** | IDOR un utilisateur peut accéder et modifier les données d'un autre | ? | ? | ? |
+| **R-08** | SEC02 |**Roles** | Un employee a des auth >= qu'un admin | ? | ? | ? |
+
+
+## 4. Checklist de Compliance
+Le second axe de test sera de la Compliance based testing.
+
+<!-- DRAFT -->
+Secondairement, de par la nature légale ??? d'une facture, une checklist non optionnelle viendra compléter le RBT. Cela permettra de respecter les législations où les factures peuvent être utilisée et éviter des amendes pour le client.
+
+<!-- add checklist!! -->
+- item1
+- item2
