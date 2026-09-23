@@ -1,4 +1,8 @@
 # Orientation de la stratégie de test
+
+<!-- todo -->
+<!-- ajouter la logique de decoupe des epics baséee sur les "slices" du menu -->
+
 Pour l'ensemble de la stratégie, je vais agir comme un tester externe, amené à tester l'application selon le modèle "Waterflow" car c'est ce qui est le plus proche de la réalité en venant tester un produit Open-source délivré il y a déjà 2 ans sur Github.
 
 Avec cette approche, je n'aurai que peut de manière de vérifier la régression et le pesticid paradox, arrivant en fin de cycle sans correction de "l'équipe dev" imaginaire.
@@ -14,11 +18,12 @@ Tests a considerer :
 - Virgule flottante informatique vs finances
 - Idempotence : les mêmes données de facturation doivent toujours donner le même résultat et une facture unique.
 - Épuisement des stocks : les produits encodés dans la base de données sont limités. On ne doit jamais pouvoir descendre en négatif et acheter des stocks inexistants.
+<!-- DRAFT -->
 - Respect de la norme EN 16931 : Numérotation séquentielle des factures (obligatoire dans plusieurs juridictions, dont la France/Belgique)
 - Mentions légales obligatoires sur le document (règles d’arrondis utilisés si nécéssaire)
 - Race conditions sur les stocks des produits enregistrés
 
-
+<!-- DRAFT -->
 - Traçabilité : chaque facture doit être immuable une fois émise (contraintes légales dans beaucoup de pays)
 - Conservation et archivage (durée légale)
 - Facturation en masse (fin de mois, tous les abonnements le même jour) (load test)
