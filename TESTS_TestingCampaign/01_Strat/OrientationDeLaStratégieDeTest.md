@@ -62,4 +62,4 @@ Voient la partie “users”
 |---|---|---|
 | SEC01 | Injections | Les inputs utilisateurs sont affichés dans un dashboard html (sécurité / injection) |
 | SEC02 | Droits | Le role "user" n'a pas de privilèges qui dépasse le role "admin" |
-| SEC02 | Droits | DRAFT Les utilisateurs n'ont pas acces et ne peuvent pas modifier des informations chez les autres (IDOR?) |
+| SEC03 | Droits | DRAFT Les utilisateurs n'ont pas acces et ne peuvent pas modifier des informations chez les autres (IDOR?) |
