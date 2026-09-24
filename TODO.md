@@ -3,6 +3,11 @@
 davit a répondu pour le legal -> oui en plus pour les RM, p-e pas en prio1 par contre
 bug vu en static -> report ! (cors)
 
+j'ai prep en priv le squash sur https://github.com/noenarcisse/squash_invoicika
+a ouvrir a long terme pour la presa?
+
+static analysis -> voir sonarqube?
+https://www.sonarsource.com/products/sonarqube/downloads/
 
 ## GENERAL
 - [x] Prep le readme de test, recup les infos de base du readme du dev pour les techs
