@@ -62,14 +62,14 @@ https://github.com/noenarcisse/invoicika/blob/main/TESTS_TestingCampaign/01_Stra
 | ID Risque | RM | Fonctionnalité | Description de l'échec potentiel | P | I | C |
 |---|---|---|---|---|---|---|
 | **R-01** | RM01 | **Customers** | Email invalide, le client ne recoit jamais sa facture | 3 | 3 | 9 |
-| **R-02** | RM02 |**Customers** | Le téléphone d'un client est invalide, impossible de le contacter | 3 | 1 | 3 |
+| **R-02** | RM02 | **Customers** | Le téléphone d'un client est invalide, impossible de le contacter | 3 | 1 | 3 |
 | **R-03** | RM04 | **Items** | Un client tente de commander plus d'objets que disponibles dans les stocks | ? | ? | ? |
-| **R-04** | RM04 |**Items** | Plusieurs clients tentent d'acheter trop d'objets en meme temps et dépasse le stock d'objet maximum | ? | ? | ? |
-| **R-05** | RM?? |**Invoices** | Erreur d'arrondi entre l'arrondi bancaire et l'arrondi mathématique | ? | ? | ? |
-| **R-06** | RM05 |**Invoices** | Duplicata de facture, 2 memes sets de données donnent 2 factures différentes | ? | ? | ? |
-| **R-07** | SEC03 |**Users** | IDOR un utilisateur peut accéder et modifier les données d'un autre | ? | ? | ? |
-| **R-08** | SEC02 |**Roles** | Un employee a des auth >= qu'un admin | ? | ? | ? |
-
+| **R-04** | RM04 | **Items** | Plusieurs clients tentent d'acheter trop d'objets en meme temps et dépasse le stock d'objet maximum | ? | ? | ? |
+| **R-05** | RM?? | **Invoices** | Erreur d'arrondi entre l'arrondi bancaire et l'arrondi mathématique | ? | ? | ? |
+| **R-06** | RM05 | **Invoices** | Duplicata de facture, 2 memes sets de données donnent 2 factures différentes | ? | ? | ? |
+| **R-07** | SEC03 | **Users** | IDOR un utilisateur peut accéder et modifier les données d'un autre | ? | ? | ? |
+| **R-08** | SEC02 | **Roles** | Un employee a des auth >= qu'un admin | ? | ? | ? |
+| **R-08** | ? | **Profile?** | DRAFT Un utilisateur upload une image trop grande. DDOS? | ? | ? | ? |
 
 ## 4. Checklist de Compliance
 Le second axe de test sera de la Compliance based testing.
