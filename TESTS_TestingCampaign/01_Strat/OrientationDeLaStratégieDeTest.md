@@ -2,6 +2,7 @@
 
 <!-- todo -->
 <!-- ajouter la logique de decoupe des epics baséee sur les "slices" du menu -->
+<!-- squash et exigences -> regles metier, exigence et rassemblement en zones "compte", facturation etc -->
 
 Pour l'ensemble de la stratégie, je vais agir comme un tester externe, amené à tester l'application selon le modèle "Waterflow" car c'est ce qui est le plus proche de la réalité en venant tester un produit Open-source délivré il y a déjà 2 ans sur Github.
 
@@ -66,17 +67,16 @@ Générer la facture en PDF ou envoyer la facture par email
 Gère les autres users (role, changement d'informations)
 
 ## Exigences fonctionnelles
-Inscription
-Connexion
-Génération de facture
-Envoi de facture
+E01 Inscription
+E02 Connexion
+E03 Génération de facture
+E04 Envoi de facture
 <!-- todo -->
 
 ## Regles metier : RM
 <!-- DRAFT ne pas mélanger les usages : l'email sert de login (unique en db mais sans plus)
 mais aussi de contact pour l'envoi de facture (CRIT!) requiert une validation!
  -->
-<!-- add les legal ici ! -->
 | ID | Nom de la règle métier | Descr |
 |---|---|---|
 | RM01 | Email valide | Format email et confirmation que l'email peut recevoir des emails |
@@ -86,6 +86,9 @@ mais aussi de contact pour l'envoi de facture (CRIT!) requiert une validation!
 | RM05 | Factures | Idempotence, une facture doit être unique, traçable et reproductible |
 | RM06 | Email unique | L'email sert d'identifiant de login et doit etre unique en base de données |
 
+<!-- draft de RM en plus -->
+| RM07? | Validation des inscrits | L'inscription s'effectue par un simple lien, il faut une validation d'un admin avant de laisser un utilisateur modifier des données sur le site / un statut intermédaire bloqué |
+<!-- add les legal ici ! -->
 
 ## Exigences non fonctionnelles
 | ID | Nom de l'exigence | Descr |
