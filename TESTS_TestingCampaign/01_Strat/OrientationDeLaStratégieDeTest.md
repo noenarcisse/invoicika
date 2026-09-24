@@ -18,11 +18,11 @@ Tests a considerer :
 - Virgule flottante informatique vs finances
 - Idempotence : les mêmes données de facturation doivent toujours donner le même résultat et une facture unique.
 - Épuisement des stocks : les produits encodés dans la base de données sont limités. On ne doit jamais pouvoir descendre en négatif et acheter des stocks inexistants.
+
 <!-- DRAFT -->
 - Respect de la norme EN 16931 : Numérotation séquentielle des factures (obligatoire dans plusieurs juridictions, dont la France/Belgique)
 - Mentions légales obligatoires sur le document (règles d’arrondis utilisés si nécéssaire)
 - Race conditions sur les stocks des produits enregistrés
-
 <!-- DRAFT -->
 - Traçabilité : chaque facture doit être immuable une fois émise (contraintes légales dans beaucoup de pays)
 - Conservation et archivage (durée légale)
@@ -49,17 +49,42 @@ Complémentaire
 A des droits en plus comme modifier des profils des autres admins et employés.<br>
 Voient la partie “users”
 
+## Parcours typique par role
+### Employé
+S'inscrit sur la plateforme
+Se connecte
+Creer, modifie, supprime des clients
+Creer, modifie, supprime des factures
+Générer la facture en PDF ou envoyer la facture par email
+Modifie son profil pour changer son mot de passe ou sa photo
+### Administateur
+Se connecte
+Cree, modifie ou supprime des objets
+Creer, modifie, supprime des clients
+Creer, modifie, supprime des factures
+Générer la facture en PDF ou envoyer la facture par email
+Gère les autres users (role, changement d'informations)
+
+## Exigences fonctionnelles
+Inscription
+Connexion
+Génération de facture
+Envoi de facture
+<!-- todo -->
 
 ## Regles metier : RM
-
+<!-- DRAFT ne pas mélanger les usages : l'email sert de login (unique en db mais sans plus)
+mais aussi de contact pour l'envoi de facture (CRIT!) requiert une validation!
+ -->
 <!-- add les legal ici ! -->
 | ID | Nom de la règle métier | Descr |
 |---|---|---|
-| RM01 | Email | Format email, validation email fonctionnel? |
+| RM01 | Email valide | Format email et confirmation que l'email peut recevoir des emails |
 | RM02 | Telephone | Numéro de téléphone format valide |
 | RM03 | TVA | TVA valeur limite et légale |
 | RM04 | Stocks | Produits avec stock de disponibilité, race condition / epuisement |
 | RM05 | Factures | Idempotence, une facture doit être unique, traçable et reproductible |
+| RM06 | Email unique | L'email sert d'identifiant de login et doit etre unique en base de données |
 
 
 ## Exigences non fonctionnelles
