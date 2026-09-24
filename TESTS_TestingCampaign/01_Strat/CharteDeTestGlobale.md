@@ -7,10 +7,9 @@ Ce document formalise la stratégie de test qui guidera l'ensemble des activité
 Il s'agit de cartographier précisément ce qui doit être testé (En Périmètre) et ce qui est volontairement exclu de notre campagne de test directe (Hors Périmètre).
 
 ### Périmètre (In-Scope)
-<!-- todo -->
 - Dashboard:  informations correctes affichées et enregistrées
 - Gestion des produits et clients.
-- Authentication & Roles respecté sur les pages et les permissions.
+- Authentification & Roles respectés sur les pages et dans l'API
 - Calcul de prix et application de TVA
 - Profil utilisateur
 - Images et uploads
@@ -69,7 +68,7 @@ https://github.com/noenarcisse/invoicika/blob/main/TESTS_TestingCampaign/01_Stra
 | **R-06** | RM05 | **Invoices** | Duplicata de facture, 2 memes sets de données donnent 2 factures différentes | ? | ? | ? |
 | **R-07** | SEC03 | **Users** | IDOR un utilisateur peut accéder et modifier les données d'un autre | ? | ? | ? |
 | **R-08** | SEC02 | **Roles** | Un employee a des auth >= qu'un admin | ? | ? | ? |
-| **R-08** | ? | **Profile?** | DRAFT Un utilisateur upload une image trop grande. DDOS? | ? | ? | ? |
+| **R-08** | ? | **Users** | DRAFT Un utilisateur upload une image trop grande. DDOS? | ? | ? | ? |
 
 ## 4. Checklist de Compliance
 Le second axe de test sera de la Compliance based testing.
