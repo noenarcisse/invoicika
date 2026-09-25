@@ -63,12 +63,25 @@ Générer la facture en PDF ou envoyer la facture par email
 Gère les autres users (role, changement d'informations)
 
 ## Exigences fonctionnelles
-<!-- todo, recup ce qui est drafté dans le squash -->
-E01 Inscription
-E02 Connexion
-E03 Génération de facture
-E04 Envoi de facture
-<!-- todo -->
+
+Les exigences fonctionnelles sont triées par catégories afin de les regrouper de manière logique : Client, Compte, Facturation et Produit
+La catégorie "PDF" en scope bonus ne sera exécutée que si les conditions pour le passage en Bonus sont remplies.
+"Envoi email" est hors scope dans le cadre de cette campagne et ne sera jamais exécuté. Les exigences qui font partie de cette catégorie sont relevées pour la cohérence ou une seconde campagne de test non prévue ici.
+
+| ID | Exigence |
+|---|---|
+| CUS01 | Créer, modifier, consulter, supprimer un client |
+| ACC01 | Inscription d'un utilisateur |
+| ACC02 | Connexion d'un utilisateur |
+| ACC03 | Fin de session d'un utilisateur |
+| ACC04 | Modification du profil d'un utilisateur |
+| ACC05 | Upload d'une photo de profil |
+| ACC0X | Authorisations différenciées entre administrateurs et employés |
+| INV01 | Créer une facture (lignes, lignes de groupe, client, TVA) |
+| INV02 | Consulter, modifier, lister les factures |
+| INV03 | Gérer le statut d'une facture (brouillon, envoyée...) |
+| INV04 | Appliquer une TVA à une facture |
+| PRO01 | Créer et gérer des produits |
 
 ## Regles metier : RM
 <!-- DRAFT ne pas mélanger les usages : l'email sert de login (unique en db mais sans plus)
@@ -82,17 +95,22 @@ mais aussi de contact pour l'envoi de facture (CRIT!) requiert une validation!
 | RM04 | Stocks | Produits avec stock de disponibilité, race condition / epuisement |
 | RM05 | Factures | Idempotence, une facture doit être unique, traçable et reproductible |
 | RM06 | Email unique | L'email sert d'identifiant de login et doit etre unique en base de données |
+| RM07 | Unicité des ID Utilisateurs/Clients | Un identifiant utilisateur/client est unique |
+| RM08 | Facture imuable | Facture émise figée : modification de l'article ou du client sans effet sur elle |
+| RM09 | Calcul de la TVA apppliquée | Cohérence des montants : total lignes + groupes = sous-total, sous-total + TVA = total |
 
 <!-- draft de RM en plus -->
-| RM07? | Validation des inscrits | L'inscription s'effectue par un simple lien, il faut une validation d'un admin avant de laisser un utilisateur modifier des données sur le site / un statut intermédaire bloqué |
+| RM0? | Validation des inscrits | L'inscription s'effectue par un simple lien, il faut une validation d'un admin avant de laisser un utilisateur modifier des données sur le site / un statut intermédaire bloqué |
 <!-- add les legal ici ! -->
 
 ## Exigences non fonctionnelles
 | ID | Nom de l'exigence | Descr |
 |---|---|---|
-| SEC01 | Injections | Les inputs utilisateurs sont affichés dans un dashboard html (sécurité / injection) |
-| SEC02 | Droits | Le role "user" n'a pas de privilèges qui dépasse le role "admin" |
-| SEC03 | Droits | DRAFT Les utilisateurs n'ont pas acces et ne peuvent pas modifier des informations chez les autres (IDOR?) |
+| SEC01 | Injections XSS | Les inputs utilisateurs sont affichés dans un dashboard html (sécurité / injection) |
+| SEC02 | Autorisation | Un utilisateur ne peut pas modifier les infos des autres (IDOR?) |
+| SEC03 | Autorisation | Contrôle d'accès par rôle sur chaque endpoint |
+| SEC04 | Mots de passe | Mots de passe stockés hachés |
+| SEC05 | DDoS | Upload d'images : type, taille et contenu contrôlés |
 
 # Structure du JIRA et SquashTM
 
