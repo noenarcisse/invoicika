@@ -1,7 +1,7 @@
 # PREP:
 
 davit a répondu pour le legal -> oui en plus pour les RM, p-e pas en prio1 par contre
-bug vu en static -> report ! (cors)
+bug vu en whitebox -> report ! (cors)
 
 j'ai prep en priv le squash sur https://github.com/noenarcisse/squash_invoicika
 a ouvrir a long terme pour la presa?
@@ -11,27 +11,31 @@ https://www.sonarsource.com/products/sonarqube/downloads/
 
 ## GENERAL
 - [x] Prep le readme de test, recup les infos de base du readme du dev pour les techs
-- [-] Ajouter les instructions et modif effectuée pour install
-- [-] Prepa la campagne de test, design, exigences, RM etc.
+- [x] Ajouter les instructions et modif effectuée pour install
+- [ ] Documentation legale des facturation a faire pour les RM manquantes
+- [ ] Voir SonarQube pour les tests statics
+- [ ] Referencer et publier le repo du Squash
 
 - [ ] Aller tester l'envoie de mail si ca marche vraiment avec le SMPT (for fun, c'est hors scope anw)
 
 ## TESTING
+- [-] Prepa la campagne de test, design, exigences, RM etc.
+- [ ] Prep la charte de test global avec perimetre, RM, etc
 - [x] Setup Bruno
 - [x] Setup JIRA
-- [ ] Passer le scouting en tag pas en EPIC, trier les bugs trouvés dans leurs sections correspondantes
-- [-] Setup Squash
-- [ ] CI CD possible ? reliage avec git ?
+- [x] Passer le scouting en tag pas en EPIC, trier les bugs trouvés dans leurs sections correspondantes
+- [x] Setup Squash
 - [ ] Prep le dossier de rapport de tests
-- [ ] Prep la charte de test global avec perimetre, RM, etc
+- [ ] CI CD possible ? reliage avec git ?
 
 ## _TOOLS
 - [x] DB Injector
 - [x] CLI autonome qui empeche les cmd a la main (cd /truc ; ./do.exe ; cd .. ; docker compose truc)
-- [-] Prep des states de DB alternatif
+- [ ] Prep des states de DB alternatifs (non pushés en release?)
 - [x] Erreur si psql lance une err dans le cas de l'utilisation de state ?
-- [-] Build du CLI
-- [-] Distribution en Github Release
+- [x] Build du CLI
+- [x] Distribution en Github Release
+- [ ] Preparer l'injection de depart de la DB sans relance avec une cmd direct dans le docker, ca enleve des dependance externe ou des attente de db par la machine locale (see squash ps1 script)
 
 ## BACKEND
 - [x] Branche de fix/backend-architecture
@@ -54,7 +58,7 @@ https://www.sonarsource.com/products/sonarqube/downloads/
 # Étape Attendue
 
 - [x] Choix de l'application
-- [-] Cadrage : Définir la stratégie, le périmètre et l'analyse de risques.
+- [ ] Cadrage : Définir la stratégie, le périmètre et l'analyse de risques.
 - [ ] Développement : Réaliser les tests manuels, d'API, l'automatisation et le pipeline.
 - [ ] Rapport : Rédiger le rapport de campagne et consolider les métriques.
 - [ ] Soutenance : Présenter et défendre le travail devant le jury (jour dédié)
