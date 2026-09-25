@@ -1,15 +1,11 @@
 # Orientation de la stratégie de test
 
-<!-- todo -->
-<!-- ajouter la logique de decoupe des epics baséee sur les "slices" du menu -->
-<!-- squash et exigences -> regles metier, exigence et rassemblement en zones "compte", facturation etc -->
+Pour l'ensemble de la stratégie, je vais agir comme un testeur externe, amené à tester l'application selon le modèle "Waterflow" car c'est ce qui est le plus proche de la réalité en venant tester un produit Open-source délivré il y a déjà 2 ans sur Github.
 
-Pour l'ensemble de la stratégie, je vais agir comme un tester externe, amené à tester l'application selon le modèle "Waterflow" car c'est ce qui est le plus proche de la réalité en venant tester un produit Open-source délivré il y a déjà 2 ans sur Github.
-
-Avec cette approche, je n'aurai que peut de manière de vérifier la régression et le pesticid paradox, arrivant en fin de cycle sans correction de "l'équipe dev" imaginaire.
+Avec cette approche, je n'aurai que peu de manière de vérifier la régression et le pesticid paradox, arrivant en fin de cycle sans correction de "l'équipe dev" imaginaire.
 
 La stratégie principale va être axée sur du Risk Base Testing car même s’il n’y a pas de transfert d’argent direct, un service de facturation demande une rigueur absolue pour la justesse des données, maintenir un climat de confiance avec le client. Cela reste aussi un outil de communication qui permet de donner une image sérieuse et professionnelle de l’entreprise auprès des partis externes. <br/>
-De plus, une factuure va entraîner en réaction un paiement de la part du client.
+De plus, une facture va entraîner en réaction un paiement de la part du client.
 
 Le Risk Based Testing permet aussi de mieux cadrer les priorités de la campagne de test dans un délai qui reste relativement court.
 
@@ -67,6 +63,7 @@ Générer la facture en PDF ou envoyer la facture par email
 Gère les autres users (role, changement d'informations)
 
 ## Exigences fonctionnelles
+<!-- todo, recup ce qui est drafté dans le squash -->
 E01 Inscription
 E02 Connexion
 E03 Génération de facture
@@ -96,3 +93,17 @@ mais aussi de contact pour l'envoi de facture (CRIT!) requiert une validation!
 | SEC01 | Injections | Les inputs utilisateurs sont affichés dans un dashboard html (sécurité / injection) |
 | SEC02 | Droits | Le role "user" n'a pas de privilèges qui dépasse le role "admin" |
 | SEC03 | Droits | DRAFT Les utilisateurs n'ont pas acces et ne peuvent pas modifier des informations chez les autres (IDOR?) |
+
+# Structure du JIRA et SquashTM
+
+<!-- ajouter la logique de decoupe des epics baséee sur les "slices" du menu -->
+<!-- squash et exigences -> regles metier, exigence et rassemblement en zones "compte", facturation etc -->
+
+<!-- DRAFT punk -->
+Le JIRA sera structuré sur base des "slices" étant donné que l'application et son menu à une forte découpe par tranche (fort ressemblantes à une logique de VSD).
+Cela me permettra d'orienter les zones de l'application complète en incluant aussi bien le frontend, backend, base de données et leur communication en api.
+Focus sur une slice plus focus et "spécialisée"
+Permet de couper le planning et la gestion de projet plus instable avec des zones de focus qui decoupe l'app en plus petit morceau plus digestes mais qui avec
+des frontiere plus amovibles
+<!-- DRAFT punk -->
+Le SquashTM et ses règles plus stables concernant l'orientation de la stratégie de test, les exigences fixes, les RM etc utilisera des catégorie permettant de regrouper les exigences mais ne seront pas forcément liée a l'app qui pourrait bouger suite a des correctifs éventuels
