@@ -8,9 +8,8 @@ https://www.docker.com/products/docker-desktop/
 Installer PostGreSQL<br>
 https://www.postgresql.org/download/ 
 
-Add psql to your PATH
+Ajouter psql au PATH de la machine
 (C:\Program Files\PostgreSQL\18\bin)
-<!-- postGres rate parfois son path dans windows -_- -->
 
 ```ps
 git clone https://github.com/noenarcisse/invoicika.git ; cd invoicika
@@ -25,7 +24,6 @@ Requiert postgreSQL et Docker installé
 Depuis la racine du projet invoicika :
 ```ps
 ./cli.exe -install
-./cli.exe -state 1
 ```
 En cas de reset de la base de données : 
 ```ps

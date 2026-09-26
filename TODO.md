@@ -35,7 +35,8 @@ https://www.sonarsource.com/products/sonarqube/downloads/
 - [x] Erreur si psql lance une err dans le cas de l'utilisation de state ?
 - [x] Build du CLI
 - [x] Distribution en Github Release
-- [ ] Preparer l'injection de depart de la DB sans relance avec une cmd direct dans le docker, ca enleve des dependance externe ou des attente de db par la machine locale (see squash ps1 script)
+- [x] Preparer l'injection de depart de la DB sans relance avec une cmd direct dans le docker, ca enleve des dependance externe ou des attente de db par la machine locale (see squash ps1 script)
+- [ ] Refacto et taper un bon coup de balai dans le CLI 
 
 ## BACKEND
 - [x] Branche de fix/backend-architecture
@@ -47,6 +48,9 @@ https://www.sonarsource.com/products/sonarqube/downloads/
 - [x] Fix les liens du docker-compose et les dockerfile :<br>
     https://github.com/noenarcisse/invoicika/blob/main/docker-compose.yml <br>
     https://github.com/noenarcisse/invoicika/blob/main/WebAPI/Dockerfile
+- [ ] Ajouter NSubstitute (ou Moq pour souffrir)
+- [ ] Ajouter Shouldly
+- [ ] Install VS a BF, la fenetre de test est loin au dessus de vscode 
 
 ## FRONT
 - [x] Fix les vulné possibles : npm audit + i
