@@ -49,7 +49,6 @@ func main() {
 		console.Printcln(console.BLUE, "Not implemented")
 
 	case build:
-
 		// ping internet ici, le dev a fait une dependance npm i dans son dockerfile
 		// --build plante le front sans co
 		if !netutils.Ping("https://www.sonarsource.com/products/sonarqube/downloads/") {
@@ -66,9 +65,6 @@ func main() {
 		}
 	case install:
 
-		// y'a une bizarrerie ici, le -i semble interrompre l'install de docker?
-		//db vide ?!
-
 		console.Printcln(console.BLUE, "Installing containers")
 		err := testcli.Install()
 		if err != nil {
@@ -77,26 +73,16 @@ func main() {
 			return
 		}
 
-		//pour faire ca, faut stabiliser la DB
-		//pour checker si un Exec(select 1 from "Customers" limit 1)
-		//des que ca lance plus d'err -> customers est créé et on peut injecter
-
-		// console.Printcln(console.BLUE, "\nChanging DB state to 1")
-		// conn := database.OpenDB(dblogs)
-		// defer conn.Close()
-
-		// err = database.NewDB(conn).Trunc("Customers")
-		// if err != nil {
-		// 	console.Printcln(console.RED, "TRUNC ERR:"+err.Error())
-		// 	os.Exit(1)
-		// }
-		// cs, err := users.GetAllUsers()
-		// if err != nil {
-		// 	console.Printcln(console.RED, err.Error())
-		// 	os.Exit(1)
-		// }
-		// users.NewDB(conn).InjectUsers(cs)
-		// console.Printcln(console.GREEN, "\nDB state changed to 1, DONE!")
+		err = testcli.TruncDB(dblogs)
+		if err != nil {
+			console.Printcln(console.RED, "TRUNC ERR:"+err.Error())
+		}
+		console.Printcln(console.GREEN, "\nDB emptied entirely, DONE!")
+		err = testcli.ApplyBackupFile2(dblogs, "Backup_invoicika_002.sql")
+		if err != nil {
+			console.Printcln(console.RED, "Backup err:"+err.Error())
+		}
+		console.Printcln(console.GREEN, "DB state changed to 1, DONE!")
 
 	case delete:
 		console.Printcln(console.BLUE, "Removing containers")

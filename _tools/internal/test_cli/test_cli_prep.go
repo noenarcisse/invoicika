@@ -3,6 +3,7 @@ package testcli
 import (
 	"dbinjector/internal/yamlparser"
 	"dbinjector/pkg/console"
+
 	"errors"
 	"fmt"
 	"os"
@@ -25,8 +26,8 @@ func runStep(name string, args string, opt options) error {
 	}
 	if opt.WithErrs {
 		console.Printcln(console.YELLOW, name+" ERRS: ")
-		cmd.Stderr = os.Stderr
-		// cmd.Stderr = console.ColoredWriter{C: console.YELLOW, W: os.Stderr}
+		// cmd.Stderr = os.Stderr
+		cmd.Stderr = console.ColoredWriter{C: console.YELLOW, W: os.Stderr}
 	}
 
 	return cmd.Run()
@@ -67,13 +68,8 @@ func ResetDB(dblogs *yamlparser.PsqlLogs) error {
 	return ApplyBackupFile(dblogs, "Backup_invoicika_001.sql")
 }
 
-// fallback ? pire idée, utilisée dans un install pour reset, ca drop le container a peine créé
-// func ResetDB2() error {
-// 	err := runStep("docker", "compose down -v", options{true, true})
-// 	return err
-// }
-
 // Directly apply a backup file with psql cmd
+// Passage par le psql de la machine locale, casse parfois sur l'init du container
 func ApplyBackupFile(dblogs *yamlparser.PsqlLogs, file string) error {
 
 	backupfolderpath := "/db_backups/"
@@ -94,5 +90,53 @@ func ApplyBackupFile(dblogs *yamlparser.PsqlLogs, file string) error {
 		fullfilepath,
 	)
 	err := runStep("psql", cmd, options{false, true})
+	return err
+}
+
+func TruncDB(dblogs *yamlparser.PsqlLogs) error {
+	return ApplyBackupFile2(dblogs, "truncdb.sql")
+}
+
+// todo prep a tester + gestion d'err
+func ApplyBackupFile2(dblogs *yamlparser.PsqlLogs, file string) error {
+
+	backupfolderpath := "/db_backups/"
+	fullfilepath := fmt.Sprintf(".%s%s", backupfolderpath, file)
+
+	if _, err := os.Stat(fullfilepath); err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			//absorbtion de errstack
+			return fmt.Errorf("File not found in the %s folder: %s", backupfolderpath, file)
+		}
+	}
+
+	//service name is db ?!
+	cmd1 := fmt.Sprintf("compose cp %s db:/tmp/%s",
+		fullfilepath,
+		file,
+	)
+	err := runStep("docker", cmd1, options{false, false})
+	if err != nil {
+		return err
+	}
+
+	cmd2 := fmt.Sprintf("compose exec db psql -U %s -d %s -f /tmp/%s",
+		dblogs.User,
+		dblogs.Db,
+		file,
+	)
+
+	err = runStep("docker", cmd2, options{false, false})
+	if err != nil {
+		return err
+	}
+
+	cmd3 := fmt.Sprintf("compose exec db rm /tmp/%s",
+		file,
+	)
+	err = runStep("docker", cmd3, options{false, false})
+	if err != nil {
+		return err
+	}
 	return err
 }
