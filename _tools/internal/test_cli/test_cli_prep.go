@@ -11,6 +11,9 @@ import (
 	"strings"
 )
 
+// le nom du service du docker-compose "db" est hardcodé
+
+// Console options to redirect stdout and stderr
 type options struct {
 	WithOuts bool
 	WithErrs bool
@@ -33,6 +36,7 @@ func runStep(name string, args string, opt options) error {
 	return cmd.Run()
 }
 
+// Install the containers without building dependencies
 func Install() error {
 	err := runStep("docker", "compose up -d", options{true, true})
 	if err != nil {
@@ -43,6 +47,7 @@ func Install() error {
 	return err
 }
 
+// Install the containers and build the dependencies listed in the Dockerfiles
 func Build() error {
 	err := runStep("docker", "compose up -d --build", options{true, true})
 	if err != nil {
@@ -52,6 +57,8 @@ func Build() error {
 	}
 	return err
 }
+
+// Dismount all the containers from the project and delete the volumes.
 func Remove() error {
 	//ne throw rien si la cmd ne fait rien ?! ne pas dismount = pas d'err selon docker?!
 	//aucun message en console ni out ni err :/
@@ -64,35 +71,12 @@ func Remove() error {
 	return err
 }
 
+// Reset the database to its original state. Dataset comes from the early fork, from the inital dev of the app.
 func ResetDB(dblogs *yamlparser.PsqlLogs) error {
-	return ApplyBackupFile(dblogs, "Backup_invoicika_001.sql")
+	return ApplyBackupFile2(dblogs, "Backup_invoicika_001.sql")
 }
 
-// Directly apply a backup file with psql cmd
-// Passage par le psql de la machine locale, casse parfois sur l'init du container
-func ApplyBackupFile(dblogs *yamlparser.PsqlLogs, file string) error {
-
-	backupfolderpath := "/db_backups/"
-	fullfilepath := fmt.Sprintf(".%s%s", backupfolderpath, file)
-
-	if _, err := os.Stat(fullfilepath); err != nil {
-		if errors.Is(err, os.ErrNotExist) {
-			//absorbtion de errstack
-			return fmt.Errorf("File not found in the %s folder: %s", backupfolderpath, file)
-		}
-	}
-
-	cmd := fmt.Sprintf("postgresql://%s:%s@localhost:%s/%s -f %s",
-		dblogs.User,
-		dblogs.Password,
-		dblogs.Port,
-		dblogs.Db,
-		fullfilepath,
-	)
-	err := runStep("psql", cmd, options{false, true})
-	return err
-}
-
+// Wipe the data from the database.
 func TruncDB(dblogs *yamlparser.PsqlLogs) error {
 	return ApplyBackupFile2(dblogs, "truncdb.sql")
 }
@@ -100,13 +84,12 @@ func TruncDB(dblogs *yamlparser.PsqlLogs) error {
 // todo prep a tester + gestion d'err
 func ApplyBackupFile2(dblogs *yamlparser.PsqlLogs, file string) error {
 
-	backupfolderpath := "/db_backups/"
-	fullfilepath := fmt.Sprintf(".%s%s", backupfolderpath, file)
+	fullfilepath := fmt.Sprintf(".%s%s", BACKUP_FOLDER, file)
 
 	if _, err := os.Stat(fullfilepath); err != nil {
 		if errors.Is(err, os.ErrNotExist) {
 			//absorbtion de errstack
-			return fmt.Errorf("File not found in the %s folder: %s", backupfolderpath, file)
+			return fmt.Errorf("File not found in the %s folder: %s", BACKUP_FOLDER, file)
 		}
 	}
 
@@ -138,5 +121,34 @@ func ApplyBackupFile2(dblogs *yamlparser.PsqlLogs, file string) error {
 	if err != nil {
 		return err
 	}
+	return err
+}
+
+//-------------------------------------
+//OLD to be RM ?
+
+// Directly apply a backup file with psql cmd
+// -> Passage par le psql de la machine locale, casse parfois sur l'init du container
+// -> c'est okay pour travailler avec psql en local, avec docker c'est pas la meilleur idée
+// -> ca peut etre deshydraté en vrai c'est utile comme methode, juste pas pour ce proj
+func ApplyBackupFile(dblogs *yamlparser.PsqlLogs, file string) error {
+
+	fullfilepath := fmt.Sprintf(".%s%s", BACKUP_FOLDER, file)
+
+	if _, err := os.Stat(fullfilepath); err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			//absorbtion de errstack
+			return fmt.Errorf("File not found in the %s folder: %s", BACKUP_FOLDER, file)
+		}
+	}
+
+	cmd := fmt.Sprintf("postgresql://%s:%s@localhost:%s/%s -f %s",
+		dblogs.User,
+		dblogs.Password,
+		dblogs.Port,
+		dblogs.Db,
+		fullfilepath,
+	)
+	err := runStep("psql", cmd, options{false, true})
 	return err
 }

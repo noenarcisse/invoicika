@@ -1,10 +1,10 @@
 package main
 
 import (
+	"dbinjector/internal/customers"
 	"dbinjector/internal/database"
 	"dbinjector/internal/netutils"
 	testcli "dbinjector/internal/test_cli"
-	"dbinjector/internal/users"
 	"dbinjector/internal/yamlparser"
 	"dbinjector/pkg/console"
 	"flag"
@@ -18,35 +18,42 @@ func main() {
 	var state int
 
 	//flag -h
-	flag.BoolVar(&help, "help", false, "Display help")
-	flag.BoolVar(&help, "h", false, "Display help")
+	helpmsg := "Display help"
+	flag.BoolVar(&help, "help", false, helpmsg)
+	flag.BoolVar(&help, "h", false, helpmsg)
 	//flag -i
-	flag.BoolVar(&install, "install", false, "Install the project with Docker")
-	flag.BoolVar(&install, "i", false, "Install the project with Docker")
+	installmsg := "Install the project with Docker"
+	flag.BoolVar(&install, "install", false, installmsg)
+	flag.BoolVar(&install, "i", false, installmsg)
 	//flag -b
-	buildmessage := "Install the project with Docker with --build flag"
-	flag.BoolVar(&build, "build", false, buildmessage)
-	flag.BoolVar(&build, "b", false, buildmessage)
+	buildmsg := "Install the project with Docker with --build flag"
+	flag.BoolVar(&build, "build", false, buildmsg)
+	flag.BoolVar(&build, "b", false, buildmsg)
 	//flag -d
-	flag.BoolVar(&delete, "delete", false, "Install the project with Docker")
-	flag.BoolVar(&delete, "d", false, "Install the project with Docker")
+	deletemsg := "Dismount the container with Docker"
+	flag.BoolVar(&delete, "delete", false, deletemsg)
+	flag.BoolVar(&delete, "d", false, deletemsg)
 	//flag -s
-	flag.IntVar(&state, "state", 0, "Swap the state of the Database")
-	flag.IntVar(&state, "s", 0, "Swap the state of the Database")
+	statemsg := "Swap the state of the Database"
+	flag.IntVar(&state, "state", 0, statemsg)
+	flag.IntVar(&state, "s", 0, statemsg)
 	//flag -r
-	flag.BoolVar(&reset, "reset", false, "Reset the state of the project")
-	flag.BoolVar(&reset, "r", false, "Reset the state of the project")
+	resetmsg := "Reset the state of the project"
+	flag.BoolVar(&reset, "reset", false, resetmsg)
+	flag.BoolVar(&reset, "r", false, resetmsg)
 
-	flag.Parse() // il logge plus d'err en cas de mis args?!
+	flag.Parse()
 
 	dblogs, err := yamlparser.GetDBInfosFromYml("./docker-compose.yml")
 	if err != nil {
+		//todo err management
 		panic(err)
 	}
 
 	switch {
 	case help:
-		console.Printcln(console.BLUE, "Not implemented")
+		flag.PrintDefaults()
+		os.Exit(0)
 
 	case build:
 		// ping internet ici, le dev a fait une dependance npm i dans son dockerfile
@@ -56,7 +63,7 @@ func main() {
 			return
 		}
 
-		console.Printcln(console.BLUE, "Installing containers")
+		console.Printcln(console.BLUE, "Installing containers with --build option")
 		err := testcli.Build()
 		if err != nil {
 			console.Printcln(console.RED, "Error happened while installing with Docker")
@@ -76,11 +83,13 @@ func main() {
 		err = testcli.TruncDB(dblogs)
 		if err != nil {
 			console.Printcln(console.RED, "TRUNC ERR:"+err.Error())
+			os.Exit(1)
 		}
 		console.Printcln(console.GREEN, "\nDB emptied entirely, DONE!")
 		err = testcli.ApplyBackupFile2(dblogs, "Backup_invoicika_002.sql")
 		if err != nil {
 			console.Printcln(console.RED, "Backup err:"+err.Error())
+			os.Exit(1)
 		}
 		console.Printcln(console.GREEN, "DB state changed to 1, DONE!")
 
@@ -90,7 +99,7 @@ func main() {
 		if err != nil {
 			console.Printcln(console.RED, "Error happened while attempting to remove the containers with Docker")
 			fmt.Println(err.Error())
-			return
+			os.Exit(1)
 		}
 
 	case reset:
@@ -98,11 +107,7 @@ func main() {
 		err := testcli.ResetDB(dblogs)
 		if err != nil {
 			console.Printcln(console.RED, err.Error())
-			// err := testcli.ResetDB2()
-			// if err != nil {
-			// 	console.Printcln(console.RED, err.Error())
-			// 	os.Exit(1)
-			// }
+			os.Exit(1)
 		}
 		console.Printcln(console.GREEN, "\nDB reset, DONE!")
 
@@ -114,18 +119,13 @@ func main() {
 			if err != nil {
 				console.Printcln(console.RED, err.Error())
 				os.Exit(1)
-				// err := testcli.ResetDB2()
-				// if err != nil {
-				// 	console.Printcln(console.RED, err.Error())
-				// 	os.Exit(1)
-				// }
 			}
 			conn := database.OpenDB(dblogs)
 			defer conn.Close()
 
 			database.NewDB(conn).Trunc("Customers")
-			cs, _ := users.GetAllUsers()
-			users.NewDB(conn).InjectUsers(cs)
+			cs, _ := customers.GetAllUsers()
+			customers.NewDB(conn).InjectUsers(cs)
 			console.Printcln(console.GREEN, "\nDB state changed to %d, DONE!", state)
 
 		case 2:
@@ -141,6 +141,6 @@ func main() {
 		}
 	default:
 		console.Printcln(console.RED, "ERROR ARGS")
-		//unreachable with current flag parse
+		flag.PrintDefaults()
 	}
 }

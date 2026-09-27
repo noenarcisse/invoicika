@@ -1,18 +1,18 @@
-package users
+package customers
 
 import (
 	_ "embed"
 	"encoding/json"
 )
 
-//go:embed data/users.json
-var jasonUsers string
+//go:embed data/customers.json
+var jasonCustomers string
 
 func GetAllUsers() ([]Customer, error) {
 
 	raw := []Customer{}
 
-	err := json.Unmarshal([]byte(jasonUsers), &raw)
+	err := json.Unmarshal([]byte(jasonCustomers), &raw)
 	if err != nil {
 		return nil, err
 	}
