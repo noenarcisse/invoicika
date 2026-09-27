@@ -48,6 +48,8 @@ https://www.sonarsource.com/products/sonarqube/downloads/
 - [x] Fix les liens du docker-compose et les dockerfile :<br>
     https://github.com/noenarcisse/invoicika/blob/main/docker-compose.yml <br>
     https://github.com/noenarcisse/invoicika/blob/main/WebAPI/Dockerfile
+    
+- [ ] Add https://github.com/noenarcisse/CS_Flaui/blob/main/.vscode/settings.json
 - [ ] Ajouter NSubstitute (ou Moq pour souffrir)
 - [ ] Ajouter Shouldly
 - [ ] Install VS a BF, la fenetre de test est loin au dessus de vscode 
