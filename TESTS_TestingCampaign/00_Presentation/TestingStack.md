@@ -20,8 +20,8 @@
 | dependance | auteur | url
 |---|---|---|
 | xUnit3 | .NET Foundation | https://xunit.net/?tabs=cs |
-| Shouldly | ? |  |
-| NSubstitute |  |  |
+| Shouldly | https://github.com/shouldly | https://docs.shouldly.org/ |
+| NSubstitute | https://github.com/nsubstitute | https://nsubstitute.github.io/ |
 | PDFPig? | UglyToad | https://www.nuget.org/packages/PdfPig/0.1.17-alpha-202609071845-0d1d6 |
 | pq | lib/pq | https://pkg.go.dev/github.com/lib/pq |
 | uuid | Google | https://pkg.go.dev/github.com/google/uuid |
