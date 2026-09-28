@@ -13,7 +13,9 @@ https://www.sonarsource.com/products/sonarqube/downloads/
 - [x] Prep le readme de test, recup les infos de base du readme du dev pour les techs
 - [x] Ajouter les instructions et modif effectuée pour install
 - [ ] Documentation legale des facturation a faire pour les RM manquantes
-- [ ] Voir SonarQube pour les tests statics
+- [x] Voir SonarQube pour les tests statics
+- [ ] DL le cli sur les 2 machines : https://docs.sonarsource.com/sonarqube-community-build/analyzing-source-code/scanners/sonarscanner#windows
+- [ ] setup le docker sonar at home :d
 - [ ] Referencer et publier le repo du Squash
 
 - [ ] Aller tester l'envoie de mail si ca marche vraiment avec le SMPT (for fun, c'est hors scope anw)
