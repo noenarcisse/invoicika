@@ -5,7 +5,8 @@
 
 
 /.vscode
-
+*.properties
+**/.scannerwork
 
 # added
 *.exe
