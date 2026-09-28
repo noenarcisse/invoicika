@@ -15,7 +15,9 @@
 | infra/db | Go | cli/tooling | https://go.dev/ |
 | project | jira | project management | https://www.atlassian.com/fr/software/jira |
 | project | squash tm | project management | https://tm-fr.doc.squashtest.com/latest/ |
-| project | SonarQube Community build | static tests | https://www.sonarsource.com/ |
+| project | SonarQube Community build | static analysis | https://www.sonarsource.com/ |
+| IDE | VSCode | testing | https://code.visualstudio.com/ |
+| IDE | Visual Studio 2026 | testing + tests explorer (C#) | https://visualstudio.microsoft.com/ |
 
 | dependance | auteur | url
 |---|---|---|
