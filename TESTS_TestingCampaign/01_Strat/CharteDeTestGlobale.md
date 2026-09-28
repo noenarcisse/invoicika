@@ -24,6 +24,9 @@ Il s'agit de cartographier précisément ce qui doit être testé (En Périmètr
 Il est mis à l'écart car il ne permet pas de tester le code de l’app mais ce qui en sort en E2E.
 
 ### Hors Périmètre (Out-of-Scope)
+
+- .NET : Code généré, migration de DB
+- Injection de seed, data (vu en passant dans le Backend)
 - La feature lié à l’envoi de mail
 
 ## 2. Critères d'Entrée et de Sortie
