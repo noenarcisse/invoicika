@@ -13,12 +13,15 @@
 | infra/db | postgresql / SQL |  | https://www.postgresql.org/ |
 | infra/db | pgAdmin | testing | https://www.postgresql.org/ |
 | infra/db | Go | cli/tooling | https://go.dev/ |
-| project | jira | project management |  |
-| project | squash tm | project management |  |
+| project | jira | project management | https://www.atlassian.com/fr/software/jira |
+| project | squash tm | project management | https://tm-fr.doc.squashtest.com/latest/ |
+| project | SonarQube Community build | static tests | https://www.sonarsource.com/ |
 
 | dependance | auteur | url
 |---|---|---|
-| xUnit? | .NET Foundation | https://xunit.net/?tabs=cs |
+| xUnit3 | .NET Foundation | https://xunit.net/?tabs=cs |
+| Shouldly | ? |  |
+| NSubstitute |  |  |
 | PDFPig? | UglyToad | https://www.nuget.org/packages/PdfPig/0.1.17-alpha-202609071845-0d1d6 |
 | pq | lib/pq | https://pkg.go.dev/github.com/lib/pq |
 | uuid | Google | https://pkg.go.dev/github.com/google/uuid |
