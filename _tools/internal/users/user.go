@@ -23,11 +23,11 @@ type User struct {
 	EmailAdress  string `json:"email"`
 	PhotoUrl     string
 	PasswordHash string `json:"password"` //tag used for raw DTO from the json
-	Role_id      string
+	Role_id      string `json:"role"`
 	CreationDate time.Time
 }
 
-func NewUser(name string, email string, photourl string, password string) *User {
+func NewUser(name string, email string, password string, role string) *User {
 	hash := sha256.Sum256([]byte(password))
 	// passwordHashed := hex.EncodeToString(hash[:]) //nop
 	passwordHashed := base64.StdEncoding.EncodeToString(hash[:]) // le dev faiait un base 64 pour stocker le hash
@@ -35,9 +35,9 @@ func NewUser(name string, email string, photourl string, password string) *User 
 		UserId:       uuid.New(),
 		Username:     name,
 		EmailAdress:  email,
-		PhotoUrl:     photourl, //var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads"); //var uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+		PhotoUrl:     "/uploads/invoicika.png", //var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads"); //var uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
 		PasswordHash: passwordHashed,
-		Role_id:      "3c128167-8201-43c1-a841-003c2258589e", //employee hardcoded
+		Role_id:      roleToUUID(role),
 		CreationDate: time.Now().UTC(),
 	}
 }
@@ -57,4 +57,17 @@ func (db *DB) InjectUsers(us []User) {
 			panic(err)
 		}
 	}
+}
+
+// return role guuid or employee if not found
+func roleToUUID(role string) string {
+	// hardcoded from the intit db, theres not much to do with perm tbf
+	roles := map[string]string{
+		"employee": "3c128167-8201-43c1-a841-003c2258589e",
+		"admin":    "a95e8d13-c513-4b8f-95f0-4266b87bbe6d",
+	}
+	if val, ok := roles[role]; ok {
+		return val
+	}
+	return roles["employee"]
 }
