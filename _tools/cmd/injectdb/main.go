@@ -3,6 +3,7 @@ package main
 import (
 	"dbinjector/internal/customers"
 	"dbinjector/internal/database"
+	"dbinjector/internal/items"
 	"dbinjector/internal/users"
 	"dbinjector/internal/yamlparser"
 	"dbinjector/pkg/console"
@@ -25,8 +26,8 @@ func main() {
 	flag.IntVar(&cmd.Customers, "c", -1, customersrmsg)
 
 	itemsmsg := "Inject Customers table in DB"
-	flag.IntVar(&cmd.Customers, "items", -1, itemsmsg)
-	flag.IntVar(&cmd.Customers, "i", -1, itemsmsg)
+	flag.IntVar(&cmd.Items, "items", -1, itemsmsg)
+	flag.IntVar(&cmd.Items, "i", -1, itemsmsg)
 
 	usersmsg := "Inject Users table in DB"
 	flag.IntVar(&cmd.Users, "users", -1, usersmsg)
@@ -55,6 +56,17 @@ func main() {
 
 	if cmd.Items != -1 {
 		switch cmd.Items {
+		case 0:
+			is, _ := items.GetAllItems()
+			for _, u := range is {
+				fmt.Printf("%+v\n", u)
+				fmt.Println()
+			}
+			conn := database.OpenDB(dblogs)
+			defer conn.Close()
+
+			database.NewDB(conn).Trunc("Items")
+			items.NewDB(conn).InjectItems(is)
 		default:
 			console.Printcln(console.RED, "DB injection not prepared for the state items %d", cmd.Items)
 		}
@@ -70,6 +82,8 @@ func main() {
 			}
 			conn := database.OpenDB(dblogs)
 			defer conn.Close()
+
+			database.NewDB(conn).Trunc("Users")
 			users.NewDB(conn).InjectUsers(us)
 
 		default:
