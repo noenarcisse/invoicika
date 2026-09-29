@@ -8,7 +8,7 @@ import (
 //go:embed data/customers.json
 var jasonCustomers string
 
-func GetAllUsers() ([]Customer, error) {
+func GetAllCustomers() ([]Customer, error) {
 
 	raw := []Customer{}
 

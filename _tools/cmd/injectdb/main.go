@@ -3,9 +3,11 @@ package main
 import (
 	"dbinjector/internal/customers"
 	"dbinjector/internal/database"
+	"dbinjector/internal/users"
 	"dbinjector/internal/yamlparser"
 	"dbinjector/pkg/console"
 	"flag"
+	"fmt"
 )
 
 type cmd struct {
@@ -26,6 +28,10 @@ func main() {
 	flag.IntVar(&cmd.Customers, "items", -1, itemsmsg)
 	flag.IntVar(&cmd.Customers, "i", -1, itemsmsg)
 
+	usersmsg := "Inject Users table in DB"
+	flag.IntVar(&cmd.Users, "users", -1, usersmsg)
+	flag.IntVar(&cmd.Users, "u", -1, usersmsg)
+
 	flag.Parse()
 
 	dblogs, err := yamlparser.GetDBInfosFromYml("./docker-compose.yml")
@@ -40,24 +46,34 @@ func main() {
 			defer conn.Close()
 
 			database.NewDB(conn).Trunc("Customers")
-			cs, _ := customers.GetAllUsers()
-			customers.NewDB(conn).InjectUsers(cs)
+			cs, _ := customers.GetAllCustomers()
+			customers.NewDB(conn).InjectCustomers(cs)
 		default:
-			console.Printcln(console.RED, "DB injection not prepared for the state %d", cmd.Customers)
+			console.Printcln(console.RED, "DB injection not prepared for the state customers %d", cmd.Customers)
 		}
 	}
 
 	if cmd.Items != -1 {
 		switch cmd.Items {
 		default:
-			console.Printcln(console.RED, "DB injection not prepared for the state %d", cmd.Items)
+			console.Printcln(console.RED, "DB injection not prepared for the state items %d", cmd.Items)
 		}
 	}
 
 	if cmd.Users != -1 {
 		switch cmd.Users {
+		case 0:
+			us, _ := users.GetAllUsers()
+			for _, u := range us {
+				fmt.Printf("%+v\n", u)
+				fmt.Println()
+			}
+			conn := database.OpenDB(dblogs)
+			defer conn.Close()
+			users.NewDB(conn).InjectUsers(us)
+
 		default:
-			console.Printcln(console.RED, "DB injection not prepared for the state %d", cmd.Users)
+			console.Printcln(console.RED, "DB injection not prepared for the stat users %d", cmd.Users)
 		}
 	}
 

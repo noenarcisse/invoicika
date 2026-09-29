@@ -1,15 +1,26 @@
 package main
 
 import (
-	"dbinjector/internal/yamlparser"
+	"dbinjector/internal/users"
 	"fmt"
 )
 
 func main() {
-	dblog, err := yamlparser.GetDBInfosFromYml("./docker-compose.yml")
-	if err != nil {
-		panic(err)
+
+	u := users.NewUser("John", "j@gmail.com", "url.jpg", "admin1")
+	fmt.Printf("%+v\n", u)
+	fmt.Println()
+
+	us, _ := users.GetAllUsers()
+	for _, u := range us {
+		fmt.Printf("%+v\n", u)
+		fmt.Println()
 	}
 
-	fmt.Printf("%+v\n", dblog)
+	// dblog, err := yamlparser.GetDBInfosFromYml("./docker-compose.yml")
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// fmt.Printf("%+v\n", dblog)
 }

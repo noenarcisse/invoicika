@@ -37,7 +37,7 @@ func NewCustomer(name string, addr string, email string, phone string) *Customer
 	}
 }
 
-func (db *DB) InjectUsers(cs []Customer) {
+func (db *DB) InjectCustomers(cs []Customer) {
 	for _, c := range cs {
 		_, err := db.Exec("insert into \"Customers\"(\"CustomerId\", \"Name\", \"Address\", \"PhoneNumber\", \"Email\", \"CreationDate\", \"UpdateDate\" ) values($1,$2,$3,$4,$5,$6,$7)",
 			c.CustomerId,
