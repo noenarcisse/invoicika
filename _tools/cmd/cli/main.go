@@ -124,8 +124,8 @@ func main() {
 			defer conn.Close()
 
 			database.NewDB(conn).Trunc("Customers")
-			cs, _ := customers.GetAllUsers()
-			customers.NewDB(conn).InjectUsers(cs)
+			cs, _ := customers.GetAllCustomers()
+			customers.NewDB(conn).InjectCustomers(cs)
 			console.Printcln(console.GREEN, "\nDB state changed to %d, DONE!", state)
 
 		case 2:
