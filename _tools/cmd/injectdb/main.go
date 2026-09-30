@@ -9,6 +9,8 @@ import (
 	"dbinjector/pkg/console"
 	"flag"
 	"fmt"
+	"os"
+	"path/filepath"
 )
 
 type cmd struct {
@@ -35,7 +37,15 @@ func main() {
 
 	flag.Parse()
 
-	dblogs, err := yamlparser.GetDBInfosFromYml("./docker-compose.yml")
+	dir := os.Getenv("APP_DIR")
+	if dir == "" {
+		exe, _ := os.Executable()
+		dir = filepath.Dir(exe)
+	}
+
+	fp := filepath.Join(dir, "docker-compose.yml")
+
+	dblogs, err := yamlparser.GetDBInfosFromYml(fp)
 	if err != nil {
 		panic(err)
 	}
