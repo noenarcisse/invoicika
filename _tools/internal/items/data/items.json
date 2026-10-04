@@ -2,7 +2,31 @@
   {
     "name": "Armoire Billy",
     "description": "blablabla",
-    "purchasePriceCents": 1100,
-    "salePriceCents" : 1000
+    "purchasePriceCents": 1999,
+    "salePriceCents" : 2500
+  },
+    {
+    "name": "Pokemon bleu",
+    "description": "blablabla",
+    "purchasePriceCents": 10000,
+    "salePriceCents" : 37050
+  },
+    {
+    "name": "Harry Potter et la chambre des secrets",
+    "description": "blablabla",
+    "purchasePriceCents": 4000,
+    "salePriceCents" : 4200
+  },
+  {
+    "name": "Dark souls : Prepare to die edition",
+    "description": "blablabla",
+    "purchasePriceCents": 3900,
+    "salePriceCents" : 4900
+  },
+  {
+    "name": "Demie paire de bottes Shein",
+    "description": "blablabla",
+    "purchasePriceCents": 200,
+    "salePriceCents" : 100
   }
 ]
