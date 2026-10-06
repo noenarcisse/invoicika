@@ -1,31 +1,31 @@
 [
   {
     "name": "Armoire Billy",
-    "description": "blablabla",
+    "description": "Une armoire suédoise particulièrement solide et montrant aux autres votre bon goût",
     "purchasePriceCents": 1999,
     "salePriceCents" : 2500
   },
     {
     "name": "Pokemon bleu",
-    "description": "blablabla",
+    "description": "Attrapez les tous",
     "purchasePriceCents": 10000,
     "salePriceCents" : 37050
   },
     {
     "name": "Harry Potter et la chambre des secrets",
-    "description": "blablabla",
+    "description": "Le second ouvrage de la célèbre saga Harry Potter",
     "purchasePriceCents": 4000,
     "salePriceCents" : 4200
   },
   {
     "name": "Dark souls : Prepare to die edition",
-    "description": "blablabla",
+    "description": "You died",
     "purchasePriceCents": 3900,
     "salePriceCents" : 4900
   },
   {
     "name": "Demie paire de bottes Shein",
-    "description": "blablabla",
+    "description": "Ce ne sont que des bottes gauches. Merci de ne pas en commander plusieurs en espérant avoir la droite",
     "purchasePriceCents": 200,
     "salePriceCents" : 100
   }

@@ -45,6 +45,9 @@ func NewUser(name string, email string, password string, role string) *User {
 
 func (db *DB) InjectUsers(us []User) {
 
+	// todo avec ce type d'err qui peut interrompre mid ecriture
+	// faudrait faire un begin et commit si pas d'err
+	// sinon rollback pour pas laisser la DB dans un etat entre 2
 	roles, err := db.getRoleIds()
 	if err != nil {
 		panic(err)
@@ -99,6 +102,5 @@ func (db DB) getRoleIds() (roles map[string]uuid.UUID, err error) {
 			return
 		}
 	}
-
 	return
 }
