@@ -59,6 +59,36 @@ func (db *DB) InjectUsers(us []User) {
 	}
 }
 
+//todo faut recuperer les roles et leurs uuids pour de vrai ici
+// func (db DB) getRoleIds() []uuid.UUID {
+
+// 	ids := []uuid.UUID{}
+
+// 	rows, err := db.Query("select \"UserId\" from \"Users\"")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	defer rows.Close()
+
+// 	for rows.Next() {
+// 		var id uuid.UUID
+// 		err := rows.Scan(&id)
+// 		if err != nil {
+// 			panic(err)
+// 		}
+
+// 		fmt.Printf("ID: %v\n", id)
+
+// 		ids = append(ids, id)
+
+// 		if rows.Err() != nil {
+// 			panic(rows.Err())
+// 		}
+// 	}
+
+// 	return ids
+// }
+
 // return role guuid or employee if not found
 func roleToUUID(role string) string {
 	// hardcoded from the intit db, theres not much to do with perm tbf
