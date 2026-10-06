@@ -6,16 +6,15 @@ bug vu en whitebox -> report ! (cors)
 j'ai prep en priv le squash sur https://github.com/noenarcisse/squash_invoicika
 a ouvrir a long terme pour la presa?
 
-static analysis -> voir sonarqube?
-https://www.sonarsource.com/products/sonarqube/downloads/
+db -> test sql ? j'ai vu que delete des elements supprime les données liées, ca vaut le coup de voir si y'a une erreur dans la mod de la DB avec des mauvais cascades en rentrant des données ou en les deletant :d
 
 ## GENERAL
 - [x] Prep le readme de test, recup les infos de base du readme du dev pour les techs
 - [x] Ajouter les instructions et modif effectuée pour install
 - [ ] Documentation legale des facturation a faire pour les RM manquantes
 - [x] Voir SonarQube pour les tests statics
-- [ ] DL le cli sur les 2 machines : https://docs.sonarsource.com/sonarqube-community-build/analyzing-source-code/scanners/sonarscanner#windows
-- [ ] setup le docker sonar at home :d
+- [x] DL le cli sur les 2 machines : https://docs.sonarsource.com/sonarqube-community-build/analyzing-source-code/scanners/sonarscanner#windows
+- [x] setup le docker sonar at home :d
 - [ ] Referencer et publier le repo du Squash
 
 - [ ] Aller tester l'envoie de mail si ca marche vraiment avec le SMPT (for fun, c'est hors scope anw)
@@ -27,6 +26,7 @@ https://www.sonarsource.com/products/sonarqube/downloads/
 - [x] Setup JIRA
 - [x] Passer le scouting en tag pas en EPIC, trier les bugs trouvés dans leurs sections correspondantes
 - [x] Setup Squash
+- [ ] Setup Playwright pour les tests E2E
 - [ ] Prep le dossier de rapport de tests
 - [ ] CI CD possible ? reliage avec git ?
 
