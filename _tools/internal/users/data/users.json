@@ -3,18 +3,18 @@
     "name": "admin",
     "password": "admin",
     "email": "admin@admin.com",
-    "role" : "admin"
+    "role" : "Admin"
   },
   {
     "name": "Jacques Houille",
     "password": "cestokay",
     "email": "jchouille@montmirail.fr",
-    "role" : "employee"
+    "role" : "Employee"
   },
   {
     "name": "Godefroy De Montmirail",
     "password": "quetrepassesijefaiblis",
     "email": "gdm@montmirail.fr",
-    "role" : "employee"
+    "role" : "Employee"
   }
 ]

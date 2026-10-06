@@ -4,6 +4,7 @@ import (
 	"crypto/sha256"
 	"database/sql"
 	"encoding/base64"
+	"fmt"
 	"time"
 
 	"github.com/google/uuid"
@@ -23,7 +24,7 @@ type User struct {
 	EmailAdress  string `json:"email"`
 	PhotoUrl     string
 	PasswordHash string `json:"password"` //tag used for raw DTO from the json
-	Role_id      string `json:"role"`
+	RoleName     string `json:"role"`
 	CreationDate time.Time
 }
 
@@ -37,20 +38,33 @@ func NewUser(name string, email string, password string, role string) *User {
 		EmailAdress:  email,
 		PhotoUrl:     "/uploads/invoicika.png", //var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads"); //var uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
 		PasswordHash: passwordHashed,
-		Role_id:      roleToUUID(role),
+		RoleName:     role,
 		CreationDate: time.Now().UTC(),
 	}
 }
 
 func (db *DB) InjectUsers(us []User) {
+
+	roles, err := db.getRoleIds()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(roles)
+
 	for _, u := range us {
+
+		if _, ok := roles[u.RoleName]; !ok {
+			panic("Role not found")
+		}
+
 		_, err := db.Exec("insert into \"Users\"(\"UserId\", \"Username\", \"EmailAddress\", \"PhotoUrl\", \"PasswordHash\", \"Role_id\", \"CreationDate\") values($1,$2,$3,$4,$5,$6,$7)",
 			u.UserId,
 			u.Username,
 			u.EmailAdress,
 			u.PhotoUrl,
 			u.PasswordHash,
-			u.Role_id,
+			roles[u.RoleName],
 			u.CreationDate,
 		)
 		if err != nil {
@@ -59,45 +73,32 @@ func (db *DB) InjectUsers(us []User) {
 	}
 }
 
-//todo faut recuperer les roles et leurs uuids pour de vrai ici
-// func (db DB) getRoleIds() []uuid.UUID {
-
-// 	ids := []uuid.UUID{}
-
-// 	rows, err := db.Query("select \"UserId\" from \"Users\"")
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	defer rows.Close()
-
-// 	for rows.Next() {
-// 		var id uuid.UUID
-// 		err := rows.Scan(&id)
-// 		if err != nil {
-// 			panic(err)
-// 		}
-
-// 		fmt.Printf("ID: %v\n", id)
-
-// 		ids = append(ids, id)
-
-// 		if rows.Err() != nil {
-// 			panic(rows.Err())
-// 		}
-// 	}
-
-// 	return ids
-// }
-
-// return role guuid or employee if not found
-func roleToUUID(role string) string {
-	// hardcoded from the intit db, theres not much to do with perm tbf
-	roles := map[string]string{
-		"employee": "3c128167-8201-43c1-a841-003c2258589e",
-		"admin":    "a95e8d13-c513-4b8f-95f0-4266b87bbe6d",
+// todo faut recuperer les roles et leurs uuids pour de vrai ici
+func (db DB) getRoleIds() (roles map[string]uuid.UUID, err error) {
+	roles = make(map[string]uuid.UUID)
+	rows, err := db.Query("select \"RoleId\", \"RoleName\" from \"Roles\"")
+	if err != nil {
+		return
 	}
-	if val, ok := roles[role]; ok {
-		return val
+	defer rows.Close()
+
+	for rows.Next() {
+		var roleName string
+		var id uuid.UUID
+		err = rows.Scan(&id, &roleName)
+		if err != nil {
+			return
+		}
+
+		fmt.Printf("ID: %v\n", id)
+
+		roles[roleName] = id
+
+		if rows.Err() != nil {
+			err = rows.Err()
+			return
+		}
 	}
-	return roles["employee"]
+
+	return
 }

@@ -19,7 +19,7 @@ func GetAllUsers() ([]User, error) {
 
 	us := make([]User, 0)
 	for _, ur := range raw {
-		u := NewUser(ur.Username, ur.EmailAdress, ur.PasswordHash, ur.Role_id)
+		u := NewUser(ur.Username, ur.EmailAdress, ur.PasswordHash, ur.RoleName)
 		us = append(us, *u)
 	}
 
