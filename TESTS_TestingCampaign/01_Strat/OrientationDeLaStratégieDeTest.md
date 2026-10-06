@@ -1,5 +1,7 @@
 # Orientation de la stratégie de test
 
+<!-- structure de sprints ? sprints de 8h ? -->
+
 Pour l'ensemble de la stratégie, je vais agir comme un testeur externe, amené à tester l'application selon le modèle "Waterflow" car c'est ce qui est le plus proche de la réalité en venant tester un produit Open-source délivré il y a déjà 2 ans sur Github.
 
 Avec cette approche, je n'aurai que peu de manière de vérifier la régression et le pesticid paradox, arrivant en fin de cycle sans correction de "l'équipe dev" imaginaire.

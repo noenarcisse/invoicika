@@ -7,7 +7,7 @@
 |---|---|---|---|
 | frontend | Jasmine & Karma | testing | https://angular.dev/guide/testing/karma |
 | frontend | Testing Library Angular | testing | https://testing-library.com/docs/angular-testing-library/intro |
-| frontend | Playwright? |  |  |
+| frontend | Playwright | E2E |  |
 | backend |.NET 10.0 / C# | testing | https://dotnet.microsoft.com/fr-fr/ |
 | backend/api | Bruno | testing | https://www.usebruno.com/ |
 | infra/db | postgresql / SQL |  | https://www.postgresql.org/ |
