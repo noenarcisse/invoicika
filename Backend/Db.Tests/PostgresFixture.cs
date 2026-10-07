@@ -13,13 +13,13 @@ public class PostgresFixture : IAsyncLifetime
 
     // iasynclifetime contract :d
     // ca cree et dispose en fin de vie
-    public async Task InitializeAsync() 
+    public async ValueTask InitializeAsync() 
     {
         await _pg.StartAsync();
         await using var ctx = CreateContext();
         await ctx.Database.MigrateAsync();
     }
-    public Task DisposeAsync() => _pg.DisposeAsync().AsTask();
+    public ValueTask DisposeAsync() => _pg.DisposeAsync();
 
     public InvoicikaDbContext CreateContext()
     {
