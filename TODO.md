@@ -1,12 +1,18 @@
 # PREP:
 
+voir l'utilisation de .NET avec un csproj DB.Tests qui va lance un container docker de la DB pour tester puis la suppr :D
+sinon SQL pur en script, lancable avec psql dans une loop et voila magie magie homemade
+Faut prio les unique, cascade, not null etc
+
+db -> test sql ? j'ai vu que delete des elements supprime les données liées, ca vaut le coup de voir si y'a une erreur dans la mod de la DB avec des mauvais cascades en rentrant des données ou en les deletant :d 
+
 davit a répondu pour le legal -> oui en plus pour les RM, p-e pas en prio1 par contre
 bug vu en whitebox -> report ! (cors)
 
 j'ai prep en priv le squash sur https://github.com/noenarcisse/squash_invoicika
 a ouvrir a long terme pour la presa?
 
-db -> test sql ? j'ai vu que delete des elements supprime les données liées, ca vaut le coup de voir si y'a une erreur dans la mod de la DB avec des mauvais cascades en rentrant des données ou en les deletant :d
+
 
 ## GENERAL
 - [x] Prep le readme de test, recup les infos de base du readme du dev pour les techs
