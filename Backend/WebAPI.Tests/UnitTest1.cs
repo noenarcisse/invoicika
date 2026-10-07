@@ -41,7 +41,7 @@ public class UnitTest1
     {
         mockMarcheur.Marcher().Returns(true);
         bool res = mockMarcheur.Marcher();
-        res.ShouldBe(true, "C'est un echech critique !");
+        res.ShouldBe(true, "C'est un echec critique !");
 
     }
 }

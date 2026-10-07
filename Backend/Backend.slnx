@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="Db.Tests/Db.Tests.csproj" Id="3a638e9a-2be4-4e70-bf73-bee0ea9cf90d" />
   <Project Path="WebAPI.Tests/WebAPI.Tests.csproj" />
   <Project Path="WebAPI/WebAPI.csproj" />
 </Solution>
