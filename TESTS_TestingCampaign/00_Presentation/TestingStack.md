@@ -25,7 +25,8 @@
 ## Gestion de projet et de campagne de tests
 | outil | utilisation
 |---|---|
-| Jira | Gestion de projet
+| Jira | Gestion de projet, reports de bugs
+| SquashTM | Gestion de la campagne de tests
 
 ## Infra, source control et CI/CD
 | outil | utilisation
