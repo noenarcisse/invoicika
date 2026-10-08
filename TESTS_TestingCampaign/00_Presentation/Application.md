@@ -36,4 +36,4 @@ Authentification avec jeton JWT.
 | backend | EF Core |
 | backend | QuestPDF |
 | backend | MailKit |
-| infra/db | PostGreSQL |
+| db | PostGreSQL |
