@@ -1,10 +1,12 @@
 # PREP:
 
-voir l'utilisation de .NET avec un csproj DB.Tests qui va lance un container docker de la DB pour tester puis la suppr :D
-sinon SQL pur en script, lancable avec psql dans une loop et voila magie magie homemade
 Faut prio les unique, cascade, not null etc
 
-db -> test sql ? j'ai vu que delete des elements supprime les données liées, ca vaut le coup de voir si y'a une erreur dans la mod de la DB avec des mauvais cascades en rentrant des données ou en les deletant :d 
+setup a faire : 
+
+External tests -> sql pur, test manuel d'exploration dans la DB pour voir les reactions possibles et trouver des bugs de schema
+
+test ecrit dans Backend/Db.Tests -> test C# avec un pseudo container tmp + migration de la DB et "unit test" de DB qui peuvent etre relancer pour valider que le schema soit correct. Permet de relancer facilement et d'utiliser les migrations / models deja fait pas le dev plutot que d'ecrire du sql :D
 
 davit a répondu pour le legal -> oui en plus pour les RM, p-e pas en prio1 par contre
 bug vu en whitebox -> report ! (cors)
@@ -58,15 +60,16 @@ a ouvrir a long terme pour la presa?
     https://github.com/noenarcisse/invoicika/blob/main/WebAPI/Dockerfile
     
 - [ ] Add https://github.com/noenarcisse/CS_Flaui/blob/main/.vscode/settings.json
-- [ ] Ajouter NSubstitute (ou Moq pour souffrir)
-- [ ] Ajouter Shouldly
-- [ ] Install VS a BF, la fenetre de test est loin au dessus de vscode 
+- [x] Ajouter NSubstitute (ou Moq pour souffrir)
+- [x] Ajouter Shouldly
+- [x] Install VS a BF, la fenetre de test est loin au dessus de vscode 
 
 ## FRONT
 - [x] Fix les vulné possibles : npm audit + i
 ## DB
 - [x] Backup_001 (init)
 - [x] Backup_002 (injected)
+- [x] Tester TestContainer, EF et les DB fixtures dans dotnet
 
 
 # Étape Attendue
