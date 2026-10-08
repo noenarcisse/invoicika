@@ -10,9 +10,8 @@
 | xUnit | tests composants, tests integration db 
 | Shouldly | assertion, tests composants et integration
 | NSubstitute | mocks
-| Testcontainers | test d'integration de db
-| Npgsql/EF Core | test d'integration de db
-| Docker | test d'integration de db
+| Testcontainers & Docker | tests d'integration de db
+| Npgsql/EF Core | tests d'integration de db
 | Bruno | tests API
 | Playwright | tests E2E 
 
@@ -24,20 +23,27 @@
 | SonarQube & Sonar scanners | analyse statique 
 
 ## Gestion de projet et de campagne de tests
-| outil | outils
+| outil | utilisation
 |---|---|
 | Jira | Gestion de projet
-| SquashTM | Gestion de tests
-| Git, GitHub, Fork, GitHub Desktop |  Source control 
-| GitHub Actions ? | CI/CD
+
+## Infra, source control et CI/CD
+| outil | utilisation
+|---|---|
+| Git, GitHub, Fork, GitHub Desktop | Source control 
+<!-- | GitHub Actions ? | CI/CD -->
 
 
 ## Dépendences
 | package |
 |---|
+| Microsoft.NET.Test.Sdk |
+| Testcontainers.PostgreSql |
+| Npgsql.EntityFrameworkCore.PostgreSQL |
 | xUnit3 |
 | Shouldly |
 | NSubstitute |
-| pq |
-| uuid |
+| pqgithub.com/lib/pq |
+| github.com/google/uuid |
+<!-- | coverlet | -->
 <!-- | PDFPig? | -->
