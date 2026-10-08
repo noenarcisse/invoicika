@@ -14,7 +14,7 @@ public class BidonDBTest(PostgresFixture db)
         await using var conn = await db.OpenConnectionAsync();
         await using var query = new NpgsqlCommand("select 1", conn);
 
-        var res = await query.ExecuteScalarAsync();
+        var res = await query.ExecuteScalarAsync(TestContext.Current.CancellationToken);
 
         res.ShouldBe(1);
     }
@@ -24,7 +24,7 @@ public class BidonDBTest(PostgresFixture db)
     {
         await using var ctx = db.CreateContext();
         ctx.Users.Add(new User { Username = "bob", EmailAddress = "bob@test.com", PasswordHash = "hash", Role = new Role { RoleName = "Admin" } });
-        await ctx.SaveChangesAsync();
+        await ctx.SaveChangesAsync(TestContext.Current.CancellationToken);
 
         await using var fresh = db.CreateContext();
         User? user = fresh.Users.FirstOrDefault(u => u.Username == "bob");
@@ -39,7 +39,7 @@ public class BidonDBTest(PostgresFixture db)
         await using var ctx = db.CreateContext();
         ctx.Users.Add(new User { Username = "bob", EmailAddress = "bob@test.com", PasswordHash = "hash", Role = new Role { RoleName = "Admin" } });
         ctx.Users.Add(new User { Username = "bob", EmailAddress = "bob@test.com", PasswordHash = "hash", Role = new Role { RoleName = "Admin" } });
-        await ctx.SaveChangesAsync();
+        await ctx.SaveChangesAsync(TestContext.Current.CancellationToken);
 
         await using var fresh = db.CreateContext();
         List<User> users = fresh.Users.Where(u => u.Username == "bob").ToList();
