@@ -21,7 +21,7 @@ Télécharger le cli.exe et le placer dans le repository<br>
 https://github.com/noenarcisse/invoicika/releases <br>
 
 ### Avec le CLI (recommandé)
-Requiert postgreSQL et Docker installé
+Requiert Docker installé
 
 Depuis la racine du projet invoicika :
 ```ps
@@ -45,7 +45,7 @@ voir : https://github.com/noenarcisse/invoicika/blob/main/README_alt_install.md
 | squash | http://localhost:8090/squash |
 
 | username | password | role
-|---|---|
+|---|---|---|
 | admin | admin | Admin
 | Jacques Houille | cestokay | Employee
 | Godefroy De Montmirail | quetrepassesijefaiblis | Employee
