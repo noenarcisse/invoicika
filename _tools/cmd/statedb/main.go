@@ -1,4 +1,4 @@
-package statedb
+package main
 
 import (
 	"dbinjector/internal/customers"
