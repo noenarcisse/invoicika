@@ -1,8 +1,6 @@
 package main
 
 import (
-	"dbinjector/internal/customers"
-	"dbinjector/internal/database"
 	"dbinjector/internal/netutils"
 	testcli "dbinjector/internal/test_cli"
 	"dbinjector/internal/yamlparser"
@@ -15,7 +13,6 @@ import (
 func main() {
 
 	var help, install, build, reset, delete bool
-	var state int
 
 	//flag -h
 	helpmsg := "Display help"
@@ -33,10 +30,6 @@ func main() {
 	deletemsg := "Dismount the container with Docker"
 	flag.BoolVar(&delete, "delete", false, deletemsg)
 	flag.BoolVar(&delete, "d", false, deletemsg)
-	//flag -s
-	statemsg := "Swap the state of the Database"
-	flag.IntVar(&state, "state", 0, statemsg)
-	flag.IntVar(&state, "s", 0, statemsg)
 	//flag -r
 	resetmsg := "Reset the state of the project"
 	flag.BoolVar(&reset, "reset", false, resetmsg)
@@ -111,34 +104,6 @@ func main() {
 		}
 		console.Printcln(console.GREEN, "\nDB reset, DONE!")
 
-	case state != 0:
-		console.Printcln(console.BLUE, "\nChanging DB state to %d", state)
-		switch state {
-		case 1:
-			err := testcli.ResetDB(dblogs)
-			if err != nil {
-				console.Printcln(console.RED, err.Error())
-				os.Exit(1)
-			}
-			conn := database.OpenDB(dblogs)
-			defer conn.Close()
-
-			database.NewDB(conn).Trunc("Customers")
-			cs, _ := customers.GetAllCustomers()
-			customers.NewDB(conn).InjectCustomers(cs)
-			console.Printcln(console.GREEN, "\nDB state changed to %d, DONE!", state)
-
-		case 2:
-			err := testcli.ApplyBackupFile(dblogs, "Backup_invoicika_003.sql")
-			if err != nil {
-				console.Printcln(console.RED, err.Error())
-				os.Exit(1)
-			}
-			console.Printcln(console.GREEN, "\nDB state changed to %d, DONE!", state)
-
-		default:
-			console.Printcln(console.RED, "State not implemented yet")
-		}
 	default:
 		console.Printcln(console.RED, "ERROR ARGS")
 		flag.PrintDefaults()
