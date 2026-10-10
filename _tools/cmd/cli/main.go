@@ -12,7 +12,7 @@ import (
 
 func main() {
 
-	var help, install, build, reset, delete bool
+	var help, install, build, reset, reset2, delete bool
 
 	//flag -h
 	helpmsg := "Display help"
@@ -34,6 +34,11 @@ func main() {
 	resetmsg := "Reset the state of the project"
 	flag.BoolVar(&reset, "reset", false, resetmsg)
 	flag.BoolVar(&reset, "r", false, resetmsg)
+
+	//flag -r
+	resetmsg2 := "Reset the intial state of the project"
+	flag.BoolVar(&reset2, "reset2", false, resetmsg2)
+	flag.BoolVar(&reset2, "r2", false, resetmsg2)
 
 	flag.Parse()
 
@@ -79,7 +84,7 @@ func main() {
 			os.Exit(1)
 		}
 		console.Printcln(console.GREEN, "\nDB emptied entirely, DONE!")
-		err = testcli.ApplyBackupFile2(dblogs, "Backup_invoicika_002.sql")
+		err = testcli.ApplyBackupFile2(dblogs, "Backup_invoicika_003.sql")
 		if err != nil {
 			console.Printcln(console.RED, "Backup err:"+err.Error())
 			os.Exit(1)
@@ -94,8 +99,20 @@ func main() {
 			fmt.Println(err.Error())
 			os.Exit(1)
 		}
-
 	case reset:
+		err = testcli.TruncDB(dblogs)
+		if err != nil {
+			console.Printcln(console.RED, "TRUNC ERR:"+err.Error())
+			os.Exit(1)
+		}
+		console.Printcln(console.GREEN, "\nDB emptied entirely, DONE!")
+		err = testcli.ApplyBackupFile2(dblogs, "Backup_invoicika_003.sql")
+		if err != nil {
+			console.Printcln(console.RED, "Backup err:"+err.Error())
+			os.Exit(1)
+		}
+		console.Printcln(console.GREEN, "DB state changed to 1, DONE!")
+	case reset2:
 		console.Printcln(console.BLUE, "\nResetting DB to inital state")
 		err := testcli.ResetDB(dblogs)
 		if err != nil {

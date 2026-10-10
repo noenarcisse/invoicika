@@ -5,11 +5,13 @@
 Installer Docker<br>
 https://www.docker.com/products/docker-desktop/
 
-Installer PostGreSQL<br>
+<!-- todo : plus nécéssaire pour l'installer, j'ai redirigé par docker et le psql intenre :D -->
+<!-- Il sert encore pour le statedb.exe par contre -->
+<!-- Installer PostGreSQL<br>
 https://www.postgresql.org/download/ 
 
 Ajouter psql au PATH de la machine
-(C:\Program Files\PostgreSQL\18\bin)
+(C:\Program Files\PostgreSQL\18\bin) -->
 
 ```ps
 git clone https://github.com/noenarcisse/invoicika.git ; cd invoicika
@@ -27,7 +29,7 @@ Depuis la racine du projet invoicika :
 ```
 En cas de reset de la base de données : 
 ```ps
-./cli.exe -state 1
+./cli.exe -reset
 ```
 ### Sans le CLI
 voir : https://github.com/noenarcisse/invoicika/blob/main/README_alt_install.md
@@ -42,12 +44,19 @@ voir : https://github.com/noenarcisse/invoicika/blob/main/README_alt_install.md
 | jira | https://onepushman.atlassian.net/jira |
 | squash | http://localhost:8090/squash |
 
-| username | password |
+| username | password | role
+|---|---|
+| admin | admin | Admin
+| Jacques Houille | cestokay | Employee
+| Godefroy De Montmirail | quetrepassesijefaiblis | Employee
+
+<!-- todo : old, en cas de hard reset (reset2) -->
+<!-- | username | password |
 |---|---|
 | admin1 | admin1 |
 | admin2 | admin2 |
 | employee1 | employee1 |
-| employee2 | employee2 |
+| employee2 | employee2 | -->
 
 ## Présentation de l'application
 https://github.com/noenarcisse/invoicika/blob/main/TESTS_TestingCampaign/00_Presentation/Application.md
