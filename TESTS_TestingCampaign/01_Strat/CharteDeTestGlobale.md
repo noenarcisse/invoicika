@@ -62,6 +62,8 @@ https://github.com/noenarcisse/invoicika/blob/main/TESTS_TestingCampaign/01_Stra
 <!-- reecrire avec des risques, pas les RM ou des solution evidemment -->
 **Formule de calcul :** Criticité (C) = Probabilité (P) X Impact (I) *(Échelle de 1 à 3)*
 
+Dans SquashTM les notes plus petites que 4 sont mineures, de 4 à 6 majeure et au dessus critiques.
+
 | ID Risque | RM | Fonctionnalité | Description de l'échec potentiel | P | I | C |
 |---|---|---|---|---|---|---|
 | **R-01** | RM01 | **Customers** | Email invalide, le client ne recoit jamais sa facture | 3 | 3 | 9 |
