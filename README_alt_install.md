@@ -25,10 +25,10 @@ docker compose down -v ; docker compose up -d --build
 ```
 ou
 ```ps
-docker compose cp .\db_backups\Backup_invoicika_002.sql squash-tm-pg:/tmp/backup.sql
-docker compose cp .\truncdb.sql squash-tm-pg:/tmp/truncdb.sql
-docker compose exec squash-tm-pg psql -U postgres -d squashtm_invoicika -f /tmp/truncdb.sql
-docker compose exec squash-tm-pg psql -U postgres -d squashtm_invoicika -f /tmp/backup.sql
-docker compose exec squash-tm-pg rm /tmp/backup.sql
-docker compose exec squash-tm-pg rm /tmp/truncdb.sql
+docker compose cp .\db_backups\Backup_invoicika_003.sql db:/tmp/backup.sql
+docker compose cp .\truncdb.sql db:/tmp/truncdb.sql
+docker compose exec db psql -U postgres -d invoicikaDb -f /tmp/truncdb.sql
+docker compose exec db psql -U postgres -d invoicikaDb -f /tmp/backup.sql
+docker compose exec db rm /tmp/backup.sql
+docker compose exec db rm /tmp/truncdb.sql
 ```
