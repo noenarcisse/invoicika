@@ -1,4 +1,6 @@
-# Charte de Test Globale
+# Plan de Test
+
+<!-- Draft : On note dans les risk le hors scope ? -->
 
 Ce document formalise la stratégie de test qui guidera l'ensemble des activités QA sur le produit **Invoicika** durant toute la durée du projet.
 
