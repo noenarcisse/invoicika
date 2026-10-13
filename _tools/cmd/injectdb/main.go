@@ -3,6 +3,7 @@ package main
 import (
 	"dbinjector/internal/customers"
 	"dbinjector/internal/database"
+	"dbinjector/internal/itemgroups"
 	"dbinjector/internal/items"
 	"dbinjector/internal/users"
 	"dbinjector/internal/yamlparser"
@@ -14,9 +15,10 @@ import (
 )
 
 type cmd struct {
-	Customers int
-	Items     int
-	Users     int
+	Customers  int
+	Items      int
+	Users      int
+	ItemGroups int
 }
 
 func main() {
@@ -34,6 +36,10 @@ func main() {
 	usersmsg := "Inject Users table in DB"
 	flag.IntVar(&cmd.Users, "users", -1, usersmsg)
 	flag.IntVar(&cmd.Users, "u", -1, usersmsg)
+
+	groupsmsg := "Inject ItemGroups table in DB"
+	flag.IntVar(&cmd.ItemGroups, "groups", -1, groupsmsg)
+	flag.IntVar(&cmd.ItemGroups, "g", -1, groupsmsg)
 
 	flag.Parse()
 
@@ -98,6 +104,25 @@ func main() {
 
 		default:
 			console.Printcln(console.RED, "DB injection not prepared for the stat users %d", cmd.Users)
+		}
+	}
+
+	if cmd.ItemGroups != -1 {
+		switch cmd.ItemGroups {
+		case 0:
+			groups, _ := itemgroups.GetAll()
+			for _, u := range groups {
+				fmt.Printf("%+v\n", u)
+				fmt.Println()
+			}
+			conn := database.OpenDB(dblogs)
+			defer conn.Close()
+
+			database.NewDB(conn).Trunc("ItemGroups")
+			itemgroups.NewDB(conn).Inject(groups)
+
+		default:
+			console.Printcln(console.RED, "DB injection not prepared for the state ItemGroups %d", cmd.ItemGroups)
 		}
 	}
 
