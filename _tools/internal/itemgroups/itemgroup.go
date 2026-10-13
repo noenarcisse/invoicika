@@ -66,9 +66,8 @@ func (db DB) Inject(groups []ItemGroup) {
 	userIds := db.getUserIds()
 	fmt.Println(userIds)
 
-	randomUser := rand.IntN(len(userIds))
-
 	for _, g := range groups {
+		randomUser := rand.IntN(len(userIds))
 		_, err := db.Exec("insert into \"ItemGroups\"(\"ItemGroupId\", \"Title\", \"Description\", \"User_id\") values($1,$2,$3,$4)",
 			g.ItemGroupId,
 			g.Title,

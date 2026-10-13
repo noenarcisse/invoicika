@@ -34,7 +34,7 @@ a ouvrir a long terme pour la presa?
 - [x] Setup JIRA
 - [x] Passer le scouting en tag pas en EPIC, trier les bugs trouvés dans leurs sections correspondantes
 - [x] Setup Squash
-- [ ] Setup Playwright pour les tests E2E
+- [x] Setup Playwright pour les tests E2E
 - [ ] Prep le dossier de rapport de tests
 - [ ] CI CD possible ? reliage avec git ?
 

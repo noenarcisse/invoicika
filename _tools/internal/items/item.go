@@ -74,9 +74,8 @@ func (db DB) InjectItems(is []Item) {
 	userIds := db.getUserIds()
 	fmt.Println(userIds)
 
-	randomUser := rand.IntN(len(userIds))
-
 	for _, i := range is {
+		randomUser := rand.IntN(len(userIds))
 		_, err := db.Exec("insert into \"Items\"(\"ItemId\", \"Name\", \"Description\", \"PurchasePrice\", \"SalePrice\", \"Quantity\", \"User_id\", \"CreationDate\") values($1,$2,$3, CAST(ROUND($4 / 100, 0) AS BIGINT),CAST(ROUND($5 / 100, 0) AS BIGINT),$6,$7,$8)",
 			i.ItemId,
 			i.Name,
