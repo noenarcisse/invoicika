@@ -3,24 +3,30 @@
     "name": "admin",
     "password": "admin",
     "email": "admin@admin.com",
-    "role" : "Admin"
+    "role": "Admin"
   },
   {
     "name": "Jacques Houille",
     "password": "cestokay",
     "email": "jchouille@montmirail.fr",
-    "role" : "Employee"
+    "role": "Employee"
   },
   {
     "name": "Godefroy De Montmirail",
     "password": "quetrepassesijefaiblis",
     "email": "gdm@montmirail.fr",
-    "role" : "Employee"
+    "role": "Employee"
   },
-    {
+  {
     "name": "admin",
     "password": "mdp",
     "email": "admin@admin.com",
-    "role" : "Employee"
+    "role": "Employee"
+  },
+  {
+    "name": "admin",
+    "password": "mdp",
+    "email": "admin@admin.com",
+    "role": "Employee"
   }
 ]
