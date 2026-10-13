@@ -1,0 +1,26 @@
+[
+  {
+    "name": "admin",
+    "password": "admin",
+    "email": "admin@admin.com",
+    "role" : "Admin"
+  },
+  {
+    "name": "Jacques Houille",
+    "password": "cestokay",
+    "email": "jchouille@montmirail.fr",
+    "role" : "Employee"
+  },
+  {
+    "name": "Godefroy De Montmirail",
+    "password": "quetrepassesijefaiblis",
+    "email": "gdm@montmirail.fr",
+    "role" : "Employee"
+  },
+    {
+    "name": "admin",
+    "password": "mdp",
+    "email": "admin@admin.com",
+    "role" : "Employee"
+  }
+]

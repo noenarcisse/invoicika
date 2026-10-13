@@ -91,7 +91,18 @@ func main() {
 	if cmd.Users != -1 {
 		switch cmd.Users {
 		case 0:
-			us, _ := users.GetAllUsers()
+			us, _ := users.GetAll()
+			for _, u := range us {
+				fmt.Printf("%+v\n", u)
+				fmt.Println()
+			}
+			conn := database.OpenDB(dblogs)
+			defer conn.Close()
+
+			database.NewDB(conn).Trunc("Users")
+			users.NewDB(conn).InjectUsers(us)
+		case 1:
+			us, _ := users.GetAll2()
 			for _, u := range us {
 				fmt.Printf("%+v\n", u)
 				fmt.Println()
