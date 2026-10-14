@@ -1,0 +1,29 @@
+info:
+  name: ConnexionEchec_Inconnu
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{apiUrl}}Auth/login"
+  body:
+    type: json
+    data: |-
+      {
+        "username": "Rody Mc Tootoot",
+        "password": "user qui existe pas"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "401"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

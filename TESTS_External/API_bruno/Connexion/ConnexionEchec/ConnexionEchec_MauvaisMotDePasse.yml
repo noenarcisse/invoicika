@@ -1,0 +1,29 @@
+info:
+  name: ConnexionEchec_MauvaisMotDePasse
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{apiUrl}}Auth/login"
+  body:
+    type: json
+    data: |-
+      {
+        "username": "admin",
+        "password": "admi"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "401"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

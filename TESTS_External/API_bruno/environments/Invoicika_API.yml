@@ -1,0 +1,5 @@
+name: Invoicika_API
+variables:
+  - name: apiUrl
+    value: http://localhost:5000/api/
+    description: Base url for the Invoicika API

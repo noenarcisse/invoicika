@@ -1,0 +1,41 @@
+info:
+  name: ConnexionAdmin
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{apiUrl}}Auth/login"
+  body:
+    type: json
+    data: |-
+      {
+        "username": "admin",
+        "password": "admin"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("reponse json correctement formée", () => {
+            expect("token" in res.body)
+        })
+
+        test("reception du token d'auth", () => {
+          const token = res.body.token
+          const part2 = JSON.parse(atob(token.split(".")[1]))
+          expect(part2.role).to.eq("Admin")
+        })
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
