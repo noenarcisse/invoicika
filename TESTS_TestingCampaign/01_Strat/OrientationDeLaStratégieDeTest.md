@@ -67,6 +67,8 @@ Gère les autres users (role, changement d'informations)
 
 ## Exigences fonctionnelles
 
+<!-- DRAFT a remettre a jour avec les infos deja dans le squash -->
+
 Les exigences fonctionnelles sont triées par catégories afin de les regrouper de manière logique : Client, Compte, Facturation et Produit
 La catégorie "PDF" en scope bonus ne sera exécutée que si les conditions pour le passage en Bonus sont remplies.
 "Envoi email" est hors scope dans le cadre de cette campagne et ne sera jamais exécuté. Les exigences qui font partie de cette catégorie sont relevées pour la cohérence ou une seconde campagne de test non prévue ici.
@@ -102,6 +104,11 @@ La catégorie "PDF" en scope bonus ne sera exécutée que si les conditions pour
 
 <!-- add les legal ici ! -->
 
+| LEG01 | Directive TVA 2006/112/C | UE, respect des regles d'une facture B2C |
+| LEG01 | norme EN 16931 | UE, respect des regles d'une facture B2B |
+| LEG01 | ? | US ? |
+| LEG01 | ? | regles sur le passage d'un produit entre UE et exterieur |
+
 ## Exigences non fonctionnelles
 | ID | Nom de l'exigence | Descr |
 |---|---|---|
@@ -112,10 +119,11 @@ La catégorie "PDF" en scope bonus ne sera exécutée que si les conditions pour
 | SEC05 | DDoS | Upload d'images : type, taille et contenu contrôlés |
 
 # Structure du JIRA et SquashTM
+<!-- Relire dans 1 sem 15-10-26 voir si c'est du francais correct et compréhensible ;d -->
 Le JIRA sera structuré sur base des "slices" étant donné que l'application et son menu à une forte découpe par tranche (fort ressemblantes à une logique de VSD).
-Cela me permettra d'orienter les zones de l'application complète en incluant aussi bien le frontend, backend, base de données et leur communication en api.
-Focus sur une slice plus focus et "spécialisée"
-Permet de couper le planning et la gestion de projet plus instable avec des zones de focus qui decoupe l'app en plus petit morceau plus digestes mais qui avec
-des frontiere plus amovibles
+Cela me permettra d'orienter les zones de l'application complètes en incluant aussi bien le frontend, backend, base de données et leur communication en API.
+Cela permet de se focaliser sur une tranche plus cadré et "spécialisée."
+Cette découpe rend le planning et la gestion de projet, plus instables, faciles à gérer, modifier, réorganiser, couper dans le pire des cas, si l'échéance approche, avec des morceaux plus digestes sur lesquels travailler.
 
-Le SquashTM et ses règles plus stables concernant l'orientation de la stratégie de test, les exigences fixes, les RM etc utilisera des catégorie permettant de regrouper les exigences mais ne seront pas forcément liée a l'app qui pourrait bouger suite a des correctifs éventuels
+Le SquashTM et ses règles plus stables concernent l'orientation de la stratégie de test, les exigences fixes, les RM etc.
+Ce tableau de bord utilisera des catégories permettant de regrouper les exigences mais ne seront pas forcément liée a l'app qui pourrait bouger suite a des correctifs éventuels ou à l'ordre des sprints dans le JIRA.

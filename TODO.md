@@ -24,12 +24,15 @@ a ouvrir a long terme pour la presa?
 - [x] DL le cli sur les 2 machines : https://docs.sonarsource.com/sonarqube-community-build/analyzing-source-code/scanners/sonarscanner#windows
 - [x] setup le docker sonar at home :d
 - [ ] Referencer et publier le repo du Squash
+- [ ] RM Légales a faire pour la checkist
+- [ ] Ecriture de la checklist
+- [ ] Mettre a jour la docu par rapport au squash (RM, etc.)
 
 - [ ] Aller tester l'envoie de mail si ca marche vraiment avec le SMPT (for fun, c'est hors scope anw)
 
 ## TESTING
 - [-] Prepa la campagne de test, design, exigences, RM etc.
-- [ ] Prep la charte de test global avec perimetre, RM, etc
+- [ ] Prep le plan de test avec perimetre, RM, etc
 - [x] Setup Bruno
 - [x] Setup JIRA
 - [x] Passer le scouting en tag pas en EPIC, trier les bugs trouvés dans leurs sections correspondantes
@@ -41,12 +44,13 @@ a ouvrir a long terme pour la presa?
 ## _TOOLS
 - [x] DB Injector
 - [x] CLI autonome qui empeche les cmd a la main (cd /truc ; ./do.exe ; cd .. ; docker compose truc)
-- [ ] Prep des states de DB alternatifs (non pushés en release?)
+- [ ] Prep des states de DB alternatifs (non pushés, a donner en release?)
 - [x] Erreur si psql lance une err dans le cas de l'utilisation de state ?
 - [x] Build du CLI
 - [x] Distribution en Github Release
 - [x] Preparer l'injection de depart de la DB sans relance avec une cmd direct dans le docker, ca enleve des dependance externe ou des attente de db par la machine locale (see squash ps1 script)
 - [ ] Refacto et taper un bon coup de balai dans le CLI 
+- [ ] Arreter l'absorbtion des json de données et en faire des vrai datasets, ils sont utiles pour tester des hypotheses / explorer sur la DB avant d'écrire un test plus officiels auto dans Db.tests
 
 ## BACKEND
 - [x] Branche de fix/backend-architecture

@@ -38,8 +38,8 @@ Pour commencer à exécuter les tests sur un environnement donné, les condition
 
 - Le code compile.
 - La feature est implémentée et fonctionnelle dans la couche testée.
-- Les containers Docker tournent et leur communication fonctionnent.
-- Les ports nécéssaire des containers sont ouverts sur la machines local sans conflits.
+- Les containers Docker tournent et leur communication fonctionne.
+- Les ports nécéssaires des containers sont ouverts sur la machine locale sans conflits.
 
 Les tests ne seront pas lancés et la feature sera passée en bloquée dans le cas contraire.
 
@@ -51,7 +51,7 @@ Pour déclarer la campagne de test terminée et donner un avis favorable (Go) po
 | CRIT | 100% | 100% |
 | HIGH | 100% | 100% | 
 | MED | 100% | 50% | 
-| LOW | ? | ? |
+| LOW | 50% | 50% |
 
 
 ## 3. Matrice de Risques Produit (Priorisation Risk-Based Testing)
