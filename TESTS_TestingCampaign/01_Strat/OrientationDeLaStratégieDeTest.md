@@ -98,9 +98,8 @@ La catégorie "PDF" en scope bonus ne sera exécutée que si les conditions pour
 | RM07 | Unicité des ID Utilisateurs/Clients | Un identifiant utilisateur/client est unique |
 | RM08 | Facture imuable | Facture émise figée : modification de l'article ou du client sans effet sur elle |
 | RM09 | Calcul de la TVA apppliquée | Cohérence des montants : total lignes + groupes = sous-total, sous-total + TVA = total |
+| RM10 | Validation des inscrits | L'inscription s'effectue par un simple lien, il faut une validation d'un admin avant de laisser un utilisateur modifier des données sur le site / un statut intermédaire bloqué |
 
-<!-- draft de RM en plus -->
-| RM0? | Validation des inscrits | L'inscription s'effectue par un simple lien, il faut une validation d'un admin avant de laisser un utilisateur modifier des données sur le site / un statut intermédaire bloqué |
 <!-- add les legal ici ! -->
 
 ## Exigences non fonctionnelles
