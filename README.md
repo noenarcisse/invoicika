@@ -58,6 +58,9 @@ voir : https://github.com/noenarcisse/invoicika/blob/main/README_alt_install.md
 | employee1 | employee1 |
 | employee2 | employee2 | -->
 
+## SquashTM
+https://github.com/noenarcisse/squash_invoicika
+
 ## Présentation de l'application
 https://github.com/noenarcisse/invoicika/blob/main/TESTS_TestingCampaign/00_Presentation/Application.md
 
