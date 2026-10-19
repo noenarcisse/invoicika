@@ -1,0 +1,7 @@
+info:
+  name: TC_ACC01_001_InscriptionNouvelUtilisateur_OK
+  type: folder
+  seq: 1
+
+request:
+  auth: inherit

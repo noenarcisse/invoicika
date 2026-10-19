@@ -1,0 +1,31 @@
+info:
+  name: GetJean
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:5000/api/Users
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status != 200) return;
+
+        const jeans = res.body.filter(e => e.username.includes("jean"))
+        if(jeans.length < 1) return;
+
+        console.log(jeans[0].userId)
+        console.log(jeans[1].userId)
+
+        bru.setVar("jean1Id", jeans[0].userId)
+        bru.setVar("jean2Id", jeans[1].userId)
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

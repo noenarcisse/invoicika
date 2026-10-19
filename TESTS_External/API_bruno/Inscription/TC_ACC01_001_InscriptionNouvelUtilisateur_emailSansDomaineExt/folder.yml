@@ -1,0 +1,7 @@
+info:
+  name: TC_ACC01_001_InscriptionNouvelUtilisateur_emailSansDomaineExt
+  type: folder
+  seq: 3
+
+request:
+  auth: inherit

@@ -1,0 +1,16 @@
+info:
+  name: DeleteUIfExists
+  type: http
+  seq: 2
+
+http:
+  method: DELETE
+  url: http://localhost:5000/api/Users/{{uId}}
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

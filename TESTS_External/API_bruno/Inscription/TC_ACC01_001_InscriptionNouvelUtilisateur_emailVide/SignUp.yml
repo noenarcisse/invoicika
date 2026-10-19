@@ -1,0 +1,33 @@
+info:
+  name: SignUp
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: http://localhost:5000/api/Auth/signup
+  body:
+    type: json
+    data: |-
+      {
+        "username": "Smitty",
+        "emailAddress": "",
+        "password": "nummero1"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: neq
+      value: "201"
+    - expression: res.status
+      operator: eq
+      value: "400"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

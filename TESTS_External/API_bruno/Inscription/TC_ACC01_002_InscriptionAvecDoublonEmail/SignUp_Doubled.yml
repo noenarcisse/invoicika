@@ -1,0 +1,33 @@
+info:
+  name: SignUp_Doubled
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: http://localhost:5000/api/Auth/signup
+  body:
+    type: json
+    data: |-
+      {
+        "username": "jean2",
+        "emailAddress": "jean@jean.com",
+        "password": "jeanjean"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "400"
+    - expression: res.body
+      operator: contains
+      value: already exists
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

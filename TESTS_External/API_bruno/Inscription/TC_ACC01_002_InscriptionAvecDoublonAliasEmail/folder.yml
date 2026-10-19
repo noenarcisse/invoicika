@@ -1,0 +1,7 @@
+info:
+  name: TC_ACC01_002_InscriptionAvecDoublonAliasEmail
+  type: folder
+  seq: 10
+
+request:
+  auth: inherit

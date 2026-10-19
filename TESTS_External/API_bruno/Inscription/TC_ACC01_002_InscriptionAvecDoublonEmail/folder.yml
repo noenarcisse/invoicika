@@ -1,0 +1,7 @@
+info:
+  name: TC_ACC01_002_InscriptionAvecDoublonEmail
+  type: folder
+  seq: 9
+
+request:
+  auth: inherit
