@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("email invalide sans @", async ({ page }) => {
+test("entrer un email invalide sans @ echoue", async ({ page }) => {
     await page.goto("http://localhost:4444/customers/add");
 
     const emailInput = page.getByPlaceholder(/email/);
@@ -12,7 +12,7 @@ test("email invalide sans @", async ({ page }) => {
     await expect(err).toBeVisible();
 });
 
-test("email invalide sans extension de domaine", async ({ page }) => {
+test("entrer un email invalide sans extension de domaine echoue", async ({ page }) => {
     await page.goto("http://localhost:4444/customers/add");
 
     const emailInput = page.getByPlaceholder(/email/);
@@ -24,7 +24,7 @@ test("email invalide sans extension de domaine", async ({ page }) => {
     await expect(err).toBeVisible();
 });
 
-test("email valide avec double extension de domaine", async ({ page }) => {
+test("entrer un email valide avec double extension de domaine réussit", async ({ page }) => {
     await page.goto("http://localhost:4444/customers/add");
 
     const emailInput = page.getByPlaceholder(/email/);
@@ -33,10 +33,10 @@ test("email valide avec double extension de domaine", async ({ page }) => {
     await emailInput.fill("smitty@amazon.com.be");
 
     const err = page.getByText(/valid email/);
-    await expect(err).not.toBeVisible();
+    await expect(err).not.toBeVisible({ timeout: 3_000 }); //todo : unreliable, ca peut passer frame 1 avant l'apparition ?
 });
 
-test("email valide avec caractere speciaux", async ({ page }) => {
+test("entrer un email valide avec caractere speciaux dans le domaine réussit", async ({ page }) => {
     await page.goto("http://localhost:4444/customers/add");
 
     const emailInput = page.getByPlaceholder(/email/);
@@ -45,9 +45,9 @@ test("email valide avec caractere speciaux", async ({ page }) => {
     await emailInput.fill("smitty@werberjägermanjansen.com");
 
     const err = page.getByText(/valid email/);
-    await expect(err).not.toBeVisible();
+    await expect(err).not.toBeVisible({ timeout: 3_000 });
 });
-test("email invalide avec caractere speciaux", async ({ page }) => {
+test("entrer un email avec caractere speciaux dans la partie locale échoue", async ({ page }) => {
     await page.goto("http://localhost:4444/customers/add");
 
     const emailInput = page.getByPlaceholder(/email/);

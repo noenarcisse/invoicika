@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("se connecter avec un mauvais compte echoue", async ({ page }) => {
+test("se connecter avec un compte inconnu echoue", async ({ page }) => {
     await page.goto("http://localhost:4444/customers/add");
 
     const nameInput = page.getByPlaceholder(/Username/);
@@ -34,7 +34,7 @@ test("se connecter avec des infos avec la mauvaise casse echoue", async ({ page 
     await expect(page.getByText(/Invalid username or password/i)).toBeVisible();
 });
 
-test("se connecter sans infos echoue", async ({ page }) => {
+test("se connecter avec des champs vides echoue", async ({ page }) => {
     await page.goto("http://localhost:4444/customers/add");
 
     const loginButton = page.getByRole("button", { name: /Log in/i });
