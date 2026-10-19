@@ -1,7 +1,7 @@
 info:
   name: TC_ACC01_001_InscriptionNouvelUtilisateur_usernameWhitespace
   type: folder
-  seq: 8
+  seq: 7
 
 request:
   auth: inherit

@@ -12,7 +12,7 @@ http:
       {
         "username": "Smitty",
         "emailAddress": "smittywerbenjagermanjansensans.com",
-        "password": "nummero1"
+        "password": "numero1"
       }
   auth: inherit
 
