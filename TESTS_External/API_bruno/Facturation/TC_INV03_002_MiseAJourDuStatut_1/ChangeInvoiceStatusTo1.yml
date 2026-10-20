@@ -10,30 +10,30 @@ http:
     type: json
     data: |-
       {
-        "customerInvoiceId": "{{invoiceId}}",
-        "customer_id": "b9480dc9-126c-4f36-b659-4f73727ca0d7",
-        "user_id": "f0e075b0-3e59-4fb1-8e5d-6e540341b87f",
-        "invoiceDate": "2026-10-21T11:12:52.451Z",
-        "creationDate": "0001-01-01T00:00:00",
-        "updateDate": null,
-        "subTotalAmount": 370.00,
-        "vatAmount": 37.00,
-        "totalAmount": 407.00,
-        "status": 1,
-        "customerInvoiceLines": [
-          {
-            "invoiceLineId": "8fb04a47-6c6f-46b9-9428-4d4b45b00dc4",
-            "customerInvoice_id": "6010e3c6-882e-40db-9e45-b2f5b951f306",
-            "item_id": "ce0cc21f-fcf6-44e3-8661-ce88c6037ce1",
-            "itemName": "Pokemon bleu",
-            "itemDescription": "Attrapez les tous",
-            "quantity": 1.00,
-            "price": 370.00
-          }
-        ],
-        "customerInvoiceGroupLines": [],
-        "vat_id": "c4cc20e2-aab3-41e0-8b81-6134da9795f0"
-      }
+          "customerInvoiceId": "{{invoiceId}}",
+          "customer_id": "266e30f9-1346-4ce6-8cef-4598e32e31b5",
+          "user_id": "f0e075b0-3e59-4fb1-8e5d-6e540341b87f",
+          "invoiceDate": "2027-05-01T14:34:16.896Z",
+          "creationDate": "0001-01-01T00:00:00",
+          "updateDate": null,
+          "subTotalAmount": 49.00,
+          "vatAmount": 4.90,
+          "totalAmount": 53.90,
+          "status": 1,
+          "customerInvoiceLines": [
+            {
+              "invoiceLineId": "b9801767-f10f-412f-ac8c-0e8e86735baa",
+              "customerInvoice_id": "02e64fac-d396-46f0-866c-3c9449269e52",
+              "item_id": "322bd65d-0e50-430c-8647-2a0975d9d7f4",
+              "itemName": "Dark souls : Prepare to die edition",
+              "itemDescription": "You died",
+              "quantity": 1.00,
+              "price": 49.00
+            }
+          ],
+          "customerInvoiceGroupLines": [],
+          "vat_id": "c4cc20e2-aab3-41e0-8b81-6134da9795f0"
+        }
   auth: inherit
 
 runtime:
