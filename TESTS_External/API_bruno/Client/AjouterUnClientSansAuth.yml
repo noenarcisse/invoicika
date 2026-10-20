@@ -1,0 +1,35 @@
+info:
+  name: AjouterUnClientSansAuth
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:5000/api/Customers
+  body:
+    type: json
+    data: |-
+      {
+            "customerId": "266e30f9-1346-4ce6-8cef-4598e32e31b7",
+            "name": "Jean Michel Jarre 2",
+            "address": "En france j'sais pas",
+            "phoneNumber": "+81-90-1234-5678",
+            "email": "jarre@google.fr",
+            "creationDate": "0001-01-01T00:00:00Z",
+            "updateDate": "0001-01-01T00:00:00Z",
+            "customerInvoices": []
+          }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "401"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
