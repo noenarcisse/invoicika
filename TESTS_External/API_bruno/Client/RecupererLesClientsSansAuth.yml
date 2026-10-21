@@ -17,3 +17,10 @@ settings:
   followRedirects: true
   maxRedirects: 5
   forwardAuthorizationHeader: false
+
+docs: |-
+  Ne pas implémenter et exécuter.
+
+  Le code des auths n'est pas écrit et ne rentre pas dans les conditions d'entrée
+
+  Le bug est report dans JIRA
