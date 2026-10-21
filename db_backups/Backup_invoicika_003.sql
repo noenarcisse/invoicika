@@ -2,12 +2,12 @@
 -- PostgreSQL database dump
 --
 
-\restrict 7STG4nNA2ahnftOLKXzGoZtqQ1ojSFSjcHD7zduRUZc42F1hX1g0I01KoraGLX0
+\restrict EBRvacrJYZ82RRyvXptO5HGUEd62mau6lugc6twuwBk4hPRjHJTWA8s2QoDbV9A
 
 -- Dumped from database version 16.15 (Debian 16.15-1.pgdg13+2)
--- Dumped by pg_dump version 18.6
+-- Dumped by pg_dump version 18.4
 
--- Started on 2026-10-20 16:36:58
+-- Started on 2026-10-21 13:18:58
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -22,7 +22,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 5 (class 2615 OID 17217)
+-- TOC entry 5 (class 2615 OID 18492)
 -- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -45,7 +45,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 215 (class 1259 OID 17218)
+-- TOC entry 215 (class 1259 OID 18493)
 -- Name: CustomerInvoiceGroupItemLines; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -61,7 +61,7 @@ CREATE TABLE public."CustomerInvoiceGroupItemLines" (
 ALTER TABLE public."CustomerInvoiceGroupItemLines" OWNER TO postgres;
 
 --
--- TOC entry 216 (class 1259 OID 17221)
+-- TOC entry 216 (class 1259 OID 18496)
 -- Name: CustomerInvoiceGroupLines; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -79,7 +79,7 @@ CREATE TABLE public."CustomerInvoiceGroupLines" (
 ALTER TABLE public."CustomerInvoiceGroupLines" OWNER TO postgres;
 
 --
--- TOC entry 217 (class 1259 OID 17226)
+-- TOC entry 217 (class 1259 OID 18501)
 -- Name: CustomerInvoiceLines; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -95,7 +95,7 @@ CREATE TABLE public."CustomerInvoiceLines" (
 ALTER TABLE public."CustomerInvoiceLines" OWNER TO postgres;
 
 --
--- TOC entry 218 (class 1259 OID 17229)
+-- TOC entry 218 (class 1259 OID 18504)
 -- Name: CustomerInvoices; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -117,7 +117,7 @@ CREATE TABLE public."CustomerInvoices" (
 ALTER TABLE public."CustomerInvoices" OWNER TO postgres;
 
 --
--- TOC entry 219 (class 1259 OID 17233)
+-- TOC entry 219 (class 1259 OID 18508)
 -- Name: Customers; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -135,7 +135,7 @@ CREATE TABLE public."Customers" (
 ALTER TABLE public."Customers" OWNER TO postgres;
 
 --
--- TOC entry 220 (class 1259 OID 17238)
+-- TOC entry 220 (class 1259 OID 18513)
 -- Name: ItemGroupItems; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -149,7 +149,7 @@ CREATE TABLE public."ItemGroupItems" (
 ALTER TABLE public."ItemGroupItems" OWNER TO postgres;
 
 --
--- TOC entry 221 (class 1259 OID 17241)
+-- TOC entry 221 (class 1259 OID 18516)
 -- Name: ItemGroups; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -164,7 +164,7 @@ CREATE TABLE public."ItemGroups" (
 ALTER TABLE public."ItemGroups" OWNER TO postgres;
 
 --
--- TOC entry 222 (class 1259 OID 17246)
+-- TOC entry 222 (class 1259 OID 18521)
 -- Name: Items; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -184,7 +184,7 @@ CREATE TABLE public."Items" (
 ALTER TABLE public."Items" OWNER TO postgres;
 
 --
--- TOC entry 223 (class 1259 OID 17251)
+-- TOC entry 223 (class 1259 OID 18526)
 -- Name: Roles; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -199,7 +199,7 @@ CREATE TABLE public."Roles" (
 ALTER TABLE public."Roles" OWNER TO postgres;
 
 --
--- TOC entry 224 (class 1259 OID 17254)
+-- TOC entry 224 (class 1259 OID 18529)
 -- Name: Users; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -218,7 +218,7 @@ CREATE TABLE public."Users" (
 ALTER TABLE public."Users" OWNER TO postgres;
 
 --
--- TOC entry 225 (class 1259 OID 17259)
+-- TOC entry 225 (class 1259 OID 18534)
 -- Name: VATs; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -232,7 +232,7 @@ CREATE TABLE public."VATs" (
 ALTER TABLE public."VATs" OWNER TO postgres;
 
 --
--- TOC entry 226 (class 1259 OID 17262)
+-- TOC entry 226 (class 1259 OID 18537)
 -- Name: __EFMigrationsHistory; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -245,7 +245,7 @@ CREATE TABLE public."__EFMigrationsHistory" (
 ALTER TABLE public."__EFMigrationsHistory" OWNER TO postgres;
 
 --
--- TOC entry 3504 (class 0 OID 17218)
+-- TOC entry 3504 (class 0 OID 18493)
 -- Dependencies: 215
 -- Data for Name: CustomerInvoiceGroupItemLines; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -255,7 +255,7 @@ COPY public."CustomerInvoiceGroupItemLines" ("GroupItemLineId", "CustomerInvoice
 
 
 --
--- TOC entry 3505 (class 0 OID 17221)
+-- TOC entry 3505 (class 0 OID 18496)
 -- Dependencies: 216
 -- Data for Name: CustomerInvoiceGroupLines; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -265,29 +265,33 @@ COPY public."CustomerInvoiceGroupLines" ("InvoiceGroupLineId", "CustomerInvoice_
 
 
 --
--- TOC entry 3506 (class 0 OID 17226)
+-- TOC entry 3506 (class 0 OID 18501)
 -- Dependencies: 217
 -- Data for Name: CustomerInvoiceLines; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public."CustomerInvoiceLines" ("InvoiceLineId", "CustomerInvoice_id", "Item_id", "Quantity", "Price") FROM stdin;
 b9801767-f10f-412f-ac8c-0e8e86735baa	02e64fac-d396-46f0-866c-3c9449269e52	322bd65d-0e50-430c-8647-2a0975d9d7f4	1.00	49.00
+0a50c594-3db6-4fe8-b0ba-b023bfbbab4f	74811128-2f5c-4351-80b7-701e488c2630	8bcaa591-ab0e-44e4-a099-8a7005a02788	1.00	25.00
+06a042ce-a12f-404d-b120-3d3970614d8b	71c5d71f-5e14-4a0c-87db-9b7f91a8583c	22c7934b-858b-4720-b40d-966d63b9f660	2.00	42.00
 \.
 
 
 --
--- TOC entry 3507 (class 0 OID 17229)
+-- TOC entry 3507 (class 0 OID 18504)
 -- Dependencies: 218
 -- Data for Name: CustomerInvoices; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public."CustomerInvoices" ("CustomerInvoiceId", "Customer_id", "User_id", "InvoiceDate", "CreationDate", "UpdateDate", "SubTotalAmount", "VatAmount", "TotalAmount", "Vat_id", "Status") FROM stdin;
 02e64fac-d396-46f0-866c-3c9449269e52	266e30f9-1346-4ce6-8cef-4598e32e31b5	f0e075b0-3e59-4fb1-8e5d-6e540341b87f	2027-05-01 14:34:16.896+00	-infinity	\N	49.00	4.90	53.90	c4cc20e2-aab3-41e0-8b81-6134da9795f0	0
+74811128-2f5c-4351-80b7-701e488c2630	b9480dc9-126c-4f36-b659-4f73727ca0d7	f0e075b0-3e59-4fb1-8e5d-6e540341b87f	2027-05-02 11:14:25.527+00	-infinity	\N	25.00	2.50	27.50	c4cc20e2-aab3-41e0-8b81-6134da9795f0	1
+71c5d71f-5e14-4a0c-87db-9b7f91a8583c	b1669613-e3de-48e9-9921-71ea74f60d14	f0e075b0-3e59-4fb1-8e5d-6e540341b87f	2035-10-01 11:17:30.207+00	-infinity	\N	84.00	8.40	92.40	c4cc20e2-aab3-41e0-8b81-6134da9795f0	2
 \.
 
 
 --
--- TOC entry 3508 (class 0 OID 17233)
+-- TOC entry 3508 (class 0 OID 18508)
 -- Dependencies: 219
 -- Data for Name: Customers; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -305,7 +309,7 @@ e0d85513-d268-4495-8281-e17da2d7dee9	Tony Soprano	14 Aspen Drive, North Caldwell
 
 
 --
--- TOC entry 3509 (class 0 OID 17238)
+-- TOC entry 3509 (class 0 OID 18513)
 -- Dependencies: 220
 -- Data for Name: ItemGroupItems; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -315,17 +319,19 @@ COPY public."ItemGroupItems" ("ItemGroupItemId", "ItemGroup_id", "Item_id") FROM
 
 
 --
--- TOC entry 3510 (class 0 OID 17241)
+-- TOC entry 3510 (class 0 OID 18516)
 -- Dependencies: 221
 -- Data for Name: ItemGroups; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public."ItemGroups" ("ItemGroupId", "Title", "Description", "User_id") FROM stdin;
+e6ca72a9-5b8d-47df-a125-51ef649ce77e	Meubles	Ce sont des meubles	7d9ac886-5d80-4731-ba1d-7704bd91f233
+45410269-3661-41a0-b60d-c00cbbd94f19	Jeux vidéo	Ce sont des jeux	f0e075b0-3e59-4fb1-8e5d-6e540341b87f
 \.
 
 
 --
--- TOC entry 3511 (class 0 OID 17246)
+-- TOC entry 3511 (class 0 OID 18521)
 -- Dependencies: 222
 -- Data for Name: Items; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -340,7 +346,7 @@ ce0cc21f-fcf6-44e3-8661-ce88c6037ce1	Pokemon bleu	Attrapez les tous	100.00	370.0
 
 
 --
--- TOC entry 3512 (class 0 OID 17251)
+-- TOC entry 3512 (class 0 OID 18526)
 -- Dependencies: 223
 -- Data for Name: Roles; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -352,7 +358,7 @@ a95e8d13-c513-4b8f-95f0-4266b87bbe6d	Admin	2026-09-11 09:59:59.877893+00	\N
 
 
 --
--- TOC entry 3513 (class 0 OID 17254)
+-- TOC entry 3513 (class 0 OID 18529)
 -- Dependencies: 224
 -- Data for Name: Users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -365,7 +371,7 @@ f0e075b0-3e59-4fb1-8e5d-6e540341b87f	admin	admin@admin.com	/uploads/invoicika.pn
 
 
 --
--- TOC entry 3514 (class 0 OID 17259)
+-- TOC entry 3514 (class 0 OID 18534)
 -- Dependencies: 225
 -- Data for Name: VATs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -378,7 +384,7 @@ e816b291-c5c2-4b85-96e6-b59c825d17dc	5.00	2026-09-11 10:00:00.056445+00
 
 
 --
--- TOC entry 3515 (class 0 OID 17262)
+-- TOC entry 3515 (class 0 OID 18537)
 -- Dependencies: 226
 -- Data for Name: __EFMigrationsHistory; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -391,7 +397,7 @@ COPY public."__EFMigrationsHistory" ("MigrationId", "ProductVersion") FROM stdin
 
 
 --
--- TOC entry 3314 (class 2606 OID 17266)
+-- TOC entry 3314 (class 2606 OID 18541)
 -- Name: CustomerInvoiceGroupItemLines PK_CustomerInvoiceGroupItemLines; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -400,7 +406,7 @@ ALTER TABLE ONLY public."CustomerInvoiceGroupItemLines"
 
 
 --
--- TOC entry 3317 (class 2606 OID 17268)
+-- TOC entry 3317 (class 2606 OID 18543)
 -- Name: CustomerInvoiceGroupLines PK_CustomerInvoiceGroupLines; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -409,7 +415,7 @@ ALTER TABLE ONLY public."CustomerInvoiceGroupLines"
 
 
 --
--- TOC entry 3321 (class 2606 OID 17270)
+-- TOC entry 3321 (class 2606 OID 18545)
 -- Name: CustomerInvoiceLines PK_CustomerInvoiceLines; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -418,7 +424,7 @@ ALTER TABLE ONLY public."CustomerInvoiceLines"
 
 
 --
--- TOC entry 3326 (class 2606 OID 17272)
+-- TOC entry 3326 (class 2606 OID 18547)
 -- Name: CustomerInvoices PK_CustomerInvoices; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -427,7 +433,7 @@ ALTER TABLE ONLY public."CustomerInvoices"
 
 
 --
--- TOC entry 3328 (class 2606 OID 17274)
+-- TOC entry 3328 (class 2606 OID 18549)
 -- Name: Customers PK_Customers; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -436,7 +442,7 @@ ALTER TABLE ONLY public."Customers"
 
 
 --
--- TOC entry 3332 (class 2606 OID 17276)
+-- TOC entry 3332 (class 2606 OID 18551)
 -- Name: ItemGroupItems PK_ItemGroupItems; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -445,7 +451,7 @@ ALTER TABLE ONLY public."ItemGroupItems"
 
 
 --
--- TOC entry 3335 (class 2606 OID 17278)
+-- TOC entry 3335 (class 2606 OID 18553)
 -- Name: ItemGroups PK_ItemGroups; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -454,7 +460,7 @@ ALTER TABLE ONLY public."ItemGroups"
 
 
 --
--- TOC entry 3338 (class 2606 OID 17280)
+-- TOC entry 3338 (class 2606 OID 18555)
 -- Name: Items PK_Items; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -463,7 +469,7 @@ ALTER TABLE ONLY public."Items"
 
 
 --
--- TOC entry 3340 (class 2606 OID 17282)
+-- TOC entry 3340 (class 2606 OID 18557)
 -- Name: Roles PK_Roles; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -472,7 +478,7 @@ ALTER TABLE ONLY public."Roles"
 
 
 --
--- TOC entry 3343 (class 2606 OID 17284)
+-- TOC entry 3343 (class 2606 OID 18559)
 -- Name: Users PK_Users; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -481,7 +487,7 @@ ALTER TABLE ONLY public."Users"
 
 
 --
--- TOC entry 3345 (class 2606 OID 17286)
+-- TOC entry 3345 (class 2606 OID 18561)
 -- Name: VATs PK_VATs; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -490,7 +496,7 @@ ALTER TABLE ONLY public."VATs"
 
 
 --
--- TOC entry 3347 (class 2606 OID 17288)
+-- TOC entry 3347 (class 2606 OID 18563)
 -- Name: __EFMigrationsHistory PK___EFMigrationsHistory; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -499,7 +505,7 @@ ALTER TABLE ONLY public."__EFMigrationsHistory"
 
 
 --
--- TOC entry 3311 (class 1259 OID 17289)
+-- TOC entry 3311 (class 1259 OID 18564)
 -- Name: IX_CustomerInvoiceGroupItemLines_CustomerInvoiceGroupLine_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -507,7 +513,7 @@ CREATE INDEX "IX_CustomerInvoiceGroupItemLines_CustomerInvoiceGroupLine_id" ON p
 
 
 --
--- TOC entry 3312 (class 1259 OID 17290)
+-- TOC entry 3312 (class 1259 OID 18565)
 -- Name: IX_CustomerInvoiceGroupItemLines_Item_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -515,7 +521,7 @@ CREATE INDEX "IX_CustomerInvoiceGroupItemLines_Item_id" ON public."CustomerInvoi
 
 
 --
--- TOC entry 3315 (class 1259 OID 17291)
+-- TOC entry 3315 (class 1259 OID 18566)
 -- Name: IX_CustomerInvoiceGroupLines_CustomerInvoice_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -523,7 +529,7 @@ CREATE INDEX "IX_CustomerInvoiceGroupLines_CustomerInvoice_id" ON public."Custom
 
 
 --
--- TOC entry 3318 (class 1259 OID 17292)
+-- TOC entry 3318 (class 1259 OID 18567)
 -- Name: IX_CustomerInvoiceLines_CustomerInvoice_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -531,7 +537,7 @@ CREATE INDEX "IX_CustomerInvoiceLines_CustomerInvoice_id" ON public."CustomerInv
 
 
 --
--- TOC entry 3319 (class 1259 OID 17293)
+-- TOC entry 3319 (class 1259 OID 18568)
 -- Name: IX_CustomerInvoiceLines_Item_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -539,7 +545,7 @@ CREATE INDEX "IX_CustomerInvoiceLines_Item_id" ON public."CustomerInvoiceLines" 
 
 
 --
--- TOC entry 3322 (class 1259 OID 17294)
+-- TOC entry 3322 (class 1259 OID 18569)
 -- Name: IX_CustomerInvoices_Customer_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -547,7 +553,7 @@ CREATE INDEX "IX_CustomerInvoices_Customer_id" ON public."CustomerInvoices" USIN
 
 
 --
--- TOC entry 3323 (class 1259 OID 17295)
+-- TOC entry 3323 (class 1259 OID 18570)
 -- Name: IX_CustomerInvoices_User_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -555,7 +561,7 @@ CREATE INDEX "IX_CustomerInvoices_User_id" ON public."CustomerInvoices" USING bt
 
 
 --
--- TOC entry 3324 (class 1259 OID 17296)
+-- TOC entry 3324 (class 1259 OID 18571)
 -- Name: IX_CustomerInvoices_Vat_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -563,7 +569,7 @@ CREATE INDEX "IX_CustomerInvoices_Vat_id" ON public."CustomerInvoices" USING btr
 
 
 --
--- TOC entry 3329 (class 1259 OID 17297)
+-- TOC entry 3329 (class 1259 OID 18572)
 -- Name: IX_ItemGroupItems_ItemGroup_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -571,7 +577,7 @@ CREATE INDEX "IX_ItemGroupItems_ItemGroup_id" ON public."ItemGroupItems" USING b
 
 
 --
--- TOC entry 3330 (class 1259 OID 17298)
+-- TOC entry 3330 (class 1259 OID 18573)
 -- Name: IX_ItemGroupItems_Item_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -579,7 +585,7 @@ CREATE INDEX "IX_ItemGroupItems_Item_id" ON public."ItemGroupItems" USING btree 
 
 
 --
--- TOC entry 3333 (class 1259 OID 17299)
+-- TOC entry 3333 (class 1259 OID 18574)
 -- Name: IX_ItemGroups_User_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -587,7 +593,7 @@ CREATE INDEX "IX_ItemGroups_User_id" ON public."ItemGroups" USING btree ("User_i
 
 
 --
--- TOC entry 3336 (class 1259 OID 17300)
+-- TOC entry 3336 (class 1259 OID 18575)
 -- Name: IX_Items_User_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -595,7 +601,7 @@ CREATE INDEX "IX_Items_User_id" ON public."Items" USING btree ("User_id");
 
 
 --
--- TOC entry 3341 (class 1259 OID 17301)
+-- TOC entry 3341 (class 1259 OID 18576)
 -- Name: IX_Users_Role_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -603,7 +609,7 @@ CREATE INDEX "IX_Users_Role_id" ON public."Users" USING btree ("Role_id");
 
 
 --
--- TOC entry 3348 (class 2606 OID 17302)
+-- TOC entry 3348 (class 2606 OID 18577)
 -- Name: CustomerInvoiceGroupItemLines FK_CustomerInvoiceGroupItemLines_CustomerInvoiceGroupLines_Cus~; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -612,7 +618,7 @@ ALTER TABLE ONLY public."CustomerInvoiceGroupItemLines"
 
 
 --
--- TOC entry 3349 (class 2606 OID 17307)
+-- TOC entry 3349 (class 2606 OID 18582)
 -- Name: CustomerInvoiceGroupItemLines FK_CustomerInvoiceGroupItemLines_Items_Item_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -621,7 +627,7 @@ ALTER TABLE ONLY public."CustomerInvoiceGroupItemLines"
 
 
 --
--- TOC entry 3350 (class 2606 OID 17312)
+-- TOC entry 3350 (class 2606 OID 18587)
 -- Name: CustomerInvoiceGroupLines FK_CustomerInvoiceGroupLines_CustomerInvoices_CustomerInvoice_~; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -630,7 +636,7 @@ ALTER TABLE ONLY public."CustomerInvoiceGroupLines"
 
 
 --
--- TOC entry 3351 (class 2606 OID 17317)
+-- TOC entry 3351 (class 2606 OID 18592)
 -- Name: CustomerInvoiceLines FK_CustomerInvoiceLines_CustomerInvoices_CustomerInvoice_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -639,7 +645,7 @@ ALTER TABLE ONLY public."CustomerInvoiceLines"
 
 
 --
--- TOC entry 3352 (class 2606 OID 17322)
+-- TOC entry 3352 (class 2606 OID 18597)
 -- Name: CustomerInvoiceLines FK_CustomerInvoiceLines_Items_Item_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -648,7 +654,7 @@ ALTER TABLE ONLY public."CustomerInvoiceLines"
 
 
 --
--- TOC entry 3353 (class 2606 OID 17327)
+-- TOC entry 3353 (class 2606 OID 18602)
 -- Name: CustomerInvoices FK_CustomerInvoices_Customers_Customer_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -657,7 +663,7 @@ ALTER TABLE ONLY public."CustomerInvoices"
 
 
 --
--- TOC entry 3354 (class 2606 OID 17332)
+-- TOC entry 3354 (class 2606 OID 18607)
 -- Name: CustomerInvoices FK_CustomerInvoices_Users_User_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -666,7 +672,7 @@ ALTER TABLE ONLY public."CustomerInvoices"
 
 
 --
--- TOC entry 3355 (class 2606 OID 17337)
+-- TOC entry 3355 (class 2606 OID 18612)
 -- Name: CustomerInvoices FK_CustomerInvoices_VATs_Vat_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -675,7 +681,7 @@ ALTER TABLE ONLY public."CustomerInvoices"
 
 
 --
--- TOC entry 3356 (class 2606 OID 17342)
+-- TOC entry 3356 (class 2606 OID 18617)
 -- Name: ItemGroupItems FK_ItemGroupItems_ItemGroups_ItemGroup_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -684,7 +690,7 @@ ALTER TABLE ONLY public."ItemGroupItems"
 
 
 --
--- TOC entry 3357 (class 2606 OID 17347)
+-- TOC entry 3357 (class 2606 OID 18622)
 -- Name: ItemGroupItems FK_ItemGroupItems_Items_Item_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -693,7 +699,7 @@ ALTER TABLE ONLY public."ItemGroupItems"
 
 
 --
--- TOC entry 3358 (class 2606 OID 17352)
+-- TOC entry 3358 (class 2606 OID 18627)
 -- Name: ItemGroups FK_ItemGroups_Users_User_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -702,7 +708,7 @@ ALTER TABLE ONLY public."ItemGroups"
 
 
 --
--- TOC entry 3359 (class 2606 OID 17357)
+-- TOC entry 3359 (class 2606 OID 18632)
 -- Name: Items FK_Items_Users_User_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -711,7 +717,7 @@ ALTER TABLE ONLY public."Items"
 
 
 --
--- TOC entry 3360 (class 2606 OID 17362)
+-- TOC entry 3360 (class 2606 OID 18637)
 -- Name: Users FK_Users_Roles_Role_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -728,11 +734,11 @@ ALTER TABLE ONLY public."Users"
 REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 
 
--- Completed on 2026-10-20 16:36:59
+-- Completed on 2026-10-21 13:18:58
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 7STG4nNA2ahnftOLKXzGoZtqQ1ojSFSjcHD7zduRUZc42F1hX1g0I01KoraGLX0
+\unrestrict EBRvacrJYZ82RRyvXptO5HGUEd62mau6lugc6twuwBk4hPRjHJTWA8s2QoDbV9A
 
