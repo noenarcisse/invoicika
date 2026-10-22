@@ -1,0 +1,42 @@
+info:
+  name: RecupererLesClientsSansAuth
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:5000/api/Users
+  body:
+    type: json
+    data: ""
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if(res.status != 200) return
+
+        const admin1 = res.body.find(u => u.roleName == "Admin")
+
+        if (admin1 == undefined) {
+          console.log("No admin role found")
+          return
+        }
+
+        bru.setVar("adminId",admin1.userId)
+        bru.setVar("adminJson", admin1)
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: |-
+  Ne pas implémenter et exécuter.
+
+  Le code des auths n'est pas écrit et ne rentre pas dans les conditions d'entrée
+
+  Le bug est report dans JIRA

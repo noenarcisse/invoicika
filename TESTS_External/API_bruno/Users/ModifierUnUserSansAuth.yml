@@ -1,0 +1,53 @@
+info:
+  name: ModifierUnUserSansAuth
+  type: http
+  seq: 2
+
+http:
+  method: PATCH
+  url: http://localhost:5000/api/Users/{{adminId}}
+  body:
+    type: multipart-form
+    data:
+      - name: Username
+        type: text
+        value: "{{adminJson.username}}"
+      - name: EmailAddress
+        type: text
+        value: "{{adminJson.emailAddress}}"
+      - name: PasswordHash
+        type: text
+        value: cestokay
+      - name: UserId
+        type: text
+        value: "{{adminJson.userId}}"
+      - name: Role_id
+        type: text
+        value: "{{adminJson.role_id}}"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        // let payload = bru.getVar("adminJson")
+        // payload.Username = payload.username
+        // payload.EmailAddress = payload.emailAddress
+        // payload.PasswordHash = "/GV6U4SOdknVz6OkYmpl+XltOqL3+f0ryFPj201gm8Q="
+        // req.setBody(payload)
+
+        // console.log(req.body)
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: |-
+  Ne pas implémenter et exécuter.
+
+  Le code des auths n'est pas écrit et ne rentre pas dans les conditions d'entrée
+
+  Le bug est report dans JIRA
