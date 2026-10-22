@@ -1,4 +1,5 @@
-﻿using Shouldly;
+﻿using Microsoft.EntityFrameworkCore;
+using Shouldly;
 using WebAPI.Models;
 
 using WebAPI.Services;
@@ -38,13 +39,13 @@ public class DB01_001_SuppressionLogiques(PostgresFixture db)
 
         await using var ctx3 = db.CreateContext();
 
-        UserService us = new UserService(ctx3);
+        UserService us = new(ctx3);
         await us.DeleteUserAsync(user.UserId);
 
         await ctx3.SaveChangesAsync(TestContext.Current.CancellationToken);
 
         await using var ctx4 = db.CreateContext();
-        var u4 = ctx4.Users.FirstOrDefault(u => u.Username == user.Username);
+        var u4 = ctx4.Users.IgnoreQueryFilters().SingleOrDefault(u => u.UserId == user.UserId);
         u4.ShouldNotBeNull();
     }
 
