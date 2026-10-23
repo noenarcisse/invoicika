@@ -1,0 +1,7 @@
+info:
+  name: TC_CUS01_00x_AjouterUnClientAvecDoublonId
+  type: folder
+  seq: 4
+
+request:
+  auth: inherit
