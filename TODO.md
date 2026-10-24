@@ -3,10 +3,7 @@
 Faut prio les unique, cascade, not null etc
 
 setup a faire : 
-
 External tests -> sql pur, test manuel d'exploration dans la DB pour voir les reactions possibles et trouver des bugs de schema
-
-test ecrit dans Backend/Db.Tests -> test C# avec un pseudo container tmp + migration de la DB et "unit test" de DB qui peuvent etre relancer pour valider que le schema soit correct. Permet de relancer facilement et d'utiliser les migrations / models deja fait pas le dev plutot que d'ecrire du sql :D
 
 davit a répondu pour le legal -> oui en plus pour les RM, p-e pas en prio1 par contre
 bug vu en whitebox -> report ! (cors)
@@ -66,7 +63,9 @@ a ouvrir a long terme pour la presa?
 - [ ] Add https://github.com/noenarcisse/CS_Flaui/blob/main/.vscode/settings.json
 - [x] Ajouter NSubstitute (ou Moq pour souffrir)
 - [x] Ajouter Shouldly
-- [x] Install VS a BF, la fenetre de test est loin au dessus de vscode 
+- [x] Install VS a BF, la fenetre de test est loin au dessus de vscode
+- [ ] Ajouter une branche pour preparer NBomber
+- [ ] Installer un projet de test xUnit3 + NBomber pour les test de charge sur l'API
 
 ## FRONT
 - [x] Fix les vulné possibles : npm audit + i
@@ -107,6 +106,7 @@ au moins un cas de sécurité.
 ### 3.4 Automatisation de l'interface
 - Un framework d'automatisation UI (Playwright ou Selenium) structuré selon le Page Object Model, couvrant le parcours critique
 de bout en bout.
+<!-- DRAFT : euh ? vu nulle part dans invoicika ?! -->
 - Une gestion des tests instables (attentes robustes, nouvelles tentatives) et des artefacts en cas d'échec (traces, captures).
 
 ### 3.5 Intégration continue
