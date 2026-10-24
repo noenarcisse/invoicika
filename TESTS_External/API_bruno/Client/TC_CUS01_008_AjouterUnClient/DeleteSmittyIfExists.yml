@@ -1,5 +1,5 @@
 info:
-  name: DeleteSmittyIfExists copy
+  name: DeleteSmittyIfExists
   type: http
   seq: 2
 

@@ -1,7 +1,7 @@
 info:
-  name: GetSmitty copy
+  name: GetSmitty1
   type: http
-  seq: 1
+  seq: 2
 
 http:
   method: GET
