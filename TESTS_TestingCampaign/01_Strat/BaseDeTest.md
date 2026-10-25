@@ -14,6 +14,9 @@
 Contradiction de l'app : 
 TVA -> tres EU et national en Europe
 
+Norme en EU : La Directive TVA 2006/112/CE
+https://eur-lex.europa.eu/eli/dir/2006/112/oj?locale=fr
+
 Aux USA ils ont plutot la Sale tax -> source
 https://www.fonoa.com/resources/blog/the-american-exception-why-the-us-has-no-vat-system
 
