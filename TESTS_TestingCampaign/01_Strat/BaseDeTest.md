@@ -5,6 +5,12 @@
 + "specification, exigences, user stories"
  -->
 
+ En Belgique ->
+ Le calcul de TVA était relax entre ligne par ligne et total avant.
+ Maintenant la norme EN 16931 est en application et oblige le calcul de tva uniquement sur le total
+
+ Impossible d'avoir 2 taux de TVA différents dans la meme facture ? j'ai pas reussi a avoir des item groups ?
+
 Contradiction de l'app : 
 TVA -> tres EU et national en Europe
 
