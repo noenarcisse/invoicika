@@ -10,7 +10,7 @@ test.describe("Tests d'arrondi mathématique", () => {
         { value: "0.155", expected: 0.16 },
     ].forEach(({ value, expected }) => {
         test(`arrondi mathematique du prix ${value}`, async ({ page }) => {
-            await page.goto("http://localhost:4444/invoices/add");
+            await page.goto("/invoices/add");
 
             const priceInput = page.getByRole("spinbutton", {
                 name: "Price :",
