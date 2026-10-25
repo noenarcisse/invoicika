@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("se deconnecter", async ({ page }) => {
-    page.goto("http://localhost:4444/dashboard");
+    page.goto("/dashboard");
 
     //obligé de se reposer sur la connexion admin et la connaissance de username pour aller chercher l'element dans ce cas
     const adminButton = page.getByText("admin");
@@ -14,6 +14,6 @@ test("se deconnecter", async ({ page }) => {
     expect(logoutButton).toBeVisible();
     await logoutButton.click();
 
-    expect(page).toHaveURL("http://localhost:4444/login");
+    expect(page).toHaveURL("/login");
     expect(page.getByRole("button", { name: /log\s*in/i })).toBeVisible();
 });

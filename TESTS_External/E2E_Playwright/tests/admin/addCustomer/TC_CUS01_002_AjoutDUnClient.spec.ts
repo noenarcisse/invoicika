@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("ajouter un client avec email réussit", async ({ page }) => {
-    await page.goto("http://localhost:4444/customers/add");
+    await page.goto("/customers/add");
 
     const nameInput = page.getByPlaceholder(/customer name/);
     const emailInput = page.getByPlaceholder(/email/);
@@ -20,7 +20,7 @@ test("ajouter un client avec email réussit", async ({ page }) => {
 
 //doit echouer -> voir RM
 test("ajouter un client sans email échoue", async ({ page }) => {
-    await page.goto("http://localhost:4444/customers/add");
+    await page.goto("/customers/add");
 
     const nameInput = page.getByPlaceholder(/customer name/);
     const createButton = page.getByRole("button", { name: /create/i });

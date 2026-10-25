@@ -37,7 +37,7 @@ test("entrer un email valide avec double extension de domaine réussit", async (
 });
 
 test("entrer un email valide avec caractere speciaux dans le domaine réussit", async ({ page }) => {
-    await page.goto("http://localhost:4444/customers/add");
+    await page.goto("/customers/add");
 
     const emailInput = page.getByPlaceholder(/email/);
     await expect(emailInput).toBeVisible();
@@ -48,7 +48,7 @@ test("entrer un email valide avec caractere speciaux dans le domaine réussit", 
     await expect(err).not.toBeVisible({ timeout: 3_000 });
 });
 test("entrer un email avec caractere speciaux dans la partie locale échoue", async ({ page }) => {
-    await page.goto("http://localhost:4444/customers/add");
+    await page.goto("/customers/add");
 
     const emailInput = page.getByPlaceholder(/email/);
     await expect(emailInput).toBeVisible();
