@@ -18,18 +18,26 @@ Tests a considerer :
 - Traçabilité : chaque facture doit être immuable une fois émise (contraintes légales dans beaucoup de pays)
 
 <!-- DRAFT -->
+- Utilisation de Peppol (obligation B2B, B2G) -> source ?
 - Respect de la norme EN 16931 : Numérotation séquentielle des factures (obligatoire dans plusieurs juridictions, dont la France/Belgique)
 - Mentions légales obligatoires sur le document (règles d’arrondis utilisés si nécéssaire)
 - Race conditions sur les stocks des produits enregistrés
-<!-- DRAFT -->
-- Conservation et archivage (durée légale)
+- Conservation et archivage (durée légale) - jusqu'a 10 ans en Belgique pour les indépendants et entreprises (hors immobilié). au moins 2 ans du coté du particulier (assurance de base)
+
 - Facturation en masse (fin de mois, tous les abonnements le même jour) (load test)
 
 ### Test basé sur la conformité (Compliance-Based Testing)
-<!-- draft, faut detailler que le compliance doit etre ciblé sur X pays ou regions? faut preciser que ca influe sur du hors scope (le pdf de la facture) mais a des incidences aussi ailleurs -> archivage legal, immuable. la db ou le serveur doivent donc preserver les données a long terme!  -->
 À cela doit être ajoutée une seconde stratégie pour vérifier le bon respect légal des factures émises sous la forme d'une liste de validation. <br>
-Même si les risques ici ne pas à proprement parler des règles métier, il s'agit quand même de risques légaux, obligatoires en fonction des pays où sont émises les factures et pouvant entrainer des amendes pour les clients utilisant l'app.
+Même si les risques ici ne pas à proprement parler des règles métier, il s'agit quand même de risques légaux, obligatoires en fonction des pays où sont émises les factures et pouvant entrainer des amendes pour les clients utilisant l'application.
 Les éléments dans cette liste sont liés à des règles fonctionnelles mais ne sont pas jamais optionnels.
+
+L'ensemble des règlementations et la documentation est listé dans le document de Base de Test. Dans le cadre de cette campagne, afin de cadrer et d'avoir un cas d'exemple, je vais m'attarder sur les reglementations en vigueur au niveau de la Belgique et de l'Union européenne.
+Pour réellement affiner la stratégie, il sera nécéssaire d'adapter cette liste de conformités en fonction des différents pays / régions du monde.
+
+### Test basé sur les exigences
+Correctif apporté à la stratégie de RBT.
+Au vu de la grande quantité de bugs critiques et afin de permettre de trier au mieux les priorités, l'ordre de tri des TC et bugs critiques sera priorisé selon l'importance des exigences. 
+Les exigences clés parmis les critiques seront les features pour un parcours utilisateur E2E de base et les failles de sécurités graves (fuites de données, manques d'authorisations, etc.)
 
 ## Stratégies secondaires :
 Je compte garder comme stratégie viable et intéressantes mais dépendantes du temps
