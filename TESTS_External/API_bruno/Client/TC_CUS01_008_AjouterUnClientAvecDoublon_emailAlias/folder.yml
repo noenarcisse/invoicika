@@ -1,0 +1,7 @@
+info:
+  name: TC_CUS01_008_AjouterUnClientAvecDoublon_emailAlias
+  type: folder
+  seq: 6
+
+request:
+  auth: inherit
