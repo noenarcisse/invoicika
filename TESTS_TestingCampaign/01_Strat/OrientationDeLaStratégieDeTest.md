@@ -89,11 +89,15 @@ La catégorie "PDF" en scope bonus ne sera exécutée que si les conditions pour
 | ACC03 | Fin de session d'un utilisateur |
 | ACC04 | Modification du profil d'un utilisateur |
 | ACC05 | Upload d'une photo de profil |
-| ACC0X | Authorisations différenciées entre administrateurs et employés |
+| ACC06 | Authorisations différenciées entre administrateurs et employés |
+| ACC07 | Politique de mot de passe |
+| ACC08 | Brute force |
+
 | INV01 | Créer une facture (lignes, lignes de groupe, client, TVA) |
 | INV02 | Consulter, modifier, lister les factures |
 | INV03 | Gérer le statut d'une facture (brouillon, envoyée...) |
 | INV04 | Appliquer une TVA à une facture |
+
 | PRO01 | Créer et gérer des produits |
 
 ## Regles metier : RM
@@ -108,7 +112,12 @@ La catégorie "PDF" en scope bonus ne sera exécutée que si les conditions pour
 | RM07 | Unicité des ID Utilisateurs/Clients | Un identifiant utilisateur/client est unique |
 | RM08 | Facture imuable | Facture émise figée : modification de l'article ou du client sans effet sur elle |
 | RM09 | Calcul de la TVA apppliquée | Cohérence des montants : total lignes + groupes = sous-total, sous-total + TVA = total |
-| RM10 | Validation des inscrits | L'inscription s'effectue par un simple lien, il faut une validation d'un admin avant de laisser un utilisateur modifier des données sur le site / un statut intermédaire bloqué |
+| RM10 | Arrondis | Erreur d'arrondi entre arrondi bancaire et mathématique |
+| RM11 | Quantités en nombres naturels et prix en nombre positif | Facture avec quantité ≤ 0 ou prix négatif  |
+| RM12 | Intégrité des références | Suppression d’un client ou d’un item référencé par une facture |
+
+
+| RM1X | Validation des inscrits | L'inscription s'effectue par un simple lien, il faut une validation d'un admin avant de laisser un utilisateur modifier des données sur le site / un statut intermédaire bloqué |
 
 <!-- add les legal ici ! -->
 
@@ -120,11 +129,15 @@ La catégorie "PDF" en scope bonus ne sera exécutée que si les conditions pour
 ## Exigences non fonctionnelles
 | ID | Nom de l'exigence | Descr |
 |---|---|---|
+| DB01 | Les suppressions en DB sur des infos importantes doivent préserver la donnée |
 | SEC01 | Injections XSS | Les inputs utilisateurs sont affichés dans un dashboard html (sécurité / injection) |
 | SEC02 | Autorisation | Un utilisateur ne peut pas modifier les infos des autres (IDOR?) |
 | SEC03 | Autorisation | Contrôle d'accès par rôle sur chaque endpoint |
-| SEC04 | Mots de passe | Mots de passe stockés hachés |
-| SEC05 | DDoS | Upload d'images : type, taille et contenu contrôlés |
+| SEC04 | Mots de passe | Mots de passe stockés hachés et jamais affichés |
+| SEC05 | DoS | Upload d'images : type, taille et contenu contrôlés |
+| SEC06 | Injections SQL | Protection contre les injections SQL  |
+| SEC07 | CSRF | CSRF |
+| SEC08 | Données | Exposition de données sensibles dans les logs ou réponses API  |
 
 # Structure du JIRA et SquashTM
 <!-- Relire dans 1 sem 15-10-26 voir si c'est du francais correct et compréhensible ;d -->
