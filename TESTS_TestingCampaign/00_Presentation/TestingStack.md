@@ -5,15 +5,16 @@
 ## Création de tests
 | outil | utilisation
 |---|---|
-| Jasmine, Karma | tests unitaires
-| Testing Library Angular | tests unitaires
 | xUnit | tests composants, tests integration db 
 | Shouldly | assertion, tests composants et integration
 | NSubstitute | mocks
 | Testcontainers & Docker | tests d'integration de db
 | Npgsql/EF Core | tests d'integration de db
+| NBomber | test de charge API
 | Bruno | tests API
 | Playwright | tests E2E, tests de composants Frontend
+| OUT Jasmine, Karma | tests unitaires
+| OUT?Testing Library Angular | tests unitaires
 
 ## Exploration
 | outil | utilisation
