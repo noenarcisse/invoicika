@@ -1,0 +1,22 @@
+info:
+  name: RecupererUnClientQuiExistePas
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{apiUrl}}Customers/00000000-0000-0000-0000-000000000000"
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "404"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

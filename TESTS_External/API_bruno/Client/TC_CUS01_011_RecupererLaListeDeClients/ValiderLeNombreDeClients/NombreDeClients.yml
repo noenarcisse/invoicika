@@ -1,0 +1,35 @@
+info:
+  name: NombreDeClients
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{apiUrl}}Customers"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const customersCountAPI = res.getBody().totalCount
+        bru.setVar("customersCount", customersCountAPI)
+    - type: tests
+      code: |-
+        test("Le nombre de clients correspond a la valeur annoncée par l'API", () => {
+          const nbCustomers = res.body.items.length
+          let nbCustomersAPI = res.body.totalCount
+          
+          //fix en fonction de la pagination
+          if(nbCustomersAPI > res.body.pageSize)
+            nbCustomersAPI = res.body.pageSize
+          
+          expect(nbCustomersAPI).to.eq(nbCustomers)
+        })
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,7 @@
+info:
+  name: TC_INV01_003_VerificationDesQuantitesLTEStocks
+  type: folder
+  seq: 3
+
+request:
+  auth: inherit

@@ -1,7 +1,7 @@
 info:
   name: TC_INV03_002_MiseAJourDuStatut_0
   type: folder
-  seq: 4
+  seq: 9
 
 request:
   auth: inherit

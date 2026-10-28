@@ -1,7 +1,7 @@
 info:
   name: TC_CUS01_012_RecupererUnClient
   type: folder
-  seq: 12
+  seq: 11
 
 request:
   auth: inherit

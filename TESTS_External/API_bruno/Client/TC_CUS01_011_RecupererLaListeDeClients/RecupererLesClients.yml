@@ -17,6 +17,7 @@ runtime:
 
         test("On récupère maximum 10 elements par défaut", () => {
           const customers = res.getBody().items
+          
           expect(customers).to.not.be.undefined
           expect(customers).to.have.lengthOf.below(11)
         })
@@ -24,6 +25,17 @@ runtime:
         test("On récupère la page 1 par défaut", () => {
           const page = res.getBody().currentPage
           expect(page).to.eq(1)
+        })
+
+        test("Le nombre de clients correspond a la valeur annoncée par l'API", () => {
+          const nbCustomers = res.body.items.length
+          let nbCustomersAPI = res.body.totalCount
+          
+          //fix en fonction de la pagination
+          if(nbCustomersAPI > res.body.pageSize)
+            nbCustomersAPI = res.body.pageSize
+          
+          expect(nbCustomersAPI).to.eq(nbCustomers)
         })
   assertions:
     - expression: res.status

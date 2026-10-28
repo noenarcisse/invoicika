@@ -1,0 +1,42 @@
+info:
+  name: SendPoorlyCalculatedInvoice
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{apiUrl}}CustomerInvoices/"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        const { v4: uuidv4 } = require('uuid');
+
+        const data = bru.getVar("invoice")
+
+        console.log(data)
+
+        console.log(data.customerInvoiceId)
+        data.customerInvoiceId = uuidv4()
+        console.log(data.customerInvoiceId)
+        data.customerInvoiceLines[0].invoiceLineId = uuidv4()
+
+        data.customerInvoiceLines[0].quantity = -4
+
+        req.setHeader("Content-type", "application/json")
+        req.setBody(data)
+
+        //en cas d'erreur d'id, le serveur envoie 500 au lieu de 409
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "400"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,7 +1,7 @@
 info:
   name: TC_CUS01_011_RecupererLaListeDeClients
   type: folder
-  seq: 11
+  seq: 10
 
 request:
   auth: inherit

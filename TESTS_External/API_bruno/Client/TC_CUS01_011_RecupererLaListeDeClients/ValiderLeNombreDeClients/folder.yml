@@ -1,0 +1,11 @@
+info:
+  name: ValiderLeNombreDeClients
+  type: folder
+  seq: 2
+
+request:
+  auth: inherit
+
+docs:
+  content: Le test fait confiance au nombre donné par l'API pour utiliser la pagination et compter, c'est bancal
+  type: text/markdown
