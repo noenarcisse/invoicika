@@ -1,0 +1,7 @@
+info:
+  name: TC_INV01_001_NouvelleFactureDoublon_IdLine
+  type: folder
+  seq: 3
+
+request:
+  auth: inherit

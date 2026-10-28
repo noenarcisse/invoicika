@@ -19,13 +19,29 @@ runtime:
   scripts:
     - type: tests
       code: |-
-        test("reponse json correctement formée", () => {
-            expect("token" in res.body)
+        test("Validation du JSON de connexion", () => {
+          const ConnexionSchema = {
+          type : "object",
+          required : ["token"],
+          properties : {
+            token : {
+              type : "string"
+            }
+          }
+        }
+          expect(res.getBody()).to.have.jsonSchema(ConnexionSchema)
         })
 
-        test("reception du token d'auth", () => {
+        test("Validation du token d'auth", () => {
           const token = res.body.token
-          const part2 = JSON.parse(atob(token.split(".")[1]))
+          
+          tokenParts = token.split(".")
+          
+        //   console.log(tokenParts.length)
+          expect(tokenParts.length).to.eq(3)
+          
+          const part2 = JSON.parse(atob(tokenParts[1]))
+        //   console.log(part2)
           expect(part2.role).to.eq("Admin")
         })
   assertions:

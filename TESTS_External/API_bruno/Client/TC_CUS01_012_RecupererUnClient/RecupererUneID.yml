@@ -1,0 +1,28 @@
+info:
+  name: RecupererUneID
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{apiUrl}}Customers"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const customerId1 = res.body.items[0].customerId
+
+        bru.setVar("customerId", customerId1)
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

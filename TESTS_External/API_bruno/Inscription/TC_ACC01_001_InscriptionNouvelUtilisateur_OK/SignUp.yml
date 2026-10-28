@@ -17,6 +17,29 @@ http:
   auth: inherit
 
 runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Validation du JSON d'ajout d'un nouvel utilisateur", () => {
+          const SignupJsonSchema = {
+            type : "object",
+            required : ["userId","username","emailAddress","creationDate"],
+            properties : {
+                  userId : { type : "string" },
+                  username : { type: "string" },
+                  emailAddress : {
+                    type : "string",
+                    format : "email"
+                  },
+                  creationDate : {
+                    type : "string",
+                    format : "date-time"
+                  }
+                }
+            }
+             
+             expect(res.getBody()).to.have.jsonSchema(SignupJsonSchema)
+        })
   assertions:
     - expression: res.status
       operator: eq
