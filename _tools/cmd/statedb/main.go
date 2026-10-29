@@ -4,6 +4,7 @@ import (
 	"dbinjector/internal/customers"
 	"dbinjector/internal/database"
 	testcli "dbinjector/internal/test_cli"
+	"dbinjector/internal/users"
 	"dbinjector/internal/yamlparser"
 	"dbinjector/pkg/console"
 	"os"
@@ -33,6 +34,31 @@ func main() {
 	}
 	console.Printcln(console.BLUE, "\nChanging DB state to %d", state)
 	switch state {
+
+	// DB vide sauf les users de base
+	case 0:
+		err := testcli.ResetDB(dblogs)
+		if err != nil {
+			console.Printcln(console.RED, err.Error())
+			os.Exit(1)
+		}
+		conn := database.OpenDB(dblogs)
+		defer conn.Close()
+
+		database.NewDB(conn).Trunc("Customers")
+		database.NewDB(conn).Trunc("Items")
+		database.NewDB(conn).Trunc("Invoices")
+
+		database.NewDB(conn).Trunc("Users")
+
+		us, err := users.GetAll()
+		if err != nil {
+			console.Printcln(console.RED, err.Error())
+			os.Exit(1)
+		}
+		users.NewDB(conn).InjectUsers(us)
+
+		console.Printcln(console.GREEN, "\nDB state changed to %d, DONE!", state)
 
 	case 1:
 		err := testcli.ResetDB(dblogs)
