@@ -1,0 +1,7 @@
+info:
+  name: TC_CUS01_010_SupprimerUnClient
+  type: folder
+  seq: 13
+
+request:
+  auth: inherit

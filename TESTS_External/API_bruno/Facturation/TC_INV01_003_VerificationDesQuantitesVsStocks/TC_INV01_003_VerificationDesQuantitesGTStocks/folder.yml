@@ -1,0 +1,7 @@
+info:
+  name: TC_INV01_003_VerificationDesQuantitesGTStocks
+  type: folder
+  seq: 1
+
+request:
+  auth: inherit

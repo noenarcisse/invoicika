@@ -1,0 +1,41 @@
+info:
+  name: GetDarkSoulsInfos
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: http://localhost:5000/api/Items
+  body:
+    type: json
+    data: ""
+  auth:
+    type: bearer
+    token: "{{jwt}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if(res.status != 200) return
+
+        const items = res.body.items
+
+        if (items.length <= 0) return
+
+        const invoice = bru.getVar("invoice")
+        const ds = items.filter(e => e.name === invoice.customerInvoiceLines[0].itemName)
+
+        if (ds.length <= 0) return
+
+        console.log(ds)
+        bru.setVar("item", ds[0])
+
+        console.log("STOCK:"+ds[0].quantity)
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

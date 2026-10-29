@@ -1,0 +1,25 @@
+info:
+  name: DeleteSmittyIfExists
+  type: http
+  seq: 1
+
+http:
+  method: DELETE
+  url: http://localhost:5000/api/Customers/00000000-0000-0000-0000-000000000000
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "404"
+    - expression: res.body.title
+      operator: contains
+      value: ""
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

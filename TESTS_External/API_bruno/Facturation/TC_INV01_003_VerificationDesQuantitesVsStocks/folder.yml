@@ -1,5 +1,5 @@
 info:
-  name: TC_INV01_003_VerificationDesQuantitesLTEStocks
+  name: TC_INV01_003_VerificationDesQuantitesVsStocks
   type: folder
   seq: 3
 

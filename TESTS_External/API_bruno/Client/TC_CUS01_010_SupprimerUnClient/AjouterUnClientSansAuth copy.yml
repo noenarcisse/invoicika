@@ -1,0 +1,41 @@
+info:
+  name: AjouterUnClientSansAuth copy
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:5000/api/Customers
+  body:
+    type: json
+    data: |-
+      {
+            "name": "Smitty",
+            "address": "Bikini Bottom, quelquepart, Ocean Atlantique",
+            "phoneNumber": "+81-90-1234-5678",
+            "email": "smit@ty.com",
+            "creationDate": "0001-01-01T00:00:00Z",
+            "updateDate": "0001-01-01T00:00:00Z",
+            "customerInvoices": []
+      }
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status != 201) return;
+        bru.setVar("smittyId", res.body.customerId)
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: |-
+  Ne pas implémenter et exécuter.
+
+  Le code des auths n'est pas écrit et ne rentre pas dans les conditions d'entrée
+
+  Le bug est report dans JIRA
