@@ -16,14 +16,16 @@ a ouvrir a long terme pour la presa?
 ## GENERAL
 - [x] Prep le readme de test, recup les infos de base du readme du dev pour les techs
 - [x] Ajouter les instructions et modif effectuée pour install
-- [ ] Documentation legale des facturation a faire pour les RM manquantes
+- [-] Documentation legale des facturation a faire pour les RM manquantes
 - [x] Voir SonarQube pour les tests statics
 - [x] DL le cli sur les 2 machines : https://docs.sonarsource.com/sonarqube-community-build/analyzing-source-code/scanners/sonarscanner#windows
 - [x] setup le docker sonar at home :d
 - [ ] Referencer et publier le repo du Squash
-- [ ] RM Légales a faire pour la checkist
+- [-] RM Légales a faire pour la checkist
 - [ ] Ecriture de la checklist
-- [ ] Mettre a jour la docu par rapport au squash (RM, etc.)
+- [x] Mettre a jour la docu par rapport au squash (RM, etc.)
+- [ ] Refaire une phase d'explo en front pur, tester les manipulations de claviers j'ai repéré des bugs en passant par PW pour les tests components front
+- [ ] Faire un passage de screenshots et videos intermédiaires pour la présa (squash, jira, bug visuels)
 
 - [ ] Aller tester l'envoie de mail si ca marche vraiment avec le SMPT (for fun, c'est hors scope anw)
 
@@ -64,8 +66,8 @@ a ouvrir a long terme pour la presa?
 - [x] Ajouter NSubstitute (ou Moq pour souffrir)
 - [x] Ajouter Shouldly
 - [x] Install VS a BF, la fenetre de test est loin au dessus de vscode
-- [ ] Ajouter une branche pour preparer NBomber
-- [ ] Installer un projet de test xUnit3 + NBomber pour les test de charge sur l'API
+- [x] Ajouter une branche pour preparer NBomber
+- [x] Installer un projet de test xUnit3 + NBomber pour les test de charge sur l'API
 
 ## FRONT
 - [x] Fix les vulné possibles : npm audit + i
