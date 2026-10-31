@@ -1,9 +1,21 @@
-import { expect, test } from "@playwright/test";
+import { expect, request, test } from "@playwright/test";
+import { afterEach, describe } from "node:test";
 
 //TODO
 //describe + teardown des succes qui ecrivent la DB
 
-test(`Ajouter une facture correcte réussit`, async ({ page }) => {
+describe("Test positif d'ajout d'une facture", () => {
+    //impossible de passer par la request, l'API renvoie des valeurs bugguées
+    test.afterEach(async ({ request }) => {
+        //add teardown here
+    });
+});
+
+/***
+ * Adding an invoice with correct values
+ * Cannot be mocked as the validation message appears after the click on the next page
+ */
+test(`Ajouter une facture correcte réussit`, async ({ request, page }) => {
     await page.goto("/invoices/add");
 
     //customerList = page.getByText("Select Customer").locator("..");
@@ -28,35 +40,43 @@ test(`Ajouter une facture correcte réussit`, async ({ page }) => {
 
     await itemList.click();
     await page.getByText(/billy/i).click();
+
     await page.getByRole("button", { name: "Create" }).click();
+    // impossible d'intercepter la req, les valeurs renvoyée par l'api sont fausses
+    // const res = await page.waitForResponse("**/api/Invoices/");
+    // const item = await res.json();
+    // const itemId = item.itemId;
+
+    // console.log(itemId);
 
     await expect(page).toHaveURL("/invoices/all");
     await expect(page.getByText("Invoice added successfully")).toBeVisible();
 });
 
-//todo
-//focus sur Invoice Date et press enter -> ajoute une ligne d'une nouvel obj
-//faut recount
-
 /**
- * Validation test, press enter to spawn a new item line.
+ * Validation test, press enter while the date picker is open does not spawn a new item line.
  */
-test.fixme(`Appuyer sur Enter bugge et ajoute toujours un nouvel objet dans la liste`, async ({ page }) => {
+test(`Appuyer sur Enter buggue et ajoute toujours un nouvel objet dans la liste`, async ({ page }) => {
     await page.goto("/invoices/add");
 
     const dateInput = page.getByRole("textbox", { name: "Select date" });
+
+    //recup les lignes items et length === 1
+    const divnulle = page.locator("div").filter({
+        hasText: "New InvoiceCustomer Select",
+    });
+    let itemLines = divnulle.getByText("Item");
+    let count = (await itemLines.all()).length;
+
+    expect(count).toBe(2);
 
     await dateInput.click();
     for (let i = 0; i < 10; i++) {
         await dateInput.press("Enter");
     }
 
-    //recup les lignes items et length === 1
-    const divnulle = page.locator("div").filter({
-        hasText: "New InvoiceCustomer Select",
-    });
-    const itemLines = divnulle.getByText("Item");
-    const count = (await itemLines.all()).length;
+    itemLines = divnulle.getByText("Item");
+    count = (await itemLines.all()).length;
     console.log(count);
-    expect(count).toBe(1);
+    expect(count).toBe(2);
 });
