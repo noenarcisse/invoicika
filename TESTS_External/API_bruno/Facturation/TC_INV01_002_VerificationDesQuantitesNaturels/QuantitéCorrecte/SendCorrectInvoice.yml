@@ -23,7 +23,7 @@ runtime:
         console.log(data.customerInvoiceId)
         data.customerInvoiceLines[0].invoiceLineId = uuidv4()
 
-        data.customerInvoiceLines[0].quantity = 'a'
+        data.customerInvoiceLines[0].quantity = 2
 
         req.setHeader("Content-type", "application/json")
         req.setBody(data)

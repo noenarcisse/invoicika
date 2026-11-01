@@ -1,0 +1,7 @@
+info:
+  name: TC_INV07_001_AjoutDeTVA_WIP
+  type: folder
+  seq: 15
+
+request:
+  auth: inherit
