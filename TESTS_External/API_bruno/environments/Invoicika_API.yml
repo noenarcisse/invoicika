@@ -3,17 +3,3 @@ variables:
   - name: apiUrl
     value: http://localhost:5000/api/
     description: Base url for the Invoicika API
-  - name: customer1
-    value:
-      type: object
-      data: |-
-        {
-          "customerId": "266e30f9-1346-4ce6-8cef-4598e32e31b5",
-          "name": "Jotaro Kujo",
-          "address": "123 Morioh Street, Sendai, Japan",
-          "phoneNumber": "+81-90-1234-5678",
-          "email": "jotaro.kujo@spw-foundation.org",
-          "creationDate": "0001-01-01T00:00:00Z",
-          "updateDate": "0001-01-01T00:00:00Z",
-          "customerInvoices": []
-        }
