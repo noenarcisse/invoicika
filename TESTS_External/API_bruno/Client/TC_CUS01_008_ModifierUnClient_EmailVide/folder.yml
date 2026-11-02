@@ -1,0 +1,7 @@
+info:
+  name: TC_CUS01_008_ModifierUnClient_EmailVide
+  type: folder
+  seq: 17
+
+request:
+  auth: inherit

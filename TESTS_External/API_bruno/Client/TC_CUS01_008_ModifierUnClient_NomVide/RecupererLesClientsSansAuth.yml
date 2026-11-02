@@ -1,0 +1,39 @@
+info:
+  name: RecupererLesClientsSansAuth
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:5000/api/Customers
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if(res.status !== 200) return
+
+        const customers = res.body.items
+        // console.log(customers)
+        console.log(customers[0])
+        if(customers.length <= 0) return
+        bru.setVar("customer1", customers[0])
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: |-
+  Ne pas implémenter et exécuter.
+
+  Le code des auths n'est pas écrit et ne rentre pas dans les conditions d'entrée
+
+  Le bug est report dans JIRA

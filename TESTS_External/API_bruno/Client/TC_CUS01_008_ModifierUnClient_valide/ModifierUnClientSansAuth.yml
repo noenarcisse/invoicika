@@ -1,0 +1,43 @@
+info:
+  name: ModifierUnClientSansAuth
+  type: http
+  seq: 2
+
+http:
+  method: PUT
+  url: http://localhost:5000/api/Customers/{{customer1.customerId}}
+  body:
+    type: json
+    data: ""
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        const c = bru.getVar("customer1")
+        console.log(c)
+
+        //bien essayé, y'a un check dessus et ca lance 400 + text
+        // c.customerId = "00000000-0000-0000-0000-000000000000"
+        c.name = "Jotaroux"
+        console.log(c)
+
+        req.setBody(c)
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "204"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: |-
+  Ne pas implémenter et exécuter.
+
+  Le code des auths n'est pas écrit et ne rentre pas dans les conditions d'entrée
+
+  Le bug est report dans JIRA

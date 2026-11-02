@@ -1,0 +1,60 @@
+info:
+  name: ModifierUnClientSansAuth_null
+  type: http
+  seq: 3
+
+http:
+  method: PUT
+  url: http://localhost:5000/api/Customers/{{customer1.customerId}}
+  body:
+    type: json
+    data: ""
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        const c = bru.getVar("customer1")
+        c.email = null
+        console.log(c)
+
+        req.setBody(c)
+    - type: tests
+      code: |-
+        test("email is required", () => {
+          expect(res.status).to.eq(400)
+          
+          const body = res.getBody()
+          expect(body).to.exists
+          expect(body).to.be.an("object");
+          
+          expect("errors" in body).to.be.true
+          expect("Email" in body.errors).to.be.true
+          
+          const errMsgs = Object.values(body.errors.Email)
+          
+          const err = /email field is required/i
+          
+          let found = false
+          for(const e of errMsgs){
+            console.log(e)
+            found = err.test(e)
+            if(found) break;
+          }
+          
+          expect(found).to.be.true
+        })
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: |-
+  Ne pas implémenter et exécuter.
+
+  Le code des auths n'est pas écrit et ne rentre pas dans les conditions d'entrée
+
+  Le bug est report dans JIRA
