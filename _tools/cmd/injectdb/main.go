@@ -62,7 +62,6 @@ func main() {
 			conn := database.OpenDB(dblogs)
 			defer conn.Close()
 
-			database.NewDB(conn).Trunc("Customers")
 			cs, _ := customers.GetAllCustomers()
 			customers.NewDB(conn).InjectCustomers(cs)
 		default:
