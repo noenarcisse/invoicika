@@ -1,4 +1,49 @@
 import { expect, test } from "@playwright/test";
+import { describe } from "node:test";
+
+describe("Tests négatifs de modifications de client", () => {
+    const cases = [
+        {
+            title: "modifier un client sans nom echoue",
+            locatorName: "Enter customer name",
+            errMsg: /please input the customer name/i,
+        },
+        {
+            title: "modifier un client sans email echoue",
+            locatorName: "Enter email",
+            errMsg: /please input the customer email/i,
+        },
+        {
+            title: "modifier un client sans adresse echoue",
+            locatorName: "Enter address",
+            errMsg: /please input the customer address/i,
+        },
+    ];
+
+    cases.forEach(({ title, locatorName, errMsg }) => {
+        test(title, async ({ page }) => {
+            await page.goto("/customers/all");
+
+            const editButtons = page.locator("a[href^='/customers/edit/']");
+            const firstEditButton = editButtons.first();
+
+            expect(firstEditButton).toBeVisible();
+            await firstEditButton.click();
+            expect(page.getByText(/edit customer/i));
+
+            const nameInput = page.getByRole("textbox", {
+                name: locatorName,
+            });
+
+            await nameInput.fill("");
+            const editButton = page.getByRole("button", { name: /edit/i });
+            const err = page.getByText(errMsg);
+
+            await expect(editButton).toBeDisabled();
+            await expect(err).toBeVisible();
+        });
+    });
+});
 
 test("modifier un client réussit", async ({ page }) => {
     await page.goto("/customers/all");
@@ -38,13 +83,14 @@ test("modifier un client réussit", async ({ page }) => {
     await phoneInput.fill(customer.phone);
     await emailInput.fill(customer.email);
 
-    await page.waitForTimeout(3_000);
-
     await editButton.click();
 
     expect(page).toHaveURL("/customers/all");
     await expect(page.getByText(/customer updated successfully/i))
         .toBeVisible();
+
+    //todo
+    //c'est du E2E ou du compo, ca fait du test d'intégration complet a partir d'ici ?
 
     //retries, avec la pagination du gars faut possiblement aller chercher dans toutes les pages
     //c'est hyper random, parfois un edit envoie a la fin parfois pas :x
