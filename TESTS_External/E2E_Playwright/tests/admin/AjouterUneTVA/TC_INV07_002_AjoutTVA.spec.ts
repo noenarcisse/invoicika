@@ -73,6 +73,14 @@ describe("Tests positifs d'ajout de TVA", () => {
     });
 });
 
+/***
+ * Les valeurs ont été alignées sur les informations visibles par l'utilisateur dans l'UI
+ * En réalité, l'API semble accepter des valeurs allant de 0 à 99.99
+ * et renvoie un message d'erreur différent du frontend
+ *
+ * Les bornes 100 et 101 existent uniquement car j'ai observé une anomalie de gestion d'erreur
+ * en test manuel exploratoire
+ */
 describe("Tests négatifs d'ajout de TVA", () => {
     const cases = [
         {
