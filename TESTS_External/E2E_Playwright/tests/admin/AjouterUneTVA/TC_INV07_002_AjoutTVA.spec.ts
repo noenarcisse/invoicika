@@ -1,7 +1,11 @@
 import { expect, test } from "@playwright/test";
-import { afterEach, describe } from "node:test";
+import { describe } from "node:test";
 
 describe("Tests positifs d'ajout de TVA", () => {
+    type vatDTO = { vatId: string };
+
+    let vatIdToClean: string = "";
+
     const cases = [
         {
             title: "Ajouter une valeur a 99% réussit",
@@ -19,23 +23,16 @@ describe("Tests positifs d'ajout de TVA", () => {
 
     //teardown
     test.afterEach(async ({ request }) => {
-        // type Customer = { customerId: string; name: string };
+        if (vatIdToClean == "") return;
 
-        // const res = await request.get("http://localhost:5000/api/Customers");
-        // if (res.status() != 200) return;
+        const res = await request.get(
+            `http://localhost:5000/api/vat/${vatIdToClean}`,
+        );
+        if (res.status() != 200) return;
 
-        // const customers = (await res.json()).items;
-        // const smitties: Customer[] = customers.filter((c: Customer) =>
-        //     c.name.toLowerCase().includes("smitty")
-        // );
-
-        // console.log(smitties);
-
-        // for (const s of smitties) {
-        //     await request.delete(
-        //         `http://localhost:5000/api/Customers/${s.customerId}`,
-        //     );
-        // }
+        await request.delete(
+            `http://localhost:5000/api/vat/${vatIdToClean}`,
+        );
     });
 
     cases.forEach(({ title, vat }) => {
@@ -57,7 +54,16 @@ describe("Tests positifs d'ajout de TVA", () => {
 
             await expect(submitButton).toBeEnabled();
 
-            await submitButton.click();
+            const [response] = await Promise.all([
+                page.waitForResponse((r) =>
+                    r.url().includes("/api/vat") &&
+                    r.request().method() === "POST"
+                ),
+                submitButton.click(),
+            ]);
+
+            const vatAdded: vatDTO = await response.json();
+            vatIdToClean = vatAdded.vatId;
 
             await expect(page).toHaveURL("/vat/all");
             const greatSuccess = page.getByText("VAT added successfully");
