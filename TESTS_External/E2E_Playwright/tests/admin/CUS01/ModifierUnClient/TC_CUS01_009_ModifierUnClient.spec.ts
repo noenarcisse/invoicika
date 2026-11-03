@@ -1,7 +1,6 @@
 import { expect, test } from "@playwright/test";
-import { describe } from "node:test";
 
-describe("Tests négatifs de modifications de client", () => {
+test.describe("Tests négatifs de modifications de client", () => {
     const cases = [
         {
             title: "modifier un client sans nom echoue",

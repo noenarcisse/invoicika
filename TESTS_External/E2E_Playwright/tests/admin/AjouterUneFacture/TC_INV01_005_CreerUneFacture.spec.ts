@@ -1,10 +1,10 @@
-import { expect, request, test } from "@playwright/test";
-import { afterEach, describe } from "node:test";
+import { expect, test } from "@playwright/test";
 
 //TODO
 //describe + teardown des succes qui ecrivent la DB
+//on peut recupérer la facture ajoutée en comparant celle qui était pas présente de base a l'id ou Date
 
-describe("Test positif d'ajout d'une facture", () => {
+test.describe("Test positif d'ajout d'une facture", () => {
     //impossible de passer par la request, l'API renvoie des valeurs bugguées
     test.afterEach(async ({ request }) => {
         //add teardown here
@@ -15,7 +15,7 @@ describe("Test positif d'ajout d'une facture", () => {
  * Adding an invoice with correct values
  * Cannot be mocked as the validation message appears after the click on the next page
  */
-test(`Ajouter une facture correcte réussit`, async ({ request, page }) => {
+test(`Ajouter une facture correcte réussit`, async ({ page }) => {
     await page.goto("/invoices/add");
 
     //customerList = page.getByText("Select Customer").locator("..");
@@ -42,12 +42,6 @@ test(`Ajouter une facture correcte réussit`, async ({ request, page }) => {
     await page.getByText(/billy/i).click();
 
     await page.getByRole("button", { name: "Create" }).click();
-    // impossible d'intercepter la req, les valeurs renvoyée par l'api sont fausses
-    // const res = await page.waitForResponse("**/api/Invoices/");
-    // const item = await res.json();
-    // const itemId = item.itemId;
-
-    // console.log(itemId);
 
     await expect(page).toHaveURL("/invoices/all");
     await expect(page.getByText("Invoice added successfully")).toBeVisible();

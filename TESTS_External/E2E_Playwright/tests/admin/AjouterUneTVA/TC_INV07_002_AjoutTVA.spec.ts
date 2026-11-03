@@ -1,7 +1,6 @@
 import { expect, test } from "@playwright/test";
-import { describe } from "node:test";
 
-describe("Tests positifs d'ajout de TVA", () => {
+test.describe("Tests positifs d'ajout de TVA", () => {
     type vatDTO = { vatId: string };
 
     let vatIdToClean: string = "";
@@ -81,7 +80,7 @@ describe("Tests positifs d'ajout de TVA", () => {
  * Les bornes 100 et 101 existent uniquement car j'ai observé une anomalie de gestion d'erreur
  * en test manuel exploratoire
  */
-describe("Tests négatifs d'ajout de TVA", () => {
+test.describe("Tests négatifs d'ajout de TVA", () => {
     const cases = [
         {
             title: "Ajouter une valeur a 99.99% rate",

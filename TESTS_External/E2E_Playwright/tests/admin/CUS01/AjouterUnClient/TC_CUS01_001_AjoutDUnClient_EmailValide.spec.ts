@@ -1,7 +1,6 @@
 import { expect, test } from "@playwright/test";
-import { afterEach, describe } from "node:test";
 
-describe("Tests positifs d'ajout d'un client", () => {
+test.describe("Tests positifs d'ajout d'un client", () => {
     //teardown
     test.afterEach(async ({ request }) => {
         type Customer = { customerId: string; name: string };
