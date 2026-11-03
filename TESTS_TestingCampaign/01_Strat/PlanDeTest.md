@@ -86,13 +86,16 @@ Dans SquashTM les notes plus petites que 4 sont mineures, de 4 à 6 majeure et a
 | **R-16** | SEC06 | **Users** | Un utilisateur ecrit une injection SQL dans un formulaire | 2 | 2 | 4 |
 | **R-17** | SEC04 | **Users** | Mots de passe stockés en clair | 1 | 3 | 3 |
 | **R-18** | SEC07 | **Users** | CSRF | 2 | 2 | 4 |
-
-| **R-18** | ACC07 | **Users** | Le système accepte un mot de passe faible (court, courant ou sans complexité) | 3 | 3 | 9 |
-| **R-18** | ACC08 | **Users** | Un pirate tente de bruteforcer la page de Login | 3 | 3 | 9 |
-| **R-18** | SEC08 | **Users & Customers** | Une réponse API ou un log renvoie des données sensibles en clair (mot de passe, email, JWT etc.) | 2 | 2 | 4 |
-| **R-18** | RM11 | **Items & Invoices** | Un employee rentre une quantité négative sur un stock | 2 | 3 | 6 |
-| **R-18** | RM12 | **Items & Invoices** | Un utilisateur supprime un client ou un objet référencé par une facture et toutes les factures associées | 3 | 3 | 9 |
-| **R-18** | RM12 | **User & Customers & Items & Invoices** | Les suppressions en DB sont physique (définitives) et non logiques sur des infos importantes | 3 | 3 | 9 |
+| **R-19** | ACC07 | **Users** | Le système accepte un mot de passe faible (court, courant ou sans complexité) | 3 | 3 | 9 |
+| **R-20** | ACC08 | **Users** | Un pirate tente de bruteforcer la page de Login. Facteur aggravant de R-19  | 3 | 3 | 9 |
+| **R-21** | ACC09 | **Users** | Le token de session n'a pas d'expiration ou trop lointaine et un utilisateur reste connecté de manière pu contrôlée | 2 | 3 | 6 |
+| **R-22** | SEC08 | **Users & Customers & Invoices** | Une réponse API ou un log renvoie des données sensibles en clair (mot de passe, email, JWT etc.) | 2 | 3 | 6 |
+| **R-23** | RM11 | **Items & Invoices** | Un employé rentre une quantité nulle ou négative sur un achat ou un stock | 2 | 3 | 6 |
+| **R-24** | RM12 | **Invoices** | Un utilisateur supprime un client ou un objet référencé par une facture et toutes les factures associées. Lié à R-25. | 3 | 3 | 9 |
+| **R-25** | RM12 & DB01 | **User & Customers & Items & Invoices** | Les suppressions en DB sont physique (définitives) et non logiques sur des infos importantes | 3 | 3 | 9 |
+| **R-26** | RM08 | **Invoices** | Gestion de la TVA : recalcul correct si on change de TVA avant émission finale de la facture | 3 | 3 | 9 |
+| **R-27** | RM05 | **Invoices** | Concurrence des numérotation de facture : deux factures obtiennent le même numérotation (doublon ou discard) | 3 | 3 | 9 |
+| **R-27** | RM05 | **Invoices** | Numérotation de facture : norme légale impose d'avoir des numéro identifiables et des séries qui se suivent sans trou | 3 | 3 | 9 |
 
 
 <!-- draft -->
@@ -101,22 +104,12 @@ Cas de test associé / référence (TC-xx)
 Priorité ou niveau de couverture dérivé de C (ex. C ≥ 6 → test obligatoire)
 Statut / responsable
 
-<!-- DRAFT risque possible encore  -->
-Authentification : brute force, politique de mot de passe, gestion de session / expiration du token
--Suppression d’un client ou d’un item référencé par une facture (intégrité référentielle)
--Facture avec quantité ≤ 0 ou prix négatif
-Gestion de la TVA : taux incorrect ou changement de taux
-Concurrence sur la numérotation des factures (trou ou doublon de numéro)
-Perte de données / indisponibilité de l’envoi d’email (échec d’envoi silencieux)
--CSRF (vous couvrez XSS et SQL mais pas CSRF)
--Exposition de données sensibles dans les logs ou réponses API
-Fonctionnalité Roles : seul R-12 est couvert, rien sur l’attribution des rôles
 
 ## 4. Checklist de Compliance
 Le second axe de test sera de la Compliance based testing.
 
 Secondairement, de par la nature d'une facture sur le plan juridique et légal, une checklist non optionnelle viendra compléter le RBT. Cela permettra de respecter les législations où les factures peuvent être utilisée et éviter des amendes pour le client.
 
-<!-- add checklist!! -->
+<!-- draft : add checklist!! -->
 - item1
 - item2

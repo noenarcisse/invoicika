@@ -1,5 +1,7 @@
 # PREP:
 
+oubli des tests de valeurs sur les stocks :d
+
 Faut prio les unique, cascade, not null etc
 
 setup a faire : 

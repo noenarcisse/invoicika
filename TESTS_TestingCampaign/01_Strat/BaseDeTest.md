@@ -5,6 +5,9 @@
 + "specification, exigences, user stories"
  -->
 
+ ## Spécifications et règles métier
+ ### TVA
+
  En Belgique ->
  Le calcul de TVA était relax entre ligne par ligne et total avant.
  Maintenant la norme EN 16931 est en application et oblige le calcul de tva uniquement sur le total
@@ -13,6 +16,7 @@
 
 Contradiction de l'app : 
 TVA -> tres EU et national en Europe
+utilisé par beaucoup de pays dans le monde mais pas les US par ex.
 
 Norme en EU : La Directive TVA 2006/112/CE
 https://eur-lex.europa.eu/eli/dir/2006/112/oj?locale=fr
@@ -20,13 +24,30 @@ https://eur-lex.europa.eu/eli/dir/2006/112/oj?locale=fr
 Aux USA ils ont plutot la Sale tax -> source
 https://www.fonoa.com/resources/blog/the-american-exception-why-the-us-has-no-vat-system
 
+USA : 
+https://www.pramex.com/implantation-etats-unis/comment-fonctionne-la-tva-aux-usa/
+
+### Devises
+
 Pas de changement de currency bloqué en $ ?! Absurde pour du national, EU, etc hors USA donc partout dans le monde
+Il ne semble pas y avoir de différenciations entre USD, CAD et AUD ?
+Le manque de possibilité d'adapter les devises rend certains type de commerce impossible ou absurde (intenrnationnal, zone euro etc)
 
-Manque d'infos clé comme le type de structure du vendeur (Forme juridique et RPM / registre du commerce), son num de TVA
-Impossible de factuer en B2B car pas de num de TVA pour l'acheteur
+### Obligations légales
 
-Sur facture complete -> adresse client obligatoire, sur simplifiée non
-Possiblement, on peut pas livrer le produit sans adresse (by the way, pour le pratico pratique)
+La Belgique et l'UE précisent les différentes règles et les cas d'applications pour qu'une facture soit légitime. Une facture doit inclure des informations essentielles (selon son format) et être figée, identifiables et unqiues.
+Cela signifie que le document doit notamment reprendre :
+
+- Le type de structure du vendeur, sa forme juridique
+- Le numméro de TVA du vendeur
+- Le numméro de TVA du client dans le cadre du B2B
+- L'adresse du client (sauf dans le cadre d'une facture simplifiée). Cela reste utile et pragmatique dans ce cadre, afin de pouvoir livrer le produit au client
+- Un facture doit être conservée jusqu'à 10 ans
+
+La Belgique depuis peu imoose l'utilisation de Peppol pour les factures électroniques B2B ou B2G. Je ne l'ai pas considéré dans le cadre de cette campagne de test car l'app a été réalisée avant l'introduction de cette loi. Si une mise à jour devait être faite, il faudra surement prendre en compte cette nouvelle contrainte.
+
+<!-- draft -->
+Dans le cadre du B2C, le format d'une facture électronique conserve plus de souplesse. La norme européenne EN 16931 n'est pas en application.
 
 
 https://www.myfid.be/ressources/comptabilite/factures-tva/#les-mentions-obligatoires-a-faire-figurer-sur-une-facture-tva
@@ -39,17 +60,6 @@ https://www.mediaatelier.com/fr-BE/Posts/EInvoicing-EU/
 
 https://info.hub.brussels/guide/assurances-fiscalite-comptabilite/facturation-electronique-bruxelles
 
-USA : 
-https://www.pramex.com/implantation-etats-unis/comment-fonctionne-la-tva-aux-usa/
-
-Une facture doit etre conservée 10 ans!
-
-Facture B2B -> Obligation de Peppol en Belgique, devient de plus en plus obligatoire dans d'autres pays Européens
-B2G -> Peppol en BE
-
-B2C -> format custom encore possible
-
-La norme européenne EN 16931 ne concerne pas le B2C
 
 BE + B2C :
 
