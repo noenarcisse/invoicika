@@ -22,7 +22,14 @@ const data = {
     },
 };
 
+//l'ordre a une importance en l'etat
+//y'a une mauvaise cascade qui peut donner un 404 sur invoice si on del le client
+//l'item est lock si il est attaché a un invoice et renvoie un 500
 let dataToClean = {
+    invoice: {
+        route: "CustomerInvoices/",
+        id: "",
+    },
     item: {
         route: "items/",
         id: "",
@@ -41,12 +48,21 @@ test.afterEach(async ({ request, page }) => {
     //FR, faut contourner comme l'api renvoie une id erronée
     //faut le chercher a la main en ui
     //recup le nom pour la facture
-    const row = page.getByRole("row").filter({ hasText: data.customer.name });
-    console.log(await row.count());
-    await row.locator('[data-icon="delete"]').click();
-    await page.getByRole("button", { name: /yes/i }).click();
+    // await page.goto("/invoices/all");
+    // const row = page.getByRole("row").filter({ hasText: data.customer.name });
+    // console.log(await row.count());
+    // await row.locator('[data-icon="delete"]').click();
+    // await page.getByRole("button", { name: /yes/i }).click();
 
     for (const v of Object.values(dataToClean)) {
+        if (v.id === "") {
+            throw new Error(`
+Une ID vide a été récupérée pendant la phase de nettoyage
+La base de données risque d'être dans un état inconnu.
+Il serait très urbain de bien vouloir la réinitialiser avec cli.exe -r
+                `);
+        }
+
         const res = await request.delete(
             `http://localhost:5000/api/${v.route}${v.id}`,
             {
@@ -55,7 +71,10 @@ test.afterEach(async ({ request, page }) => {
                 },
             },
         );
-        console.log(res.status());
+        console.log(`
+            REQ ON : http://localhost:5000/api/${v.route}${v.id}
+            RET : ${res.status()}
+            `);
     }
 });
 
@@ -114,6 +133,8 @@ test(`Parcours typique d'un administrateur`, async ({ request, page }) => {
     await expect(submitButton).toBeEnabled();
 
     //403 en employe -_-
+    //j'avais oublié que l'endpoint ici était le seul avec des perm et des limitations etranges
+    //pour un parcours employé je peux reprendre tout sauf ca!
     // page.on("response", async (r) => {
     //     if (!r.ok()) {
     //         console.log(r.status(), r.request().method(), r.url());
@@ -195,8 +216,6 @@ test(`Parcours typique d'un administrateur`, async ({ request, page }) => {
     await page.getByRole("button", { name: "Add Invoice" }).click();
     await expect(page).toHaveURL("/invoices/add");
 
-    // --
-
     const customerList = page.locator("[formcontrolname=customerId]");
     await expect(customerList).toBeVisible();
 
@@ -219,12 +238,21 @@ test(`Parcours typique d'un administrateur`, async ({ request, page }) => {
     await itemList.click();
     await page.getByText(data.item.name).click();
 
-    // --
-
     submitButton = page.getByRole("button", { name: /create/i });
     await expect(submitButton).toBeEnabled();
 
+    //je peux pas intercepter la req ici parce qu'il renvoie un guuid bidon
+    //l'id correct apparait sur la page juste apres
     await submitButton.click();
     await expect(page).toHaveURL("/invoices/all");
     await expect(page.getByText("Invoice added successfully")).toBeVisible();
+
+    const row = page.getByRole("row").filter({ hasText: data.customer.name });
+    expect(await row.count()).toBe(1);
+    const invoiceid = await row.locator("td").nth(0).innerText();
+    dataToClean.invoice.id = invoiceid;
+    await row.locator('[data-icon="eye"]').click();
+
+    await expect(page).toHaveURL(`/invoices/show/${invoiceid}`);
+    // await page.screenshot({ path: "screenshot.png" });
 });
