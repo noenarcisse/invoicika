@@ -80,8 +80,8 @@ a ouvrir a long terme pour la presa?
 # Étape Attendue
 
 - [x] Choix de l'application
-- [ ] Cadrage : Définir la stratégie, le périmètre et l'analyse de risques.
-- [ ] Développement : Réaliser les tests manuels, d'API, l'automatisation et le pipeline.
+- [-] Cadrage : Définir la stratégie, le périmètre et l'analyse de risques.
+- [-] Développement : Réaliser les tests manuels, d'API, l'automatisation et le pipeline.
 - [ ] Rapport : Rédiger le rapport de campagne et consolider les métriques.
 - [ ] Soutenance : Présenter et défendre le travail devant le jury (jour dédié)
 
