@@ -1,7 +1,5 @@
 # Plan de Test
 
-<!-- Draft : On note dans les risk le hors scope ? -->
-
 Ce document formalise la stratégie de test qui guidera l'ensemble des activités QA sur le produit **Invoicika** durant toute la durée du projet.
 
 ## 1. Définition du Périmètre de Test (Scope)
@@ -60,8 +58,6 @@ La stratégie principale s'appuie sur le *Risk-Based Testing* étant donné l'as
 
 https://github.com/noenarcisse/invoicika/blob/main/TESTS_TestingCampaign/01_Strat/OrientationDeLaStratégieDeTest.md
 
-<!-- TODO provient du template a adapter -->
-<!-- reecrire avec des risques, pas les RM ou des solution evidemment -->
 **Formule de calcul :** Criticité (C) = Probabilité (P) X Impact (I) *(Échelle de 1 à 3)*
 
 Dans SquashTM les notes plus petites que 4 sont mineures, de 4 à 6 majeure et au dessus critiques.
@@ -98,6 +94,9 @@ Dans SquashTM les notes plus petites que 4 sont mineures, de 4 à 6 majeure et a
 | **R-27** | RM05 | **Invoices** | Numérotation de facture : norme légale impose d'avoir des numéro identifiables et des séries qui se suivent sans trou | 3 | 3 | 9 |
 
 
+### Ajout stratégique de tri (edit nov. 2026)
+Suite au constat d'un nombre conséquent d'échecs face à des risques critiques et de bugs catégorisés comme critique, j'ai ajouté comme stratégie une priorisation par exigence. Les exigences faisant partie du parcours heureux et typique pour un utilisateur seront testées en premier.
+
 <!-- draft -->
 Stratégie de test / type de test (unitaire, intégration, E2E, sécurité)
 Cas de test associé / référence (TC-xx)
@@ -110,6 +109,18 @@ Le second axe de test sera de la Compliance based testing.
 
 Secondairement, de par la nature d'une facture sur le plan juridique et légal, une checklist non optionnelle viendra compléter le RBT. Cela permettra de respecter les législations où les factures peuvent être utilisée et éviter des amendes pour le client.
 
-<!-- draft : add checklist!! -->
-- item1
-- item2
+L'ensemble de la documentation de ces reglementations peut etre trouvé dans BaseDeTest.
+
+Pour permettre de sortir une version de l'application deja utilisable dans le cas le "plus simple et minimum", je ne vais considerer comme prioritaire que les regles de B2C
+
+Les manquements envers les regles de B2B et B2G seront répertoriés pour une évolution ultérieure de l'application mais seront hors scope pour cette campagne.
+
+<!-- draft : review! -->
+- Idempotence
+- Numérotation
+- Identification du vendeur (nom, coordonnées, statut juridique, numéro de TVA etc.)
+- Identification de l'acheteur (nom, adresse)
+- Affichage des prix (HTVA, TVAC) et du taux de TVA appliqué groupé par taux de TVA applicable
+- Date d'émission, date de livraison
+- Description du produit ou service
+- Quantité
