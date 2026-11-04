@@ -94,8 +94,19 @@ Dans SquashTM les notes plus petites que 4 sont mineures, de 4 à 6 majeure et a
 | **R-27** | RM05 | **Invoices** | Numérotation de facture : norme légale impose d'avoir des numéro identifiables et des séries qui se suivent sans trou | 3 | 3 | 9 |
 
 
-### Ajout stratégique de tri (edit nov. 2026)
-Suite au constat d'un nombre conséquent d'échecs face à des risques critiques et de bugs catégorisés comme critique, j'ai ajouté comme stratégie une priorisation par exigence. Les exigences faisant partie du parcours heureux et typique pour un utilisateur seront testées en premier.
+### Ajout et adaptation des stratégies de priorisation (edit nov. 2026)
+Suite au constat d'un nombre conséquent d'échecs face à des risques critiques et de bugs catégorisés comme critiques, j'ai ajouté deux méthodes afin d'affiner le tri des tests prioritaires :
+
+#### Priorisation basée sur les exigences
+Une stratégie une priorisation par exigence. Les exigences faisant partie du parcours heureux et typique pour un utilisateur seront testées en premier.
+
+#### Priorisation basée sur l'expérience
+Une grande partie des tests est faite en boite noire mais il arrive que pour chercher la source exacte je passe par de la fouille et de la lecture du code. Pour donner un axe de priorité sur base de mes connaissances en developpement, je compte mettre une priorité sur les tests de "derniers remparts." Si une données fautive passe par l'API puis la base de données, je considère qu'un rejet de la base de données peut encore servir d'ultime blocage, possiblement plus importante a vérifier qu'une defaillance de l'API.
+De par mon expérience en développement, je compte parfois pouvoir prioriser un test sur la couche la plus risquée suite à une observation en boite noire. Une erreur de modélisation pour des cascades en base de données sera plus grave qu'une vérification par l'API, même si les deux couches peuvent empêcher un problème similaire.
+
+Par exemple : la suppression d'un élément entraîne celle d'éléments liés.
+L'expérience en développement permet d'émettre une hypothèse sur la couche fautive (ex. : règle de suppression en cascade). L'hypothèse est confirmée manuellement en base de données (par un script SQL) et ensuite consolidée avec un cas de test répétable
+(test d'intégration avec Testcontainers par exemple) pour la validation puis la non-régression.
 
 <!-- draft -->
 Stratégie de test / type de test (unitaire, intégration, E2E, sécurité)
