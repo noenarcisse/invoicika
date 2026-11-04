@@ -2,6 +2,10 @@
 
 oubli des tests de valeurs sur les stocks :d
 
+j'ai pas des mass de zone d'attaques pour les tests en backend
+y'a les services qui requiert de pop une DB en RAM a la limite mais c'est du full CRUD
+y'a un helper de pagination (low prio)
+
 Faut prio les unique, cascade, not null etc
 
 setup a faire : 

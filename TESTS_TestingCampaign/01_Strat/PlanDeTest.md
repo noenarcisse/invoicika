@@ -98,6 +98,7 @@ Dans SquashTM les notes plus petites que 4 sont mineures, de 4 à 6 majeure et a
 Suite au constat d'un nombre conséquent d'échecs face à des risques critiques et de bugs catégorisés comme critiques, j'ai ajouté deux méthodes afin d'affiner le tri des tests prioritaires :
 
 #### Priorisation basée sur les exigences
+<!-- draft -->
 Une stratégie une priorisation par exigence. Les exigences faisant partie du parcours heureux et typique pour un utilisateur seront testées en premier.
 
 #### Priorisation basée sur l'expérience

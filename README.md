@@ -50,14 +50,6 @@ voir : https://github.com/noenarcisse/invoicika/blob/main/README_alt_install.md
 | Jacques Houille | cestokay | Employee
 | Godefroy De Montmirail | quetrepassesijefaiblis | Employee
 
-<!-- todo : old, en cas de hard reset (reset2) -->
-<!-- | username | password |
-|---|---|
-| admin1 | admin1 |
-| admin2 | admin2 |
-| employee1 | employee1 |
-| employee2 | employee2 | -->
-
 ## SquashTM
 https://github.com/noenarcisse/squash_invoicika
 
