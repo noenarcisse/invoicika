@@ -1,0 +1,7 @@
+info:
+  name: TC_ACC01_001_InscriptionNouvelUtilisateur_OK_longPassword
+  type: folder
+  seq: 2
+
+request:
+  auth: inherit

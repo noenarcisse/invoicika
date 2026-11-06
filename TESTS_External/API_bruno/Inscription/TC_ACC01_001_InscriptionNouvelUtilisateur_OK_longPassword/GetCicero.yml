@@ -1,0 +1,29 @@
+info:
+  name: GetCicero
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:5000/api/Users
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status != 200) return;
+
+        const ciceros = res.body.filter(e => e.username === "Cicero")
+        if(ciceros.length < 1) return;
+
+        console.log(ciceros[0].userId)
+
+        bru.setVar("ciceroId", ciceros[0].userId)
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

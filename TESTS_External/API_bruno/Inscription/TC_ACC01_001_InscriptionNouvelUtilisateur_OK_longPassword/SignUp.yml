@@ -1,0 +1,53 @@
+info:
+  name: SignUp
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: http://localhost:5000/api/Auth/signup
+  body:
+    type: json
+    data: |-
+      {
+        "username": "Cicero",
+        "emailAddress": "cicero@respublicaromana.it",
+        "password": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ultrices dignissim tortor, blandit ultrices sem sagittis eget. Morbi arcu arcu, tempor ac turpis ut, mollis fermentum mi. Vestibulum non faucibus nisi. Nam aliquam laoreet tincidunt. Nam vel felis id ipsum varius dapibus ac sollicitudin elit. Cras id neque orci. Nam blandit rutrum mauris, vel porttitor justo volutpat ut. Sed venenatis mollis consequat. Sed euismod dui quam, a posuere neque tincidunt eu. Donec mi dui, vulputate tempor metus at, facilisis mollis risus. Suspendisse lacinia iaculis ligula vitae dignissim. Nullam varius consequat dui, quis congue est. Duis eleifend est eu elit facilisis finibus. Sed congue venenatis quam condimentum imperdiet. Mauris scelerisque, magna eu bibendum congue, tortor dolor consequat libero, sed tristique nibh odio at leo. Nam dapibus dapibus lobortis. Nulla enim nunc, faucibus vel imperdiet vel, bibendum non ligula. Pellentesque elementum porta turpis aliquet lobortis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras tellus mi, rutrum eu congue interdum, porttitor vel justo. In sed pretium justo, nec congue nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus id ante leo. Sed a libero ut nulla aliquet sagittis. Sed laoreet, risus eu luctus feugiat, quam tellus vehicula elit, sit amet malesuada mi neque at dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas mi lacus, imperdiet sit amet tortor at, eleifend facilisis sem. Sed id justo in neque gravida scelerisque. Ut blandit lacinia ligula, sed condimentum est ornare eget. Praesent vel ullamcorper ligula. Maecenas laoreet nunc vulputate nibh viverra tincidunt. Duis ligula nunc, sodales in volutpat in, congue sit amet nisl. Sed hendrerit velit nibh, quis iaculis metus porttitor condimentum. Phasellus justo nibh, varius vitae nulla vel, egestas blandit est. Nunc ullamcorper varius consectetur. Quisque nec imperdiet arcu. Phasellus sit amet felis urna. Donec tellus eros, mattis gravida eros ut, congue ullamcorper leo. Donec eleifend nulla quam, non molestie nulla iaculis eget. Suspendisse a nisi eu purus pellentesque pretium et a nunc. Sed volutpat facilisis suscipit. Sed quis ullamcorper urna, quis posuere nulla. Aliquam facilisis venenatis lectus nec facilisis. Mauris malesuada iaculis tempor. Ut blandit facilisis nunc vel tincidunt. Fusce laoreet elit quis consequat luctus. Sed tortor elit, efficitur eu enim a, cursus pharetra ligula."
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Validation du JSON d'ajout d'un nouvel utilisateur", () => {
+          const SignupJsonSchema = {
+            type : "object",
+            required : ["userId","username","emailAddress","creationDate"],
+            properties : {
+                  userId : { type : "string" },
+                  username : { type: "string" },
+                  emailAddress : {
+                    type : "string",
+                    format : "email"
+                  },
+                  creationDate : {
+                    type : "string",
+                    format : "date-time"
+                  }
+                }
+            }
+             
+             expect(res.getBody()).to.have.jsonSchema(SignupJsonSchema)
+        })
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
