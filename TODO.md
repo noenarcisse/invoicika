@@ -1,5 +1,8 @@
 # PREP:
 
+prepa une archi de branches /tests ou training
+    pour train les fixtures, etc en PW
+
 oubli des tests de valeurs sur les stocks :d
 
 j'ai pas des mass de zone d'attaques pour les tests en backend
