@@ -1,0 +1,35 @@
+info:
+  name: ModifierUnClientAvecDoublonEmail
+  type: http
+  seq: 3
+
+http:
+  method: PUT
+  url: http://localhost:5000/api/Customers/{{id}}
+  body:
+    type: json
+    data: |-
+      {
+            "customerId": "{{id}}",
+            "name": "Smitty Werbenjägermanjensen",
+            "address": "Bikini Bottom, quelquepart, Ocean Atlantique",
+            "phoneNumber": "+81-90-1234-5678",
+            "email": "{{email}}",
+            "creationDate": "0001-01-01T00:00:00Z",
+            "updateDate": "0001-01-01T00:00:00Z",
+            "customerInvoices": []
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "409"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

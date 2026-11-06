@@ -1,0 +1,38 @@
+info:
+  name: UpdateNonexistentCustomer
+  type: http
+  seq: 1
+
+http:
+  method: PUT
+  url: http://localhost:5000/api/Customers/00000000-0000-0000-0000-000000000000
+  body:
+    type: json
+    data: |-
+      {
+            "customerId": "00000000-0000-0000-0000-000000000000",
+            "name": "Gerald Mc Boing-Boing",
+            "address": "Somewhere i dunno",
+            "phoneNumber": "+1-555-55555555",
+            "email": "g.b@boing.com",
+            "creationDate": "0001-01-01T00:00:00Z",
+            "updateDate": "0001-01-01T00:00:00Z",
+            "customerInvoices": []
+          }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "404"
+    - expression: res.body.title
+      operator: contains
+      value: ""
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
