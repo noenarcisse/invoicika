@@ -45,15 +45,6 @@ let dataToClean = {
 };
 
 test.afterEach(async ({ request, page }) => {
-    //FR, faut contourner comme l'api renvoie une id erronée
-    //faut le chercher a la main en ui
-    //recup le nom pour la facture
-    // await page.goto("/invoices/all");
-    // const row = page.getByRole("row").filter({ hasText: data.customer.name });
-    // console.log(await row.count());
-    // await row.locator('[data-icon="delete"]').click();
-    // await page.getByRole("button", { name: /yes/i }).click();
-
     for (const v of Object.values(dataToClean)) {
         if (v.id === "") {
             throw new Error(`
@@ -78,7 +69,7 @@ Il serait très urbain de bien vouloir la réinitialiser avec cli.exe -r
     }
 });
 
-test(`Parcours typique d'un administrateur`, async ({ request, page }) => {
+test(`Parcours typique d'un administrateur`, async ({ page }) => {
     // s'inscrire
     //todo : a implémenter lorsque la feature sera disponible sur le frontend
 
@@ -132,15 +123,6 @@ test(`Parcours typique d'un administrateur`, async ({ request, page }) => {
     let submitButton = page.getByRole("button", { name: /create/i });
     await expect(submitButton).toBeEnabled();
 
-    //403 en employe -_-
-    //j'avais oublié que l'endpoint ici était le seul avec des perm et des limitations etranges
-    //pour un parcours employé je peux reprendre tout sauf ca!
-    // page.on("response", async (r) => {
-    //     if (!r.ok()) {
-    //         console.log(r.status(), r.request().method(), r.url());
-    //         console.log(await r.text());
-    //     }
-    // });
     [res] = await Promise.all([
         page.waitForResponse(
             (r) =>
@@ -238,6 +220,15 @@ test(`Parcours typique d'un administrateur`, async ({ request, page }) => {
     await itemList.click();
     await page.getByText(data.item.name).click();
 
+    await page.getByRole("spinbutton", { name: "Quantity :" }).fill(
+        `${data.item.qty}`,
+    );
+
+    const tvaList = page.locator("[formcontrolname='vatId']");
+    await tvaList.click();
+    const vatElement = page.getByText(`${data.vat}%`);
+    await vatElement.click();
+
     submitButton = page.getByRole("button", { name: /create/i });
     await expect(submitButton).toBeEnabled();
 
@@ -254,5 +245,18 @@ test(`Parcours typique d'un administrateur`, async ({ request, page }) => {
     await row.locator('[data-icon="eye"]').click();
 
     await expect(page).toHaveURL(`/invoices/show/${invoiceid}`);
-    // await page.screenshot({ path: "screenshot.png" });
+
+    //verif que tout est la sur la page finale
+
+    await expect(page.getByText(data.customer.name)).toBeVisible();
+    await expect(page.getByText(data.customer.address)).toBeVisible();
+    await expect(page.getByText(data.customer.email)).toBeVisible();
+    await expect(page.getByText(data.customer.phone)).toBeVisible();
+
+    await expect(page.getByText(data.item.name)).toBeVisible();
+    await expect(page.getByText(data.item.salePrice).first()).toBeVisible();
+    await expect(page.getByText(data.item.qty, { exact: true })).toBeVisible();
+
+    await expect(page.getByText(`VAT (${data.vat}%)`, { exact: true }))
+        .toBeVisible();
 });
