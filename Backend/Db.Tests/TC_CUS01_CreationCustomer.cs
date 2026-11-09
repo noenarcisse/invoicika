@@ -6,11 +6,11 @@ using System.Linq;
 namespace Db.Tests;
 
 [Collection("db")]
-public class CreationCustomer(PostgresFixture db)
+public class TC_CUS01_CreationCustomer(PostgresFixture db)
 {
 
     [Fact]
-    public async Task DoublonClient_email()
+    public async Task TC_CUS01_013_AjoutClient_DoublonEmail_Rejete()
     {
         await using var ctx = db.CreateContext();
 
@@ -31,21 +31,23 @@ public class CreationCustomer(PostgresFixture db)
             Email = email
         });
 
-        Should.Throw<Microsoft.EntityFrameworkCore.DbUpdateException>(
+        var e = await Should.ThrowAsync<Microsoft.EntityFrameworkCore.DbUpdateException>(
         async () =>
         {
             await ctx.SaveChangesAsync(TestContext.Current.CancellationToken);
         },
-        "Erreur, pas de clause UNIQUE sur email"
+        "La base de donnée n'a pas levé d'exception"
         );
+
+        e.InnerException.ShouldBeOfType<PostgresException>()
+            .SqlState.ShouldBe(
+                PostgresErrorCodes.UniqueViolation,
+                "Erreur, pas de clause UNIQUE sur email"
+            );
     }
 
-
-
-    //overkill, impossible
-
     [Fact]
-    public async Task DoublonClient_id()
+    public async Task TC_CUS01_016_AjoutClient_DoublonID_Rejete()
     {
         await using var ctx = db.CreateContext();
 
@@ -75,12 +77,18 @@ public class CreationCustomer(PostgresFixture db)
 
 
         ctx2.Customers.Add(u2);
-        Should.Throw<Microsoft.EntityFrameworkCore.DbUpdateException>(
+        var e = await Should.ThrowAsync<Microsoft.EntityFrameworkCore.DbUpdateException>(
         async () =>
         {
-            await ctx2.SaveChangesAsync(TestContext.Current.CancellationToken);
+            await ctx.SaveChangesAsync(TestContext.Current.CancellationToken);
         },
-        "Erreur, pas de clause UNIQUE sur CustomerId"
+        "La base de donnée n'a pas levé d'exception"
         );
+
+        e.InnerException.ShouldBeOfType<PostgresException>()
+            .SqlState.ShouldBe(
+                PostgresErrorCodes.UniqueViolation,
+                "Erreur, pas de clause UNIQUE sur ID"
+            );
     }
 }
