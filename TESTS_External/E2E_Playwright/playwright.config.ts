@@ -58,7 +58,7 @@ export default defineConfig({
         ...devices["Desktop Chrome"],
         storageState: "playwright/.auth/session_employee.json",
       },
-      dependencies: ["setup admin"],
+      dependencies: ["setup employee"],
       testMatch: /employee\/.+\.spec\.ts/,
     },
     {
