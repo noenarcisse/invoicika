@@ -97,6 +97,39 @@ public class TC_ACC01_InscriptionUser(PostgresFixture db)
     }
 
     [Fact]
+    public async Task TC_ACC01_010_AjoutUser_UsernameNull_Rejete()
+    {
+        await using var ctx = db.CreateContext();
+
+        Guid roleid = Guid.NewGuid();
+
+        ctx.Roles.Add(new Role
+        {
+            RoleName = $"TestRole_{roleid}",
+            RoleId = roleid,
+            CreationDate = DateTime.UtcNow
+        });
+        await ctx.SaveChangesAsync(TestContext.Current.CancellationToken);
+
+        await using var ctx2 = db.CreateContext();
+
+        var username = $"smitty-{Guid.NewGuid():N}";
+
+        var e = await Should.ThrowAsync<PostgresException>(async () =>
+            await ctx2.Database.ExecuteSqlInterpolatedAsync($@"
+            INSERT INTO ""Users""
+                (""UserId"", ""Username"", ""EmailAddress"", ""PasswordHash"", ""Role_id"", ""CreationDate"", ""UpdateDate"")
+            VALUES
+                ({Guid.NewGuid()}, NULL, {username + "@test.com"}, {"hash"}, {roleid}, {DateTime.UtcNow}, {DateTime.UtcNow})",
+                TestContext.Current.CancellationToken),
+            "La base a accepté un user avec Username NULL : la colonne est nullable");
+
+        e.SqlState.ShouldBe(PostgresErrorCodes.NotNullViolation,
+            $"Rejet pour une autre raison : {e.SqlState} - {e.MessageText}");
+        e.ColumnName.ShouldBe("Username");
+    }
+
+    [Fact]
     public async Task TC_ACC01_007_AjoutUser_DoublonUsername_Rejete()
     {
         await using var ctx = db.CreateContext();
