@@ -1,15 +1,19 @@
 import { expect, test as setup } from "@playwright/test";
+import { LoginPage } from "../models/LoginPage";
+import { ADMIN } from "../constants";
+import { DashboardPage } from "../models/DashboardPage";
 
 const file = "playwright/.auth/session_admin.json";
 
 setup("connexion en tant qu'admin", async ({ page }) => {
-    await page.goto("");
+    const lp = new LoginPage(page);
+    const dp = new DashboardPage(page);
 
-    await page.getByPlaceholder("Username").fill("admin");
-    await page.getByPlaceholder("Password").fill("admin");
-    await page.getByRole("button", { name: "Log in" }).click();
+    await lp.goto();
+    await lp.login(ADMIN.name, ADMIN.pwd);
 
-    await expect(page.getByText(/monthly income/i)).toBeVisible();
+    await dp.expectReached();
+    await expect(page.getByText(ADMIN.name)).toBeVisible();
 
     await page.context().storageState({ path: file });
 });

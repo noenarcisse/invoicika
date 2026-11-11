@@ -1,4 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
+import "dotenv/config";
+import path from "node:path";
+
+process.loadEnvFile(path.resolve(__dirname, ".env"));
 
 /**
  * Read environment variables from file.

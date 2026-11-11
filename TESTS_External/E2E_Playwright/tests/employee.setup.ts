@@ -1,15 +1,19 @@
 import { expect, test as setup } from "@playwright/test";
+import { LoginPage } from "../models/LoginPage";
+import { EMPLOYE } from "../constants";
+import { DashboardPage } from "../models/DashboardPage";
 
 const file = "playwright/.auth/session_employee.json";
 
 setup("connexion en tant qu'employee", async ({ page }) => {
-    await page.goto("");
+    const lp = new LoginPage(page);
+    const dp = new DashboardPage(page);
 
-    await page.getByPlaceholder("Username").fill("Jacques Houille");
-    await page.getByPlaceholder("Password").fill("cestokay");
-    await page.getByRole("button", { name: "Log in" }).click();
+    await lp.goto();
+    await lp.login(EMPLOYE.name, EMPLOYE.pwd);
 
-    await expect(page.getByText(/monthly income/i)).toBeVisible();
+    await dp.expectReached();
+    await expect(page.getByText(EMPLOYE.name)).toBeVisible();
 
     await page.context().storageState({ path: file });
 });
