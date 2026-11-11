@@ -1,5 +1,7 @@
 # PREP:
 
+ajouter aussi le page object models a train avec PW
+
 prepa une archi de branches /tests ou training
     pour train les fixtures, etc en PW
 
@@ -31,7 +33,7 @@ a ouvrir a long terme pour la presa?
 - [x] setup le docker sonar at home :d
 - [ ] Referencer et publier le repo du Squash
 - [-] RM Légales a faire pour la checkist
-- [ ] Ecriture de la checklist
+- [-] Ecriture de la checklist
 - [x] Mettre a jour la docu par rapport au squash (RM, etc.)
 - [ ] Refaire une phase d'explo en front pur, tester les manipulations de claviers j'ai repéré des bugs en passant par PW pour les tests components front
 - [ ] Faire un passage de screenshots et videos intermédiaires pour la présa (squash, jira, bug visuels)
@@ -115,8 +117,8 @@ réservation → paiement, ou équivalent).
 au moins un cas de sécurité.
 
 ### 3.4 Automatisation de l'interface
-- Un framework d'automatisation UI (Playwright ou Selenium) structuré selon le Page Object Model, couvrant le parcours critique
-de bout en bout.
+<!-- POM non vue dans pw faut aller mater la doc -->
+- Un framework d'automatisation UI (Playwright ou Selenium) structuré selon le Page Object Model, couvrant le parcours critique de bout en bout.
 <!-- DRAFT : euh ? vu nulle part dans invoicika ?! -->
 - Une gestion des tests instables (attentes robustes, nouvelles tentatives) et des artefacts en cas d'échec (traces, captures).
 
@@ -125,8 +127,7 @@ de bout en bout.
 - Des rapports d'exécution (Allure ou équivalent) et une exécution du pipeline visible dans l'historique du dépôt.
 
 ### 3.6 Rapport final
-- Un rapport de campagne synthétique : métriques (couverture, taux de réussite), bilan des anomalies détectées, analyse des
-risques résiduels et recommandations.
+- Un rapport de campagne synthétique : métriques (couverture, taux de réussite), bilan des anomalies détectées, analyse des risques résiduels et recommandations.
 
 ## 4. Consignes et organisation
 - Travail strictement individuel. Tout code réutilisé doit être cité.
