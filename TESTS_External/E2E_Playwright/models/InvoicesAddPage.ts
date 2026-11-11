@@ -7,6 +7,7 @@ export class InvoicesAddPage {
     readonly customerList: Locator;
     readonly dateInput: Locator;
     readonly itemList: Locator;
+    readonly vatList: Locator;
     readonly submitButton: Locator;
 
     readonly minusButton: Locator;
@@ -24,6 +25,8 @@ export class InvoicesAddPage {
         //meme comm, unsafe
         this.minusButton = p.locator('[formcontrolname="total"]')
             .locator("xpath=following-sibling::*[1]");
+
+        this.vatList = p.locator('formcontrolname="vatId"');
         this.submitButton = p.getByRole("button", { name: "Create" });
     }
 
@@ -49,6 +52,10 @@ export class InvoicesAddPage {
 
         this.dateInput.pressSequentially(dateStr, { delay: 30 });
         await expect(this.dateInput).toHaveValue(dateStr);
+    }
+
+    async submit() {
+        await this.submitButton.click();
     }
 
     async expectSubmitDisabled(soft: boolean = false) {

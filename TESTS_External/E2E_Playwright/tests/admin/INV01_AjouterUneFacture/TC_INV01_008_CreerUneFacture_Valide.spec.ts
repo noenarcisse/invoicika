@@ -1,17 +1,15 @@
 import { expect, test } from "@playwright/test";
+import { InvoicesAddPage } from "../../../models/InvoicesAddPage";
+import { InvoicesAllPage } from "../../../models/InvoicesAllPage";
 
 test.describe("Test positif d'ajout d'une facture", () => {
     let guuidsSeenBefore = new Set<string>();
 
     test.beforeEach(async ({ page }) => {
-        await page.goto("/invoices/all");
-        const firstCells = page.locator("tbody tr td:first-child");
+        const invAll = new InvoicesAllPage(page);
+        await invAll.goto();
 
-        for (const c of await firstCells.all()) {
-            const content = await c.innerText();
-            guuidsSeenBefore.add(content);
-        }
-
+        guuidsSeenBefore = await invAll.getAllInvoiceIds();
         console.log(guuidsSeenBefore);
     });
 
@@ -39,35 +37,18 @@ test.describe("Test positif d'ajout d'une facture", () => {
      * Cannot be mocked as the validation message appears after the click on the next page
      */
     test(`Ajouter une facture correcte réussit`, async ({ page }) => {
-        await page.goto("/invoices/add");
+        const invAdd = new InvoicesAddPage(page);
+        const invAll = new InvoicesAllPage(page);
 
-        //customerList = page.getByText("Select Customer").locator("..");
-        const customerList = page.locator("[formcontrolname=customerId]");
-        await expect(customerList).toBeVisible();
+        await invAdd.goto();
 
-        const dateInput = page.getByRole("textbox", { name: "Select date" });
+        await invAdd.selectCustomer(/jotaro/i);
+        await invAdd.fillDate();
+        await invAdd.selectItem(/billy/i);
 
-        const itemList = page.locator("[formcontrolname=item]").first();
-        await expect(itemList).toBeVisible();
-
-        await customerList.click();
-        const jotaro = page.getByText(/jotaro/i);
-        await jotaro.click();
-
-        const future = new Date();
-        future.setFullYear(future.getFullYear() + 1);
-        const dateStr = future.toISOString().slice(0, 10); // "2027-10-29"
-
-        await dateInput.pressSequentially(dateStr, { delay: 30 });
-        await expect(dateInput).toHaveValue(dateStr);
-
-        await itemList.click();
-        await page.getByText(/billy/i).click();
-
-        await page.getByRole("button", { name: "Create" }).click();
+        await invAdd.submit();
 
         await expect(page).toHaveURL("/invoices/all");
-        await expect(page.getByText("Invoice added successfully"))
-            .toBeVisible();
+        await invAll.expectValidationMessage();
     });
 });
