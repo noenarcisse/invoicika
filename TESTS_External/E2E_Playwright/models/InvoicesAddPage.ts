@@ -12,9 +12,11 @@ export class InvoicesAddPage {
 
     readonly minusButton: Locator;
 
+    //todo : voir comms dans le ctor
     constructor(p: Page) {
         this.page = p;
         this.title = p.getByText("Add Customer");
+        //first si y'a un doublon ?
         this.customerList = p.locator("[formcontrolname=customerId]");
         this.dateInput = p.getByRole("textbox", { name: "Select date" });
 

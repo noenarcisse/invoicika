@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
-import { InvoicesAddPage } from "../../../models/InvoicesAddPage";
-import { InvoicesAllPage } from "../../../models/InvoicesAllPage";
+import { InvoicesAddPage } from "@models/InvoicesAddPage";
+import { InvoicesAllPage } from "@models/InvoicesAllPage";
 
 test.describe("Test positif d'ajout d'une facture", () => {
     let guuidsSeenBefore = new Set<string>();
