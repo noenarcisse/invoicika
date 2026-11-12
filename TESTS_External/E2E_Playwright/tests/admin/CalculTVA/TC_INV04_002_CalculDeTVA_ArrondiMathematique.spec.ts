@@ -1,3 +1,4 @@
+import { InvoicesAddPage } from "@models/InvoicesAddPage";
 import { expect, test } from "@playwright/test";
 
 test.describe("Tests d'arrondi mathématique", () => {
@@ -10,7 +11,8 @@ test.describe("Tests d'arrondi mathématique", () => {
         { value: "0.155", expected: 0.16 },
     ].forEach(({ value, expected }) => {
         test(`arrondi mathematique du prix ${value}`, async ({ page }) => {
-            await page.goto("/invoices/add");
+            const ip = new InvoicesAddPage(page);
+            await ip.goto();
 
             const priceInput = page.getByRole("spinbutton", {
                 name: "Price :",

@@ -56,4 +56,14 @@ export class VATAllPage {
         await expect(this.page).toHaveURL("/vat/all");
         await expect(this.title).toBeVisible();
     }
+    async expectVAT(vat: number) {
+        //simple for now, pagination doesn't work any
+        //might need some retake if pagination get fixed
+        await expect(this.page.getByText(`${vat}`).first()).toBeVisible();
+    }
+
+    async expectAddValidationMessage() {
+        await expect(this.page.getByText(this.validationMessage.add))
+            .toBeVisible();
+    }
 }

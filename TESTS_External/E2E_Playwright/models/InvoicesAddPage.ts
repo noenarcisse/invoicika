@@ -8,6 +8,9 @@ export class InvoicesAddPage {
     readonly dateInput: Locator;
     readonly itemList: Locator;
     readonly vatList: Locator;
+
+    readonly subTotalInput: Locator;
+
     readonly submitButton: Locator;
 
     readonly minusButton: Locator;
@@ -29,6 +32,12 @@ export class InvoicesAddPage {
             .locator("xpath=following-sibling::*[1]");
 
         this.vatList = p.locator('formcontrolname="vatId"');
+
+        this.subTotalInput = p.getByRole("textbox", { disabled: true })
+            .nth(
+                0,
+            );
+
         this.submitButton = p.getByRole("button", { name: "Create" });
     }
 

@@ -1,6 +1,6 @@
 import { expect, Locator, Page } from "@playwright/test";
 
-export class VATAllPage {
+export class RolesAllPage {
     readonly page: Page;
 
     readonly title: Locator;

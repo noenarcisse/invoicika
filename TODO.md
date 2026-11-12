@@ -17,7 +17,6 @@ setup a faire :
 External tests -> sql pur, test manuel d'exploration dans la DB pour voir les reactions possibles et trouver des bugs de schema
 
 davit a répondu pour le legal -> oui en plus pour les RM, p-e pas en prio1 par contre
-bug vu en whitebox -> report ! (cors)
 
 j'ai prep en priv le squash sur https://github.com/noenarcisse/squash_invoicika
 a ouvrir a long terme pour la presa?

@@ -5,7 +5,7 @@ import { expect, test } from "@playwright/test";
  * Currently cancelled, the banker's rounding is not to be considered in this specific case.
  * After doing some reasearch a classic math rounding is a common solution.
  */
-test.describe("Tests des arrondis bancaires", () => {
+test.describe.skip("Tests des arrondis bancaires", () => {
     [
         { value: "0.105", expected: 0.10 },
         { value: "0.115", expected: 0.12 },
@@ -14,7 +14,7 @@ test.describe("Tests des arrondis bancaires", () => {
         { value: "0.145", expected: 0.14 },
         { value: "0.155", expected: 0.16 },
     ].forEach(({ value, expected }) => {
-        test.skip(`arrondi bancaire du prix ${value}`, async ({ page }) => {
+        test(`arrondi bancaire du prix ${value}`, async ({ page }) => {
             await page.goto("/invoices/add");
 
             const priceInput = page.getByRole("spinbutton", {

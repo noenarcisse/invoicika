@@ -33,6 +33,9 @@ export class VATAddPage {
 
     async addVAT(v: number) {
         await this.vatInput.fill(`${v}`);
+    }
+
+    async submit() {
         await this.submitButton.click();
     }
 
@@ -43,6 +46,10 @@ export class VATAddPage {
 
     async expectSubmitDisabled() {
         await expect(this.submitButton).toBeDisabled();
+    }
+
+    async expectErrorMessage(e: string | RegExp, timeout?: number) {
+        await expect(this.page.getByText(e)).toBeVisible({ timeout });
     }
 
     async expectEmptyError() {

@@ -1,3 +1,4 @@
+import { InvoicesAddPage } from "@models/InvoicesAddPage";
 import { expect, test } from "@playwright/test";
 
 test.describe("Tests négatifs d'ajout d'une facture", () => {
@@ -35,36 +36,21 @@ test.describe("Tests négatifs d'ajout d'une facture", () => {
     });
 
     test(`Ajouter une facture sans objet échoue`, async ({ page }) => {
-        await page.goto("/invoices/add");
+        const addPage = new InvoicesAddPage(page);
+        await addPage.goto();
 
-        const customerList = page.locator("[formcontrolname=customerId]");
-        await expect(customerList).toBeVisible();
+        await addPage.selectCustomer(/jotaro/i);
+        await addPage.fillDate();
 
-        const dateInput = page.getByRole("textbox", { name: "Select date" });
+        await addPage.minusButton.click();
 
-        await customerList.click();
-        const jotaro = page.getByText(/jotaro/i);
-        await jotaro.click();
+        //soft temp, honnetement je laisse juste prouver plus loin que ca passe
+        //mais en cas d'err le bouton est en général disabled dans l'app donc
+        await addPage.expectSubmitDisabled(true);
 
-        const future = new Date();
-        future.setFullYear(future.getFullYear() + 1);
-        const dateStr = future.toISOString().slice(0, 10); // "2027-10-29"
+        await addPage.submit();
 
-        await dateInput.pressSequentially(dateStr, { delay: 30 });
-        await expect(dateInput).toHaveValue(dateStr);
-
-        const minusButton = page
-            .locator('[formcontrolname="total"]')
-            .locator("xpath=following-sibling::*[1]");
-
-        await expect(minusButton).toBeVisible();
-        await minusButton.click();
-
-        const submitButton = page.getByRole("button", { name: "Create" });
-        await expect.soft(submitButton).toBeDisabled();
-        await submitButton.click();
-
-        await expect(page.getByText("Invoice added successfully"))
-            .not.toBeVisible({ timeout: 1_000 });
+        //pas de redir
+        await expect(page).toHaveURL("/invoices/add");
     });
 });

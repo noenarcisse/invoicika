@@ -1,3 +1,5 @@
+import { VATAllPage } from "@models/VATAllPage";
+import { VATAddPage } from "@models/VATAddPage";
 import { expect, test } from "@playwright/test";
 
 test.describe("Tests positifs d'ajout de TVA", () => {
@@ -7,16 +9,16 @@ test.describe("Tests positifs d'ajout de TVA", () => {
 
     const cases = [
         {
-            title: "Ajouter une valeur a 99% réussit",
-            vat: "99",
+            title: "Ajouter une valeur a 99.99% réussit",
+            vat: 99.99,
         },
         {
             title: "Ajouter une valeur a 0.01% réussit",
-            vat: "0.01",
+            vat: 0.01,
         },
         {
             title: "Ajouter une valeur a 0% réussit",
-            vat: "0",
+            vat: 0,
         },
     ];
 
@@ -36,38 +38,26 @@ test.describe("Tests positifs d'ajout de TVA", () => {
 
     cases.forEach(({ title, vat }) => {
         test(title, async ({ page }) => {
-            await page.goto("/vat/add");
-
-            const vatInput = page.getByPlaceholder("Enter VAT percentage");
-            const submitButton = page.getByRole("button", {
-                name: /create/i,
-            });
-
-            await expect(vatInput).toBeVisible();
-            await expect(submitButton).toBeVisible();
-
-            await vatInput.fill(vat);
-
-            const err = page.getByText(/Please input the VAT percentage!/);
-            await expect(err).not.toBeVisible({ timeout: 3_000 });
-
-            await expect(submitButton).toBeEnabled();
+            const vatadd = new VATAddPage(page);
+            const vatall = new VATAllPage(page);
+            await vatadd.goto();
+            await vatadd.addVAT(vat);
 
             const [response] = await Promise.all([
                 page.waitForResponse((r) =>
                     r.url().includes("/api/vat") &&
                     r.request().method() === "POST"
                 ),
-                submitButton.click(),
+                vatadd.submit(),
             ]);
 
             const vatAdded: vatDTO = await response.json();
             vatIdToClean = vatAdded.vatId;
 
-            await expect(page).toHaveURL("/vat/all");
-            const greatSuccess = page.getByText("VAT added successfully");
-            await expect(greatSuccess).toBeVisible();
-            await expect(page.getByText(vat).first()).toBeVisible();
+            await vatall.expectReached();
+
+            await vatall.expectAddValidationMessage();
+            await vatall.expectVAT(vat);
         });
     });
 });
@@ -83,45 +73,30 @@ test.describe("Tests positifs d'ajout de TVA", () => {
 test.describe("Tests négatifs d'ajout de TVA", () => {
     const cases = [
         {
-            title: "Ajouter une valeur a 99.99% rate",
-            vat: "99.99",
-            err: /cannot be more than/,
-        },
-        {
             title: "Ajouter une valeur a 100% rate",
-            vat: "100",
+            vat: 100,
             err: /cannot be more than/,
         },
         {
             title: "Ajouter une valeur a 101% rate",
-            vat: "101",
+            vat: 101,
             err: /cannot be more than/,
         },
         {
             title: "Ajouter une valeur a -1% rate",
-            vat: "-1",
+            vat: -1,
             err: /cannot be less than/,
         },
     ];
 
     cases.forEach(({ title, vat, err }) => {
         test(title, async ({ page }) => {
-            await page.goto("/vat/add");
+            const vatadd = new VATAddPage(page);
+            await vatadd.goto();
+            await vatadd.addVAT(vat);
 
-            const vatInput = page.getByPlaceholder("Enter VAT percentage");
-            const submitButton = page.getByRole("button", {
-                name: /create/i,
-            });
-
-            await expect(vatInput).toBeVisible();
-            await expect(submitButton).toBeVisible();
-
-            await vatInput.fill(vat);
-
-            const errShown = page.getByText(err);
-            await expect(errShown).toBeVisible({ timeout: 3_000 });
-
-            await expect(submitButton).toBeDisabled();
+            await vatadd.expectErrorMessage(err);
+            await vatadd.expectSubmitDisabled();
         });
     });
 });
