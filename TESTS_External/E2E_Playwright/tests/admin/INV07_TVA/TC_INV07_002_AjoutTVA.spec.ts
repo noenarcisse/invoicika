@@ -102,69 +102,38 @@ test.describe("Tests négatifs d'ajout de TVA", () => {
 });
 
 test("Ajouter une valeur a 0.001% rate", async ({ page }) => {
-    await page.goto("/vat/add");
+    const vatadd = new VATAddPage(page);
+    await vatadd.goto();
+    await vatadd.addVAT(0.001);
 
-    const vatInput = page.getByPlaceholder("Enter VAT percentage");
-    const submitButton = page.getByRole("button", {
-        name: /create/i,
-    });
+    await expect(vatadd.submitButton).toBeEnabled();
+    await vatadd.submit();
 
-    await expect(vatInput).toBeVisible();
-    await expect(submitButton).toBeVisible();
-
-    await vatInput.fill("0.001");
-
-    await expect(submitButton).toBeEnabled();
-    await submitButton.click();
     //must fail, bad format, expect a VAT with XX,XX%
-    const err = page.getByText(/error adding/);
-    await expect(err).toBeVisible({ timeout: 3_000 });
+    await vatadd.expectErrorMessage(vatadd.errMessages.add, 3_000);
 });
 
 test.describe("Tests valides liés a la localisation", () => {
     test.use({ locale: "fr-BE" });
 
     test("Ajouter une valeur a 0,01% réussit", async ({ page }) => {
-        await page.goto("/vat/add");
+        const vatadd = new VATAddPage(page);
+        const vatall = new VATAllPage(page);
+        await vatadd.goto();
+        await vatadd.vatInput.pressSequentially("0,01");
 
-        const vatInput = page.getByPlaceholder("Enter VAT percentage");
-        const submitButton = page.getByRole("button", {
-            name: /create/i,
-        });
+        await vatadd.submit();
 
-        await expect(vatInput).toBeVisible();
-        await expect(submitButton).toBeVisible();
-
-        await vatInput.pressSequentially("0,01");
-
-        const err = page.getByText(/Please input the VAT percentage!/);
-        await expect(err).not.toBeVisible({ timeout: 3_000 });
-
-        await expect(submitButton).toBeEnabled();
-
-        await submitButton.click();
-
-        await expect(page).toHaveURL("/vat/all");
-        const greatSuccess = page.getByText("VAT added successfully");
-        await expect(greatSuccess).toBeVisible();
+        await vatall.expectReached();
+        await vatall.expectAddValidationMessage();
     });
 
     test("Ajouter une valeur 'a' rate", async ({ page }) => {
-        await page.goto("/vat/add");
+        const vatadd = new VATAddPage(page);
+        await vatadd.goto();
+        await vatadd.vatInput.pressSequentially("aaa");
 
-        const vatInput = page.getByPlaceholder("Enter VAT percentage");
-        const submitButton = page.getByRole("button", {
-            name: /create/i,
-        });
-
-        await expect(vatInput).toBeVisible();
-        await expect(submitButton).toBeVisible();
-
-        await vatInput.pressSequentially("aaa");
-
-        const err = page.getByText(/Please input the VAT percentage!/);
-        await expect(err).toBeVisible({ timeout: 3_000 });
-
-        await expect(submitButton).toBeDisabled();
+        await vatadd.expectEmptyError();
+        await vatadd.expectSubmitDisabled();
     });
 });

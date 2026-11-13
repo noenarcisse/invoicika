@@ -1,7 +1,7 @@
 import { expect, test as setup } from "@playwright/test";
-import { LoginPage } from "../models/LoginPage";
-import { EMPLOYE } from "../constants";
-import { DashboardPage } from "../models/DashboardPage";
+import { LoginPage } from "@models/LoginPage";
+import { EMPLOYE } from "../data/constants";
+import { DashboardPage } from "@models/DashboardPage";
 
 const file = "playwright/.auth/session_employee.json";
 

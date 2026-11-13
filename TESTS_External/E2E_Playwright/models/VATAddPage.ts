@@ -8,6 +8,7 @@ export class VATAddPage {
     readonly submitButton: Locator;
 
     readonly errMessages: {
+        add: string | RegExp;
         empty: string | RegExp;
         less: string | RegExp;
         more: string | RegExp;
@@ -21,6 +22,7 @@ export class VATAddPage {
         this.submitButton = p.getByRole("button", { name: /create/i });
 
         this.errMessages = {
+            add: /error adding/i,
             empty: /please input the VAT percentage!/,
             less: /cannot be less than 0/,
             more: /cannot be more than 100/,
@@ -52,13 +54,19 @@ export class VATAddPage {
         await expect(this.page.getByText(e)).toBeVisible({ timeout });
     }
 
-    async expectEmptyError() {
-        await expect(this.page.getByText(this.errMessages.empty)).toBeVisible();
+    async expectEmptyError(timeout?: number) {
+        await expect(this.page.getByText(this.errMessages.empty)).toBeVisible({
+            timeout,
+        });
     }
-    async expectLessThanError() {
-        await expect(this.page.getByText(this.errMessages.less)).toBeVisible();
+    async expectLessThanError(timeout?: number) {
+        await expect(this.page.getByText(this.errMessages.less)).toBeVisible({
+            timeout,
+        });
     }
-    async expectMoreThanError() {
-        await expect(this.page.getByText(this.errMessages.more)).toBeVisible();
+    async expectMoreThanError(timeout?: number) {
+        await expect(this.page.getByText(this.errMessages.more)).toBeVisible({
+            timeout,
+        });
     }
 }

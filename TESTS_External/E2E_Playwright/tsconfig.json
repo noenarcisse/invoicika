@@ -4,7 +4,8 @@
       "node"
     ],
     "paths": {
-      "@models/*": ["./models/*"]
+      "@models/*": ["./models/*"],
+      "@data/*": ["./data/*"]
     }
   }
 }

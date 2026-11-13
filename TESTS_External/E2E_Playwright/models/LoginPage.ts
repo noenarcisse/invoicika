@@ -16,7 +16,7 @@ export class LoginPage {
         this.page = p;
         this.usernameInput = p.getByPlaceholder("Username");
         this.passwordInput = p.getByPlaceholder("Password");
-        this.submitButton = p.getByRole("button", { name: "Log in" });
+        this.submitButton = p.getByRole("button", { name: /log\s*in/i });
     }
 
     async goto() {
@@ -46,5 +46,9 @@ export class LoginPage {
     async expectWrongCredentialsError() {
         await expect(this.page.getByText(this.wrongCrendentialsErr))
             .toBeVisible();
+    }
+
+    async expectReached() {
+        await expect(this.page).toHaveURL("/login");
     }
 }
