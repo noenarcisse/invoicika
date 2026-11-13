@@ -42,10 +42,10 @@ export class CustomersEditPage {
         await this.addressInput.fill(a);
     }
     async addPhone(p: string) {
-        await this.addressInput.fill(p);
+        await this.phoneInput.fill(p);
     }
     async addEmail(e: string) {
-        await this.addressInput.fill(e);
+        await this.emailInput.fill(e);
     }
 
     async addCustomer(c: Customer) {
