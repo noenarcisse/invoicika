@@ -1,3 +1,6 @@
+import { API_BASEURL } from "@data/constants";
+import { CustomersAddPage } from "@models/CustomersAddPage";
+import { CustomersAllPage } from "@models/CustomersAllPage";
 import { expect, test } from "@playwright/test";
 
 test.describe("Tests positifs d'ajout d'un client", () => {
@@ -5,7 +8,7 @@ test.describe("Tests positifs d'ajout d'un client", () => {
     test.afterEach(async ({ request }) => {
         type Customer = { customerId: string; name: string };
 
-        const res = await request.get("http://localhost:5000/api/Customers");
+        const res = await request.get(`${API_BASEURL}/Customers`);
         if (res.status() != 200) return;
 
         const customers = (await res.json()).items;
@@ -13,11 +16,9 @@ test.describe("Tests positifs d'ajout d'un client", () => {
             c.name.toLowerCase().includes("smitty")
         );
 
-        console.log(smitties);
-
         for (const s of smitties) {
             await request.delete(
-                `http://localhost:5000/api/Customers/${s.customerId}`,
+                `${API_BASEURL}/Customers/${s.customerId}`,
             );
         }
     });
@@ -35,30 +36,19 @@ test.describe("Tests positifs d'ajout d'un client", () => {
         },
     ].forEach(({ title, email }) => {
         test(title, async ({ page }) => {
-            await page.goto("/customers/add");
+            const cusadd = new CustomersAddPage(page);
+            const cusall = new CustomersAllPage(page);
+            await cusadd.goto();
 
-            const nameInput = page.getByRole("textbox", {
-                name: "Enter customer name",
+            await cusadd.addCustomer({
+                name: "smitty",
+                email,
             });
-            const emailInput = page.getByPlaceholder(/email/);
-            const submitButton = page.getByRole("button", { name: /create/i });
 
-            await expect(nameInput).toBeVisible();
-            await expect(emailInput).toBeVisible();
-            await expect(submitButton).toBeVisible();
+            await cusadd.submit();
 
-            await nameInput.fill("smitty");
-            await emailInput.fill(email);
-
-            const err = page.getByText(/valid email/);
-            await expect(err).not.toBeVisible({ timeout: 3_000 });
-
-            await expect(submitButton).toBeEnabled();
-
-            await submitButton.click();
-            await expect(page).toHaveURL("http://localhost:4444/customers/all");
-            const greatSuccess = page.getByText("Customer added successfully");
-            await expect(greatSuccess).toBeVisible();
+            await cusall.expectReached();
+            await cusall.expectErrorMessage(cusall.validationMessage.add);
         });
     });
 
@@ -105,37 +95,29 @@ test.describe("Tests positifs d'ajout d'un client", () => {
 });
 
 test("entrer un email invalide sans @ echoue", async ({ page }) => {
-    await page.goto("http://localhost:4444/customers/add");
+    const cusadd = new CustomersAddPage(page);
+    await cusadd.goto();
 
-    const emailInput = page.getByPlaceholder(/email/);
-    await expect(emailInput).toBeVisible();
+    await cusadd.addCustomer({
+        name: "smitty",
+        email: "smitty-werberjägermanjansen.com",
+    });
 
-    await emailInput.fill("smitty-werberjägermanjansen.com");
-
-    const err = page.getByText(/valid email/);
-    await expect(err).toBeVisible();
+    await cusadd.expectErrorMessage(/valid email/i);
 });
 
 test("entrer un email invalide sans extension de domaine echoue", async ({ page }) => {
-    await page.goto("http://localhost:4444/customers/add");
+    const cusadd = new CustomersAddPage(page);
+    await cusadd.goto();
+    await cusadd.addEmail("smitty@werberjagermanjansen");
 
-    const emailInput = page.getByPlaceholder(/email/);
-    await expect(emailInput).toBeVisible();
-
-    await emailInput.fill("smitty@werberjagermanjansen");
-
-    const err = page.getByText(/valid email/);
-    await expect(err).toBeVisible();
+    await cusadd.expectErrorMessage(/valid email/i);
 });
 
 test("entrer un email avec caractere speciaux dans la partie locale échoue", async ({ page }) => {
-    await page.goto("/customers/add");
+    const cusadd = new CustomersAddPage(page);
+    await cusadd.goto();
+    await cusadd.addEmail("smitty.werberjägermanjansen@google.com");
 
-    const emailInput = page.getByPlaceholder(/email/);
-    await expect(emailInput).toBeVisible();
-
-    await emailInput.fill("smitty.werberjägermanjansen@google.com");
-
-    const err = page.getByText(/valid email/);
-    await expect(err).toBeVisible();
+    await cusadd.expectErrorMessage(/valid email/i);
 });
