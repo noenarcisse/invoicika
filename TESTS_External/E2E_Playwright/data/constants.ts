@@ -14,3 +14,5 @@ export const EMPLOYE = {
     name: required("EMPLOYE_USER"),
     pwd: required("EMPLOYE_PWD"),
 };
+
+export const API_BASEURL = "http://localhost:5000/api";
