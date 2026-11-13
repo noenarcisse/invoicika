@@ -1,3 +1,5 @@
+import { CustomersAllPage } from "@models/CustomersAllPage";
+import { CustomersEditPage } from "@models/CustomersEditPage";
 import { expect, test } from "@playwright/test";
 
 test.describe("Tests négatifs de modifications de client", () => {
@@ -21,25 +23,20 @@ test.describe("Tests négatifs de modifications de client", () => {
 
     cases.forEach(({ title, locatorName, errMsg }) => {
         test(title, async ({ page }) => {
-            await page.goto("/customers/all");
+            const cusall = new CustomersAllPage(page);
+            const cusedit = new CustomersEditPage(page);
+            await cusall.goto();
 
-            const editButtons = page.locator("a[href^='/customers/edit/']");
-            const firstEditButton = editButtons.first();
+            await page.locator(cusall.editButtonsPattern).first()
+                .click();
 
-            expect(firstEditButton).toBeVisible();
-            await firstEditButton.click();
             expect(page.getByText(/edit customer/i));
 
-            const nameInput = page.getByRole("textbox", {
-                name: locatorName,
-            });
+            await cusedit.expectReached();
+            await cusedit.page.getByPlaceholder(locatorName).fill("");
 
-            await nameInput.fill("");
-            const editButton = page.getByRole("button", { name: /edit/i });
-            const err = page.getByText(errMsg);
-
-            await expect(editButton).toBeDisabled();
-            await expect(err).toBeVisible();
+            await cusedit.expectErrorMessage(errMsg, 3_000);
+            await cusedit.expectSubmitDisabled();
         });
     });
 
@@ -61,77 +58,62 @@ test.describe("Tests négatifs de modifications de client", () => {
         },
     ].forEach(({ title, email, errMsg }) => {
         test(`modifier un client avec un email invalide echoue : ${title}`, async ({ page }) => {
-            await page.goto("/customers/all");
+            const cusall = new CustomersAllPage(page);
+            const cusedit = new CustomersEditPage(page);
+            await cusall.goto();
 
-            const editButtons = page.locator("a[href^='/customers/edit/']");
-            const firstEditButton = editButtons.first();
+            await page.locator(cusall.editButtonsPattern).first()
+                .click();
 
-            expect(firstEditButton).toBeVisible();
-            await firstEditButton.click();
             expect(page.getByText(/edit customer/i));
 
-            const emailInput = page.getByRole("textbox", {
-                name: "Enter email",
-            });
+            await cusedit.expectReached();
+            await cusedit.addEmail(email);
 
-            await emailInput.fill(email);
-            const editButton = page.getByRole("button", { name: /edit/i });
-            const err = page.getByText(errMsg);
-
-            await expect(editButton).toBeDisabled();
-            await expect(err).toBeVisible();
+            await cusedit.expectErrorMessage(errMsg, 3_000);
+            await cusedit.expectSubmitDisabled();
         });
     });
 });
 
 test.describe("Tests positifs de modification de client", () => {
     test("modifier un client réussit", async ({ page }) => {
-        await page.goto("/customers/all");
+        const cusall = new CustomersAllPage(page);
+        const cusedit = new CustomersEditPage(page);
+        await cusall.goto();
 
-        const editButtons = page.locator("a[href^='/customers/edit/']");
-        const firstEditButton = editButtons.first();
+        await page.locator(cusall.editButtonsPattern).first()
+            .click();
 
-        expect(firstEditButton).toBeVisible();
+        expect(page.getByText(/edit customer/i));
 
-        await firstEditButton.click();
+        await cusedit.expectReached();
+
+        const customer = {
+            name: `${await cusedit.nameInput.inputValue()} 2`,
+            phone: `${await cusedit.phoneInput.inputValue()} 2`,
+            email: `${await cusedit.emailInput.inputValue()}2`,
+        };
+
+        await cusedit.addCustomer({
+            name: customer.name,
+            email: customer.email,
+            phone: customer.phone,
+            address: "truc",
+        });
+
+        await cusedit.submit();
+
+        // the point of this?
         const id = page.url().split("/").at(-1) ?? "";
-
         if (id === "") {
             throw new Error("Couldn't get customer ID from the link");
         }
         console.log(id);
+        //END  the point of this?
 
-        expect(page.getByText(/edit customer/i));
-
-        const nameInput = page.getByRole("textbox", {
-            name: "Enter customer name",
-        });
-        const addressInput = page.getByRole("textbox", {
-            name: "Enter address",
-        });
-        const phoneInput = page.getByRole("textbox", {
-            name: "Enter phone number",
-        });
-        const emailInput = page.getByRole("textbox", { name: "Enter email" });
-        const editButton = page.getByRole("button", { name: /edit/i });
-
-        //je stocke que les visibles, l'adresse est jamais affichée
-        const customer = {
-            name: `${await nameInput.inputValue()} 2`,
-            phone: `${await phoneInput.inputValue()} 2`,
-            email: `${await emailInput.inputValue()}2`,
-        };
-
-        await nameInput.fill(customer.name);
-        await addressInput.fill(`${await addressInput.inputValue()} 2`);
-        await phoneInput.fill(customer.phone);
-        await emailInput.fill(customer.email);
-
-        await editButton.click();
-
-        expect(page).toHaveURL("/customers/all");
-        await expect(page.getByText(/customer updated successfully/i))
-            .toBeVisible();
+        await cusall.expectReached();
+        await cusall.expectErrorMessage(cusall.validationMessage.edit);
 
         //todo
         //c'est du E2E ou du compo, ca fait du test d'intégration complet a partir d'ici ?
