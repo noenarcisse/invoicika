@@ -1,6 +1,7 @@
 import { CustomersAllPage } from "@models/CustomersAllPage";
 import { CustomersEditPage } from "@models/CustomersEditPage";
 import { expect, test } from "@playwright/test";
+import { extractIdFromURL } from "@helpers/helpers";
 
 test.describe("Tests négatifs de modifications de client", () => {
     const cases = [
@@ -89,132 +90,67 @@ test.describe("Tests positifs de modification de client", () => {
 
         await cusedit.expectReached();
 
-        const customer = {
-            name: `${await cusedit.nameInput.inputValue()} 2`,
-            phone: `${await cusedit.phoneInput.inputValue()} 2`,
-            email: `${await cusedit.emailInput.inputValue()}2`,
-        };
-
         await cusedit.addCustomer({
-            name: customer.name,
-            email: customer.email,
-            phone: customer.phone,
+            name: `${await cusedit.nameInput.inputValue()} 2`,
+            email: `${await cusedit.emailInput.inputValue()}2`,
+            phone: `${await cusedit.phoneInput.inputValue()} 2`,
             address: "truc",
         });
 
         await cusedit.submit();
 
         // the point of this?
-        const id = page.url().split("/").at(-1) ?? "";
-        if (id === "") {
-            throw new Error("Couldn't get customer ID from the link");
-        }
-        console.log(id);
+        // const id = page.url().split("/").at(-1) ?? "";
+        // if (id === "") {
+        //     throw new Error("Couldn't get customer ID from the link");
+        // }
+        // console.log(id);
         //END  the point of this?
 
         await cusall.expectReached();
         await cusall.expectErrorMessage(cusall.validationMessage.edit);
-
-        //todo
-        //c'est du E2E ou du compo, ca fait du test d'intégration complet a partir d'ici ?
-
-        //retries, avec la pagination du gars faut possiblement aller chercher dans toutes les pages
-        //c'est hyper random, parfois un edit envoie a la fin parfois pas :x
-        //j'abandonne si le button next est off
-        // while (((await page.getByText(customer.name).all()).length <= 0)) {
-        //     const next = page.getByRole("listitem", { name: "Next Page" })
-        //         .getByRole("button");
-
-        //     expect(next).toBeEnabled();
-        //     await next.click();
-        // }
-
-        // for (const v of Object.values(customer)) {
-        //     await expect(page.getByText(v)).toBeVisible();
-        // }
     });
 
     test("modifier un client avec un numéro de téléphone vide réussit", async ({ page }) => {
-        await page.goto("/customers/all");
+        const cusall = new CustomersAllPage(page);
+        const cusedit = new CustomersEditPage(page);
+        await cusall.goto();
 
-        const editButtons = page.locator("a[href^='/customers/edit/']");
-        const firstEditButton = editButtons.first();
-
-        expect(firstEditButton).toBeVisible();
-
-        await firstEditButton.click();
-        const id = page.url().split("/").at(-1) ?? "";
-
-        if (id === "") {
-            throw new Error("Couldn't get customer ID from the link");
-        }
-        console.log(id);
+        await page.locator(cusall.editButtonsPattern).first()
+            .click();
 
         expect(page.getByText(/edit customer/i));
 
-        const nameInput = page.getByRole("textbox", {
-            name: "Enter customer name",
+        const id = extractIdFromURL(page.url());
+        console.log(id);
+
+        await cusedit.addCustomer({
+            name: `${await cusedit.nameInput.inputValue()} 2`,
+            email: `${await cusedit.emailInput.inputValue()} 2`,
+            address: `${await cusedit.addressInput.inputValue()} 2`,
         });
-        const addressInput = page.getByRole("textbox", {
-            name: "Enter address",
-        });
-        const phoneInput = page.getByRole("textbox", {
-            name: "Enter phone number",
-        });
-        const emailInput = page.getByRole("textbox", { name: "Enter email" });
-        const editButton = page.getByRole("button", { name: /edit/i });
 
-        //je stocke que les visibles, l'adresse est jamais affichée
-        const customer = {
-            name: `${await nameInput.inputValue()} 2`,
-            phone: "",
-            email: `${await emailInput.inputValue()}2`,
-        };
+        await cusedit.submit();
 
-        await nameInput.fill(customer.name);
-        await addressInput.fill(`${await addressInput.inputValue()} 2`);
-        await phoneInput.fill(customer.phone);
-        await emailInput.fill(customer.email);
-
-        await editButton.click();
-
-        expect(page).toHaveURL("/customers/all");
-        await expect(page.getByText(/customer updated successfully/i))
-            .toBeVisible();
+        await cusall.expectReached();
+        await cusall.expectErrorMessage(cusall.validationMessage.add);
     });
 
     test("modifier un client avec un email valide réussit : caractere speciaux dans le domaine", async ({ page }) => {
-        await page.goto("/customers/all");
+        const cusall = new CustomersAllPage(page);
+        const cusedit = new CustomersEditPage(page);
+        await cusall.goto();
 
-        const editButtons = page.locator("a[href^='/customers/edit/']");
-        const firstEditButton = editButtons.first();
-
-        expect(firstEditButton).toBeVisible();
-
-        await firstEditButton.click();
-        const id = page.url().split("/").at(-1) ?? "";
-
-        if (id === "") {
-            throw new Error("Couldn't get customer ID from the link");
-        }
-        console.log(id);
+        await page.locator(cusall.editButtonsPattern).first()
+            .click();
 
         expect(page.getByText(/edit customer/i));
+        await cusedit.expectReached();
 
-        const emailInput = page.getByRole("textbox", { name: "Enter email" });
-        const editButton = page.getByRole("button", { name: /edit/i });
+        await cusedit.addEmail("smitty@werberjägermanjensen.com");
+        await cusedit.expectSubmitDisabled();
 
-        await emailInput.fill("smitty@werberjägermanjensen.com");
-
-        const err = page.getByText(/a valid email/i);
-
-        expect(err).not.toBeVisible({ timeout: 1_000 });
-
-        expect(editButton).toBeEnabled();
-        await editButton.click();
-
-        expect(page).toHaveURL("/customers/all");
-        await expect(page.getByText(/customer updated successfully/i))
-            .toBeVisible();
+        await cusall.expectReached();
+        await cusall.expectErrorMessage(cusall.validationMessage.edit);
     });
 });
