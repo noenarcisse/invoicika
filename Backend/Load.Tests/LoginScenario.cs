@@ -1,100 +1,49 @@
-﻿using System.Text.Json;
+﻿using Load.Tests.Helpers;
 using NBomber.CSharp;
 using NBomber.Http.CSharp;
-using System.Text;
-using System.Text.Json.Serialization;
-using Load.Tests.Helpers;
 using Shouldly;
 
 namespace Load.Tests;
-
-public record AuthRes
-{
-    [JsonPropertyName("token")]
-    public string TokenJWT { get; set; } = "";
-}
-
-//"unique_name": "Jacques Houille",
-//"nameid": "1f8ea226-8f90-4de8-ad67-2211a9849196",
-//"role": "Employee",
-//"nbf": 1792841520,
-//"exp": 1793446320,
-//"iat": 1792841520,
-//"iss": "YourIssuer",
-//"aud": "YourAudience"
-
-public record UserJWT
-{
-    [JsonPropertyName("nameid")]
-    public Guid? Id { get; set; }
-    [JsonPropertyName("unique_name")]
-    public string? Name { get; set; }
-    [JsonPropertyName("role")]
-    public string? Role { get; set; }
-
-};
 
 public class LoginScenario
 {
     [Fact]
     public static void Exec()
     {
-        var scenario = Scenario.Create("Se connecter", async context =>
+        var client = Http.CreateDefaultClient();
+
+        var scenario = Scenario.Create("Se connecter et lister les items", async context =>
         {
-            Uri baseurl = new("http://localhost:5000");
-            string endpoint = "/api/Auth/login";
+            var loginStep = await Step.Run("Login en cours", context, () =>
+                LoginStepHelper.Login(client, "Jacques Houille", "cestokay"));
 
-            Uri fullurl = new(baseurl, endpoint);
+            var token = loginStep.Payload.Value.TokenJWT;
+            context.Logger.Information(token);
 
-            Console.WriteLine(fullurl.ToString());
-
-            var user = new
+            var listItemsStep = await Step.Run("GET /api/Items", context, async () =>
             {
-                username = "Jacques Houille",
-                password = "cestokay"
-            };
+                Uri fullurl = new(new Uri("http://localhost:5000"), "/api/Items");
 
-            var data = JsonSerializer.Serialize(user);
-            var req = Http.CreateRequest("POST", fullurl.ToString())
-                .WithHeader("Accept", "application/json")
-                .WithBody(new StringContent(data, Encoding.UTF8, "application/json"));
+                var req = Http.CreateRequest("GET", fullurl.ToString())
+                    .WithHeader("Accept", "application/json")
+                    .WithHeader("Authorization", $"Bearer {token}");
 
-            var res = await Http.Send(Http.CreateDefaultClient(), req);
+                var res = await Http.Send(client, req);
 
-            res.IsError.ShouldBeFalse("Response was an error");
-            res.StatusCode.ShouldBe("OK", $"Status code was not OK but {res.StatusCode}");
+                if (res.IsError) return Response.Fail(statusCode: res.StatusCode, message: res.Message);
+                if (res.StatusCode != "OK") return Response.Fail(statusCode: res.StatusCode, message: $"Status code was {res.StatusCode}");
 
+                return Response.Ok(statusCode: res.StatusCode, message: "Items retrieved", sizeBytes: res.SizeBytes);
+            });
 
-            Console.WriteLine(res.Payload.Value.Content.ReadAsStringAsync());
-            AuthRes auth = JsonSerializer.Deserialize<AuthRes>(await res.Payload.Value.Content.ReadAsStringAsync())
-                                ?? throw new JsonException("The payload couldn't be parsed");
-
-            Console.WriteLine(auth.TokenJWT);
-
-            UserJWT? userInfos = JWTDecoder.Decode<UserJWT>(auth.TokenJWT);
-            if (userInfos is null) Console.WriteLine("UserInfo is null");
-
-            Console.WriteLine(userInfos?.Name);
-
-            //erreur dans la doc, le statusCode c'est "OK", "NotFound" etc a la aspnet
-            //le statusCode dans le Payload c'est bien le vrai code
-            //Assert.Equal("200", res.StatusCode);
-
-            Console.WriteLine(res.StatusCode);
-            Console.WriteLine(res.Payload);
-            Console.WriteLine(res.SizeBytes);
-
-            if (res.StatusCode == "OK")
-                return Response.Ok(statusCode: res.StatusCode);
-            return Response.Fail(statusCode: res.StatusCode);
-
+            return listItemsStep;
         })
-            .WithoutWarmUp().
-            WithLoadSimulations(
+            .WithoutWarmUp()
+            .WithLoadSimulations(
                 Simulation.Inject(
                     rate: 1,
                     interval: TimeSpan.FromSeconds(1),
-                    during: TimeSpan.FromMinutes(1)
+                    during: TimeSpan.FromSeconds(30)
                     )
             );
 
@@ -103,6 +52,6 @@ public class LoginScenario
             .Run();
 
         var step = stats.ScenarioStats[0];
-        Assert.Equal(0, step.Fail.Request.Count);
+        step.Fail.Request.Count.ShouldBe(0);
     }
 }
