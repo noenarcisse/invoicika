@@ -1,5 +1,7 @@
 # PREP:
 
+report les vulnes en tant que bugs
+
 ajouter aussi le page object models a train avec PW
 
 prepa une archi de branches /tests ou training
