@@ -74,8 +74,6 @@ https://www.myfid.be/ressources/comptabilite/factures-tva/#les-mentions-obligato
 Les mentions obligatoires d'une facture en Belgique : le guide de la facture conforme :
 https://synobat.com/be-fr/blog/les-mentions-obligatoires-d-une-facture-en-belgique-le-guide-de-la-facture-conforme
 
-https://ec.europa.eu/digital-building-blocks/sites/spaces/DIGITAL/pages/467108874/eInvoicing+Country+Factsheets+for+each+Member+State+and+other+countries
-
 https://www.mediaatelier.com/fr-BE/Posts/EInvoicing-EU/
 
 https://info.hub.brussels/guide/assurances-fiscalite-comptabilite/facturation-electronique-bruxelles
