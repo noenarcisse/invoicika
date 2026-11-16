@@ -12,6 +12,13 @@
 
  Avec les différents taux de TVA en application, il faut grouper chaque total par taux de TVA (dans le cas de la Belgique : 6, 12 ou 21%).
 
+ Certains pays ont des de  TVA pouvant être des nombres à virgules.
+
+<!-- draft -->
+D'autres pays n'utilisent pas forcément la TVA mais des système de taxes locales (USA, Quebec, etc.). L'application pourrait possiblement gérer ces cas là avec une forme de flexibilité.
+Dans les cas d'extensions de taxes au delà de la TVA, il faut prévoir au minimum 3 chiffres après la virgule. (Sales Tax aux USA, TVQ au Quebec)
+Ils seront considéré comme hors scope pour l'application dans sa version actuelle.
+
 Norme en EU : Directive TVA 2006/112/CE
 https://eur-lex.europa.eu/eli/dir/2006/112/oj?locale=fr
 
@@ -53,8 +60,18 @@ La Belgique quant à elle impose, depuis peu, l'utilisation de Peppol pour les f
 Dans le cadre du B2C, le format d'une facture électronique conserve plus de souplesse. 
 
 
+## Source
+
+eInvoicing Country Factsheets for each Member State and other countries : 
+https://ec.europa.eu/digital-building-blocks/sites/spaces/DIGITAL/pages/467108874/eInvoicing+Country+Factsheets+for+each+Member+State+and+other+countries
+
+Obligation d'utiliser Peppol:
+https://ec.europa.eu/digital-building-blocks/sites/spaces/DIGITAL/pages/467108877/eInvoicing+in+Belgium
+
+Mentions obligatoires sur une facture:
 https://www.myfid.be/ressources/comptabilite/factures-tva/#les-mentions-obligatoires-a-faire-figurer-sur-une-facture-tva
 
+Les mentions obligatoires d'une facture en Belgique : le guide de la facture conforme :
 https://synobat.com/be-fr/blog/les-mentions-obligatoires-d-une-facture-en-belgique-le-guide-de-la-facture-conforme
 
 https://ec.europa.eu/digital-building-blocks/sites/spaces/DIGITAL/pages/467108874/eInvoicing+Country+Factsheets+for+each+Member+State+and+other+countries

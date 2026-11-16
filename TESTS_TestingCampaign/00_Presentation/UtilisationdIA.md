@@ -1,5 +1,5 @@
 # **Utilisation d'IA**
-
+<!-- draft -->
 L'utilisation de l'IA dans le cadre de ce projet a majoritairement servi à ping-pong des idées (dans l'optique de "parler à un canard").
 Elle a parfois été utilisée pour étendre des idées plus loin (propositions de Règles Métier non considérées ou possiblement oubliées, amener des siggestions d'exigences additionnelles etc.).
 
@@ -15,6 +15,9 @@ LLM:
 - Claude (Sonnet & Haiku)
 - Gemini (Flash)
 
+Agent :
+- Devin
+
 Autocomplete :
-- Supermaven
+- DevinDesktop (Windsurf)
 

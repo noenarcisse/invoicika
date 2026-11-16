@@ -18,7 +18,7 @@ Tests a considerer :
 - Traçabilité : chaque facture doit être immuable une fois émise (contraintes légales dans beaucoup de pays)
 
 <!-- DRAFT -->
-- Utilisation de Peppol (obligation B2B, B2G) -> source ?
+- Utilisation de Peppol (obligation B2B, B2G) -> https://ec.europa.eu/digital-building-blocks/sites/spaces/DIGITAL/pages/467108877/eInvoicing+in+Belgium
 - Respect de la norme EN 16931 : Numérotation séquentielle des factures (obligatoire dans plusieurs juridictions, dont la France/Belgique)
 - Mentions légales obligatoires sur le document (règles d’arrondis utilisés si nécéssaire)
 - Race conditions sur les stocks des produits enregistrés
