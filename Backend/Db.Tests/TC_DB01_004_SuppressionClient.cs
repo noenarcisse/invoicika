@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using Shouldly;
 using WebAPI.Models;
 
@@ -57,7 +58,12 @@ public class TC_DB01_004_SuppressionClient(PostgresFixture db)
             var customer = await ctx.Customers.FindAsync([customerId], TestContext.Current.CancellationToken);
             customer.ShouldNotBeNull();
             ctx.Customers.Remove(customer);
-            await ctx.SaveChangesAsync(TestContext.Current.CancellationToken);
+
+            var ex = await Should.ThrowAsync<DbUpdateException>(async () =>
+                await ctx.SaveChangesAsync(TestContext.Current.CancellationToken));
+
+            PostgresException psqlEx = ex.InnerException.ShouldBeOfType<PostgresException>();
+            psqlEx.SqlState.ShouldBe(PostgresErrorCodes.ForeignKeyViolation);
         }
 
         await using var check = db.CreateContext();
