@@ -1,6 +1,4 @@
 # **Testing Stack**
-<!-- Manque le CI CD -->
-<!-- Git Github ? Git actions ? -->
 
 ## Création de tests
 | outil | utilisation
@@ -13,8 +11,10 @@
 | NBomber | test de charge API
 | Bruno | tests API
 | Playwright | tests E2E, tests de composants Frontend
-| OUT Jasmine, Karma | tests unitaires
-| OUT?Testing Library Angular | tests unitaires
+
+<!-- draft : to be removed entirely? -->
+<!-- | OUT Jasmine, Karma | tests unitaires
+| OUT?Testing Library Angular | tests unitaires -->
 
 ## Exploration
 | outil | utilisation
@@ -32,7 +32,8 @@
 ## Infra, source control et CI/CD
 | outil | utilisation
 |---|---|
-| Git, GitHub, Fork, GitHub Desktop | Source control 
+| Git, GitHub, Fork, GitHub Desktop | Source control
+<!-- draft : still missing? -->
 <!-- | GitHub Actions ? | CI/CD -->
 
 
