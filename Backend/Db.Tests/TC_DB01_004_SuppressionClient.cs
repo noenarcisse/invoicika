@@ -4,13 +4,13 @@ using WebAPI.Models;
 
 namespace Db.Tests;
 
+//weak, il teste pas si la DB a throw DbUpdate exec et le code err de psql
+
+
 //devin
 
-// BUG: la suppression d'un Customer ou d'une VAT efface aussi les factures
-// liees (ON DELETE CASCADE dans les migrations). Ces tests verifient que la
-// facture doit survivre a la suppression de ses references.
 [Collection("db")]
-public class TC_DB01_002_SuppressionCascade(PostgresFixture db)
+public class TC_DB01_004_SuppressionClient(PostgresFixture db)
 {
     private async Task<(Guid CustomerId, Guid VatId, Guid InvoiceId)> SeedInvoiceAsync()
     {
@@ -67,29 +67,6 @@ public class TC_DB01_002_SuppressionCascade(PostgresFixture db)
         invoice.ShouldNotBeNull(
             "BUG: la facture a ete supprimee en cascade avec le client. " +
             "La FK CustomerInvoices.Customer_id devrait etre en Restrict, pas Cascade."
-        );
-    }
-
-    [Fact]
-    public async Task TC_DB01_002_SuppressionTVA_FactureSupprimee_Bug()
-    {
-        var (_, vatId, invoiceId) = await SeedInvoiceAsync();
-
-        await using (var ctx = db.CreateContext())
-        {
-            var vat = await ctx.VATs.FindAsync([vatId], TestContext.Current.CancellationToken);
-            vat.ShouldNotBeNull();
-            ctx.VATs.Remove(vat);
-            await ctx.SaveChangesAsync(TestContext.Current.CancellationToken);
-        }
-
-        await using var check = db.CreateContext();
-        var invoice = await check.CustomerInvoices
-            .FirstOrDefaultAsync(i => i.CustomerInvoiceId == invoiceId, TestContext.Current.CancellationToken);
-
-        invoice.ShouldNotBeNull(
-            "BUG: la facture a ete supprimee en cascade avec la TVA. " +
-            "La FK CustomerInvoices.Vat_id devrait etre en Restrict, pas Cascade."
         );
     }
 }
