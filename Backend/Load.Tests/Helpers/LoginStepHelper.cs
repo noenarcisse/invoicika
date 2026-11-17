@@ -1,7 +1,6 @@
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Load.Tests.Helpers;
 using NBomber.CSharp;
 using NBomber.Contracts;
 using NBomber.Http.CSharp;
@@ -14,10 +13,6 @@ public record AuthRes
     public string TokenJWT { get; set; } = "";
 }
 
-//"unique_name": "employee1",
-//"nameid": "1f8ea226-8f90-4de8-ad67-2211a9849196",
-//"role": "Employee",
-
 public record UserJWT
 {
     [JsonPropertyName("nameid")]
@@ -27,6 +22,8 @@ public record UserJWT
     [JsonPropertyName("role")]
     public string? Role { get; set; }
 }
+
+// devin
 
 public class LoginStepHelper
 {
