@@ -58,7 +58,8 @@ func main() {
 		// --build plante le front sans co
 		if !netutils.Ping("https://www.sonarsource.com/products/sonarqube/downloads/") {
 			console.Printcln(console.RED, "No internet connexion, Docker compose up with --build aborted")
-			return
+			// return
+			os.Exit(1) //faut sortir par return
 		}
 
 		console.Printcln(console.BLUE, "Installing containers with --build option")
@@ -66,7 +67,8 @@ func main() {
 		if err != nil {
 			console.Printcln(console.RED, "Error happened while installing with Docker")
 			fmt.Println(err.Error())
-			return
+			// return
+			os.Exit(1) //faut sortir par return
 		}
 	case install:
 
@@ -75,7 +77,8 @@ func main() {
 		if err != nil {
 			console.Printcln(console.RED, "Error happened while installing with Docker")
 			fmt.Println(err.Error())
-			return
+			// return
+			os.Exit(1) //faut sortir par return
 		}
 
 		err = testcli.TruncDB(dblogs)
