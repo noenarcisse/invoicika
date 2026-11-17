@@ -8,15 +8,10 @@ namespace Db.Tests;
 [Collection("db")]
 public class TC_ACC01_InscriptionUser(PostgresFixture db)
 {
-
-
-
     [Fact]
     public async Task TC_ACC01_009_AjoutUser_Valid_Accepte()
     {
         await using var ctx = db.CreateContext();
-
-
         Guid id = Guid.NewGuid();
         string username = "Smitty Werbenjägermenjensen";
 
@@ -97,7 +92,7 @@ public class TC_ACC01_InscriptionUser(PostgresFixture db)
     }
 
     [Fact]
-    public async Task TC_ACC01_010_AjoutUser_UsernameNull_Rejete()
+    public async Task TC_ACC01_011_AjoutUser_UsernameNull_Rejete()
     {
         await using var ctx = db.CreateContext();
 
