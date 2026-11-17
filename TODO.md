@@ -1,8 +1,7 @@
 # PREP:
 
 report les vulnes en tant que bugs
-
-ajouter aussi le page object models a train avec PW
+CI/CD
 
 prepa une archi de branches /tests ou training
     pour train les fixtures, etc en PW
@@ -12,8 +11,6 @@ oubli des tests de valeurs sur les stocks :d
 j'ai pas des mass de zone d'attaques pour les tests en backend
 y'a les services qui requiert de pop une DB en RAM a la limite mais c'est du full CRUD
 y'a un helper de pagination (low prio)
-
-Faut prio les unique, cascade, not null etc
 
 setup a faire : 
 External tests -> sql pur, test manuel d'exploration dans la DB pour voir les reactions possibles et trouver des bugs de schema
@@ -83,6 +80,7 @@ a ouvrir a long terme pour la presa?
 
 ## FRONT
 - [x] Fix les vulné possibles : npm audit + i
+- [ ] POM
 ## DB
 - [x] Backup_001 (init)
 - [x] Backup_002 (injected)
