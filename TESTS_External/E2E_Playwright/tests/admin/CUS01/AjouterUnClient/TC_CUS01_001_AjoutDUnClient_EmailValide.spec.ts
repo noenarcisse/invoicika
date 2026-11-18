@@ -25,13 +25,11 @@ test.describe("Tests positifs d'ajout d'un client", () => {
 
     [
         {
-            title:
-                "entrer un email valide avec double extension de domaine réussit",
+            title: "entrer un email valide avec double extension de domaine réussit",
             email: "smitty@amazon.com.be",
         },
         {
-            title:
-                "entrer un email valide avec caractere speciaux dans le domaine réussit",
+            title: "entrer un email valide avec caractere speciaux dans le domaine réussit",
             email: "smitty@werberjägermanjansen.com",
         },
     ].forEach(({ title, email }) => {

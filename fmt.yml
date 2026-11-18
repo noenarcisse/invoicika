@@ -1,18 +1,21 @@
   # a tester
-  lint:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v4
+format-ts:
+  runs-on: ubuntu-24.04
+  timeout-minutes: 10
+  steps:
+    - uses: actions/checkout@v4
+    - uses: denoland/setup-deno@v2
+      with:
+        deno-version: v2.9.5      # verifier la version sur ma machine, ici c'est la version de deno a BF
+    - run: deno fmt --check
+      working-directory: TESTS_External/E2E_Playwright
 
-      - uses: denoland/setup-deno@v2
-        with:
-          # version vue sur la machine a BF a verifier
-          deno-version: v2.9.5
-      - run: deno fmt --check
-        working-directory: TESTS_External/E2E_Playwright
-
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '10.0.x'
-      - run: dotnet format whitespace Backend/Db.Tests --verify-no-changes
+format-cs:
+  runs-on: ubuntu-24.04
+  timeout-minutes: 10
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+    - run: dotnet format whitespace Backend/Db.Tests --verify-no-changes

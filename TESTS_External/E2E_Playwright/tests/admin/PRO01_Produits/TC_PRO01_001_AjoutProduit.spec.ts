@@ -120,8 +120,7 @@ test.describe.fixme("Tests négatifs d'ajout d'un produit", () => {
             err: /input the item name/i,
         },
         {
-            title:
-                "Ajouter un produit avec une description de 1025 caractères affiche une erreur",
+            title: "Ajouter un produit avec une description de 1025 caractères affiche une erreur",
             name: `TestItem_${uuid()}`,
             description:
                 `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a diam venenatis, faucibus dui a, luctus nisi. Nullam elementum, lectus at consectetur facilisis, lorem risus auctor urna, non varius libero elit a dolor. Fusce at posuere justo, quis feugiat lectus. Quisque faucibus arcu a feugiat gravida. Vivamus sed consequat felis, non malesuada sem. Cras mollis, tellus eget faucibus interdum, erat leo imperdiet est, eu faucibus tortor magna eu dolor. Nam vel massa faucibus, venenatis ex eget, suscipit quam. Aenean sed ornare tellus. Cras pretium tortor dui, eget dapibus ligula iaculis at. Sed lobortis tristique pharetra. Suspendisse scelerisque, elit quis iaculis accumsan, nunc est consectetur tellus, eu semper tellus tellus at neque. Praesent finibus vehicula mi sed finibus.
