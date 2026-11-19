@@ -1,4 +1,4 @@
-insert into "Users" values(
+INSERT INTO "Users" VALUES(
 	'8bd65ecd-2ecd-403a-8e68-cb488ae68787',
 	'admin',
 	'admin@admin.com',
@@ -10,9 +10,9 @@ insert into "Users" values(
 	);
 
 -- this one will throw :
--- ERROR:  duplicate key value violates unique constraint "PK_Users"
+-- ERROR:  duplicate KEY value violates UNIQUE CONSTRAINT "PK_Users"
 -- Key ("UserId")=(8bd65ecd-2ecd-403a-8e68-cb488ae68787) already exists. 
-insert into "Users" values(
+INSERT INTO "Users" VALUES(
 	'8bd65ecd-2ecd-403a-8e68-cb488ae68787',
 	'admin',
 	'admin@admin.com',
