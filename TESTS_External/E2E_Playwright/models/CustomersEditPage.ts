@@ -19,6 +19,13 @@ export class CustomersEditPage {
 
     readonly submitButton: Locator;
 
+    readonly errorMessages = {
+        name: /Please input the customer name/i,
+        //deduit, elles existent pas mais doivent compter pour les RM
+        address: /Please input the customer address/i,
+        email: /Please input the customer email/i,
+    };
+
     constructor(p: Page) {
         this.page = p;
         this.title = p.getByText(/edit customer/i);
@@ -32,7 +39,7 @@ export class CustomersEditPage {
     }
 
     async goto(id: string) {
-        await this.page.goto(`/customers/${id}`);
+        await this.page.goto(`/customers/edit/${id}`);
     }
 
     async addName(n: string) {

@@ -33,10 +33,7 @@ export class InvoicesAddPage {
 
         this.vatList = p.locator('formcontrolname="vatId"');
 
-        this.subTotalInput = p.getByRole("textbox", { disabled: true })
-            .nth(
-                0,
-            );
+        this.subTotalInput = p.getByRole("textbox", { disabled: true }).nth(0);
 
         this.submitButton = p.getByRole("button", { name: "Create" });
     }
