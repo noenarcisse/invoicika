@@ -3,7 +3,7 @@
 L'utilisation de l'IA dans le cadre de ce projet a majoritairement servi à ping-pong des idées (dans l'optique de "parler à un canard").
 Elle a parfois été utilisée pour étendre des idées plus loin (propositions de Règles Métier non considérées ou possiblement oubliées, amener des siggestions d'exigences additionnelles etc.).
 
-Les LLM ont aussi permis de faire de la recherche étendue (c'est Claude qui a retrouvé Shouldly sur base d'un exemple de syntaxe que j'avais vu en passant quelque part ; propostion de Nsubstitute comme alternative à Moq).
+Les LLM ont aussi permis de faire de la recherche étendue (c'est Claude qui a retrouvé Shouldly sur base d'un exemple de syntaxe que j'avais vu en passant quelque part ; proposition de Nsubstitute comme alternative à Moq).
 Claude a aussi proposé Testcontainer pour les tests de base de données lorsque je l'ai interrogé sur les outils classiquement mis en place avec ma stack.
 
 Pour la partie agentique, les instructions pour Devin étaient toujours ciblées avec un dossier "examples" dans lequel je donnais des codes externes déjà préparés à imiter pour lui servir de template ou il avait pour instructions d'aller lire des tests déjà écrits à la main et d'étendre mes tests vers des cas que je lui demandais de produire.
