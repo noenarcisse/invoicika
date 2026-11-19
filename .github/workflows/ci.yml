@@ -103,5 +103,7 @@ jobs:
           name: e2e-debug
           path: |
             compose.log
+            TESTS_External/API_bruno/bruno-report.xml
+            TESTS_External/API_bruno/bruno-report.html
             TESTS_External/E2E_Playwright/playwright-report/
             TESTS_External/E2E_Playwright/test-results/
