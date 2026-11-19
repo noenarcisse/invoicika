@@ -68,7 +68,18 @@ jobs:
       - run: go build -C _tools -o ../cli ./cmd/cli # a tester si le -c fait un cd clean avant compile
       - run: ./cli -b # attention ca ping internet, faut presque un bf pour faire build force sans check internet pour git
 
-      - run: npx --yes wait-on -t 300000 http://localhost:5000/swagger/index.html http://localhost:4444
+      # - run: npx --yes wait-on -t 300000 http://localhost:5000/swagger/index.html http://localhost:4444
+      - name: Attendre l'API et le front
+        run: |
+          for i in $(seq 1 40); do
+            api=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:5000/swagger/index.html || true)
+            front=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:4444 || true)
+            echo "tentative $i : api=$api front=$front"
+            if [ "$api" = "200" ] && [ "$front" = "200" ]; then exit 0; fi
+            sleep 5
+          done
+          docker compose ps -a
+          exit 1
 
       - run: ./cli -r
 
