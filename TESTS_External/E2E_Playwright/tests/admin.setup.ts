@@ -1,7 +1,7 @@
 import { expect, test as setup } from "@playwright/test";
-import { LoginPage } from "@models/LoginPage";
-import { ADMIN } from "../data/constants";
-import { DashboardPage } from "@models/DashboardPage";
+import { LoginPage } from "@models/LoginPage.ts";
+import { ADMIN } from "@data/constants.ts";
+import { DashboardPage } from "@models/DashboardPage.ts";
 
 const file = "playwright/.auth/session_admin.json";
 

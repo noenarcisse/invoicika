@@ -1,6 +1,6 @@
-import { API_BASEURL } from "@data/constants";
-import { CustomersAddPage } from "@models/CustomersAddPage";
-import { CustomersAllPage } from "@models/CustomersAllPage";
+import { API_BASEURL } from "@data/constants.ts";
+import { CustomersAddPage } from "@models/CustomersAddPage.ts";
+import { CustomersAllPage } from "@models/CustomersAllPage.ts";
 import { expect, test } from "@playwright/test";
 
 test.describe("Tests positifs d'ajout d'un client", () => {

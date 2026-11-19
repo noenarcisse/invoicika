@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "types": [
       "node"
     ],
+    "baseUrl": ".",
     "paths": {
       "@models/*": [
         "./models/*"

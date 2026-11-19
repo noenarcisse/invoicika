@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
-import { ADMIN } from "@data/constants";
-import { DashboardPage } from "@models/DashboardPage";
-import { LoginPage } from "@models/LoginPage";
+import { ADMIN } from "@data/constants.ts";
+import { DashboardPage } from "@models/DashboardPage.ts";
+import { LoginPage } from "@models/LoginPage.ts";
 
 test("se deconnecter en tant qu'admin", async ({ page }) => {
     const dp = new DashboardPage(page);

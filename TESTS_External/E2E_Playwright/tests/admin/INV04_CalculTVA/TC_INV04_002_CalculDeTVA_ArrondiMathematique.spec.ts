@@ -1,4 +1,4 @@
-import { InvoicesAddPage } from "@models/InvoicesAddPage";
+import { InvoicesAddPage } from "@models/InvoicesAddPage.ts";
 import { expect, test } from "@playwright/test";
 
 test.describe("Tests d'arrondi mathématique", () => {

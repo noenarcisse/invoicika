@@ -1,5 +1,5 @@
-import { CustomersAddPage } from "@models/CustomersAddPage";
-import { CustomersAllPage } from "@models/CustomersAllPage";
+import { CustomersAddPage } from "@models/CustomersAddPage.ts";
+import { CustomersAllPage } from "@models/CustomersAllPage.ts";
 import { test } from "@playwright/test";
 
 test("ajouter un client avec email réussit", async ({ page }) => {

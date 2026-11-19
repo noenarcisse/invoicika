@@ -1,7 +1,7 @@
-import { CustomersAllPage } from "@models/CustomersAllPage";
-import { CustomersEditPage } from "@models/CustomersEditPage";
+import { CustomersAllPage } from "@models/CustomersAllPage.ts";
+import { CustomersEditPage } from "@models/CustomersEditPage.ts";
 import { expect, test } from "@playwright/test";
-import { extractIdFromURL } from "@helpers/helpers";
+import { extractIdFromURL } from "@helpers/helpers.ts";
 
 test.describe("Tests négatifs de modifications de client", () => {
     const cases = [

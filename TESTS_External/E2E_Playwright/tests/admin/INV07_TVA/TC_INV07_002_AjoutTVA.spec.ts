@@ -1,5 +1,5 @@
-import { VATAllPage } from "@models/VATAllPage";
-import { VATAddPage } from "@models/VATAddPage";
+import { VATAllPage } from "@models/VATAllPage.ts";
+import { VATAddPage } from "@models/VATAddPage.ts";
 import { expect, test } from "@playwright/test";
 
 test.describe("Tests positifs d'ajout de TVA", () => {
