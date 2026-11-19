@@ -61,4 +61,11 @@ export class CustomersAllPage {
     async expectErrorMessage(e: string | RegExp, timeout?: number) {
         await expect(this.page.getByText(e)).not.toBeVisible({ timeout });
     }
+
+    async hasEmptyData() {
+        await expect(this.page.getByText(/No Data/i)).toBeVisible();
+    }
+    async hasData() {
+        await expect(this.page.getByText(/No Data/i)).not.toBeVisible({ timeout: 3_000 });
+    }
 }
