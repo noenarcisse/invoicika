@@ -1,6 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { IDataList } from "@interfaces/IDataList.ts";
 
-export class InvoicesAllPage {
+export class InvoicesAllPage implements IDataList {
     readonly page: Page;
 
     readonly idCells: Locator;
@@ -59,5 +60,12 @@ export class InvoicesAllPage {
     async expectValidationMessage() {
         await expect(this.page.getByText(this.validationMessage))
             .toBeVisible();
+    }
+
+    async hasEmptyData() {
+        await expect(this.page.getByText(/No Data/i)).toBeVisible();
+    }
+    async hasData() {
+        await expect(this.page.getByText(/No Data/i)).not.toBeVisible({ timeout: 3_000 });
     }
 }

@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { IDataList } from "@interfaces/IDataList.ts";
 
 type Customer = {
     name: string;
@@ -7,7 +8,7 @@ type Customer = {
     phone?: string;
 };
 
-export class CustomersAllPage {
+export class CustomersAllPage implements IDataList {
     readonly page: Page;
 
     readonly title: Locator;

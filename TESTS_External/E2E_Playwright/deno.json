@@ -2,7 +2,9 @@
   "imports": {
     "@models/": "./models/",
     "@data/": "./data/",
-    "@helpers/*": "./helpers/*"
+    "@helpers/*": "./helpers/*",
+    "@interfaces/*": "./interfaces/*"
+    
   },
   "fmt": {
     "indentWidth": 4,

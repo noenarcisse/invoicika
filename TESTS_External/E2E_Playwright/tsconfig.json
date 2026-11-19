@@ -4,9 +4,18 @@
       "node"
     ],
     "paths": {
-      "@models/*": ["./models/*"],
-      "@data/*": ["./data/*"],
-      "@helpers/*": ["./helpers/*"]
+      "@models/*": [
+        "./models/*"
+      ],
+      "@data/*": [
+        "./data/*"
+      ],
+      "@helpers/*": [
+        "./helpers/*"
+      ],
+      "@interfaces/*": [
+        "./interfaces/*"
+      ]
     }
   }
 }

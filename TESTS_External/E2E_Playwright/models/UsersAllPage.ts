@@ -1,6 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { IDataList } from "@interfaces/IDataList.ts";
 
-export class UsersAllPage {
+export class UsersAllPage implements IDataList {
     readonly page: Page;
 
     readonly title: Locator;
@@ -45,5 +46,11 @@ export class UsersAllPage {
     async expectReached() {
         await expect(this.page).toHaveURL("/users/all");
         await expect(this.title).toBeVisible();
+    }
+    async hasEmptyData() {
+        await expect(this.page.getByText(/No Data/i)).toBeVisible();
+    }
+    async hasData() {
+        await expect(this.page.getByText(/No Data/i)).not.toBeVisible({ timeout: 3_000 });
     }
 }
