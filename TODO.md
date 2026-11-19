@@ -1,10 +1,6 @@
 # PREP:
 
 report les vulnes en tant que bugs
-CI/CD
-
-prepa une archi de branches /tests ou training
-    pour train les fixtures, etc en PW
 
 oubli des tests de valeurs sur les stocks :d
 
@@ -35,19 +31,24 @@ a ouvrir a long terme pour la presa?
 - [x] Mettre a jour la docu par rapport au squash (RM, etc.)
 - [ ] Refaire une phase d'explo en front pur, tester les manipulations de claviers j'ai repéré des bugs en passant par PW pour les tests components front
 - [ ] Faire un passage de screenshots et videos intermédiaires pour la présa (squash, jira, bug visuels)
+- [x] CI/CD a mettre en place
+- [ ] ramener la config du ci.yml terminée et testé sur la branche training/cicd vers main
+- [ ] finir le fmt.yml et tester sur training/cicd
+- [ ] prep les vulne.yml pour les audit npm et dotnet
+- [ ] preparer le AGENTS.MD pour le petit Devin
+- [ ] preparer une branche agents/devin
 
 - [ ] Aller tester l'envoie de mail si ca marche vraiment avec le SMPT (for fun, c'est hors scope anw)
 
 ## TESTING
 - [-] Prepa la campagne de test, design, exigences, RM etc.
-- [ ] Prep le plan de test avec perimetre, RM, etc
+- [-] Prep le plan de test avec perimetre, RM, etc
 - [x] Setup Bruno
 - [x] Setup JIRA
 - [x] Passer le scouting en tag pas en EPIC, trier les bugs trouvés dans leurs sections correspondantes
 - [x] Setup Squash
 - [x] Setup Playwright pour les tests E2E
 - [ ] Prep le dossier de rapport de tests
-- [ ] CI CD possible ? reliage avec git ?
 
 ## _TOOLS
 - [x] DB Injector
@@ -80,7 +81,7 @@ a ouvrir a long terme pour la presa?
 
 ## FRONT
 - [x] Fix les vulné possibles : npm audit + i
-- [ ] POM
+- [x] POM
 ## DB
 - [x] Backup_001 (init)
 - [x] Backup_002 (injected)
@@ -116,7 +117,6 @@ réservation → paiement, ou équivalent).
 au moins un cas de sécurité.
 
 ### 3.4 Automatisation de l'interface
-<!-- POM non vue dans pw faut aller mater la doc -->
 - Un framework d'automatisation UI (Playwright ou Selenium) structuré selon le Page Object Model, couvrant le parcours critique de bout en bout.
 <!-- DRAFT : euh ? vu nulle part dans invoicika ?! -->
 - Une gestion des tests instables (attentes robustes, nouvelles tentatives) et des artefacts en cas d'échec (traces, captures).
