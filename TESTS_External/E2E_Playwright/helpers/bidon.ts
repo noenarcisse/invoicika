@@ -1,4 +1,4 @@
-import { extractIdFromURL } from "./helpers";
+import { extractIdFromURL } from "./helpers.ts";
 
 let a = extractIdFromURL("http://truc.com/id1");
 console.log(a);
