@@ -1,7 +1,9 @@
 import { expect, test } from "@playwright/test";
 
 // vu en manuel, test pour fix et verifier une validation/regression eventuelle
-test("un client est créé quand l'email est rempli, puis vidé", async ({ page }) => {
+test("un client est créé quand l'email est rempli, puis vidé", {
+    tag: ["@bugs", "@customers"],
+}, async ({ page }) => {
     await page.goto("/customers/add");
 
     const nameInput = page.getByPlaceholder(/customer name/);

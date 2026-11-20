@@ -2,7 +2,9 @@ import { CustomersAddPage } from "@models/CustomersAddPage.ts";
 import { CustomersAllPage } from "@models/CustomersAllPage.ts";
 import { test } from "@playwright/test";
 
-test("ajouter un client avec email réussit", async ({ page }) => {
+test("ajouter un client avec email réussit", {
+    tag: "@customers",
+}, async ({ page }) => {
     const cusadd = new CustomersAddPage(page);
     const cusall = new CustomersAllPage(page);
     await cusadd.goto();
@@ -19,7 +21,9 @@ test("ajouter un client avec email réussit", async ({ page }) => {
 });
 
 //doit echouer -> voir RM
-test("ajouter un client sans email échoue", async ({ page }) => {
+test("ajouter un client sans email échoue", {
+    tag: "@customers",
+}, async ({ page }) => {
     const cusadd = new CustomersAddPage(page);
     await cusadd.goto();
 

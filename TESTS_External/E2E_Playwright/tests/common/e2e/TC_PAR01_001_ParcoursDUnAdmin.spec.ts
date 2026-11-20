@@ -69,7 +69,9 @@ Il serait très urbain de bien vouloir la réinitialiser avec cli.exe -r
     }
 });
 
-test(`Parcours typique d'un administrateur`, async ({ page }) => {
+test(`Parcours typique d'un administrateur`, {
+    tag: ["@e2e"],
+}, async ({ page }) => {
     // s'inscrire
     //todo : a implémenter lorsque la feature sera disponible sur le frontend
 

@@ -1,9 +1,11 @@
 import { API_BASEURL } from "@data/constants.ts";
 import { CustomersAddPage } from "@models/CustomersAddPage.ts";
 import { CustomersAllPage } from "@models/CustomersAllPage.ts";
-import { expect, test } from "@playwright/test";
+import { test } from "@playwright/test";
 
-test.describe("Tests positifs d'ajout d'un client", () => {
+test.describe("Tests positifs d'ajout d'un client", {
+    tag: "@customers",
+}, () => {
     //teardown
     test.afterEach(async ({ request }) => {
         type Customer = { customerId: string; name: string };
@@ -92,7 +94,9 @@ test.describe("Tests positifs d'ajout d'un client", () => {
     // });
 });
 
-test("entrer un email invalide sans @ echoue", async ({ page }) => {
+test("entrer un email invalide sans @ echoue", {
+    tag: "@customers",
+}, async ({ page }) => {
     const cusadd = new CustomersAddPage(page);
     await cusadd.goto();
 
@@ -104,7 +108,9 @@ test("entrer un email invalide sans @ echoue", async ({ page }) => {
     await cusadd.expectErrorMessage(/valid email/i);
 });
 
-test("entrer un email invalide sans extension de domaine echoue", async ({ page }) => {
+test("entrer un email invalide sans extension de domaine echoue", {
+    tag: "@customers",
+}, async ({ page }) => {
     const cusadd = new CustomersAddPage(page);
     await cusadd.goto();
     await cusadd.addEmail("smitty@werberjagermanjansen");
@@ -112,7 +118,9 @@ test("entrer un email invalide sans extension de domaine echoue", async ({ page 
     await cusadd.expectErrorMessage(/valid email/i);
 });
 
-test("entrer un email avec caractere speciaux dans la partie locale échoue", async ({ page }) => {
+test("entrer un email avec caractere speciaux dans la partie locale échoue", {
+    tag: "@customers",
+}, async ({ page }) => {
     const cusadd = new CustomersAddPage(page);
     await cusadd.goto();
     await cusadd.addEmail("smitty.werberjägermanjansen@google.com");

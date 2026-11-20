@@ -3,7 +3,9 @@ import { CustomersEditPage } from "@models/CustomersEditPage.ts";
 import { expect, test } from "@playwright/test";
 import { extractIdFromURL } from "@helpers/helpers.ts";
 
-test.describe("Tests négatifs de modifications de client", () => {
+test.describe("Tests négatifs de modifications de client", {
+    tag: "@customers",
+}, () => {
     const cases = [
         {
             title: "modifier un client sans nom echoue",
@@ -77,7 +79,9 @@ test.describe("Tests négatifs de modifications de client", () => {
     });
 });
 
-test.describe("Tests positifs de modification de client", () => {
+test.describe("Tests positifs de modification de client", {
+    tag: "@customers",
+}, () => {
     test("modifier un client réussit", async ({ page }) => {
         const cusall = new CustomersAllPage(page);
         const cusedit = new CustomersEditPage(page);

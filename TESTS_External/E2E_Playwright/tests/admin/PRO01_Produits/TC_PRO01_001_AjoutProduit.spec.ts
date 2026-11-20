@@ -1,7 +1,9 @@
 import { expect, test } from "@playwright/test";
 import { randomUUID as uuid } from "node:crypto";
 
-test.describe("Tests positifs d'ajout d'un produit", () => {
+test.describe("Tests positifs d'ajout d'un produit", {
+    tag: "@items",
+}, () => {
     type itemDTO = { itemId: string };
 
     let idToClean: string = "";

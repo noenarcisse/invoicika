@@ -1,7 +1,9 @@
 import { CustomersAllPage } from "@models/CustomersAllPage.ts";
 import { expect, test } from "@playwright/test";
 
-test(`Supprimer un client réussit`, async ({ page }) => {
+test(`Supprimer un client réussit`, {
+    tag: "@customers",
+}, async ({ page }) => {
     const cusall = new CustomersAllPage(page);
     await cusall.goto();
     await cusall.hasData();

@@ -2,7 +2,9 @@ import { VATAllPage } from "@models/VATAllPage.ts";
 import { VATAddPage } from "@models/VATAddPage.ts";
 import { expect, test } from "@playwright/test";
 
-test.describe("Tests positifs d'ajout de TVA", () => {
+test.describe("Tests positifs d'ajout de TVA", {
+    tag: "@invoices",
+}, () => {
     type vatDTO = { vatId: string };
 
     let vatIdToClean: string = "";
@@ -70,7 +72,9 @@ test.describe("Tests positifs d'ajout de TVA", () => {
  * Les bornes 100 et 101 existent uniquement car j'ai observé une anomalie de gestion d'erreur
  * en test manuel exploratoire
  */
-test.describe("Tests négatifs d'ajout de TVA", () => {
+test.describe("Tests négatifs d'ajout de TVA", {
+    tag: "@invoices",
+}, () => {
     const cases = [
         {
             title: "Ajouter une valeur a 100% rate",
@@ -101,7 +105,9 @@ test.describe("Tests négatifs d'ajout de TVA", () => {
     });
 });
 
-test("Ajouter une valeur a 0.001% rate", async ({ page }) => {
+test("Ajouter une valeur a 0.001% rate", {
+    tag: "@invoices",
+}, async ({ page }) => {
     const vatadd = new VATAddPage(page);
     await vatadd.goto();
     await vatadd.addVAT(0.001);
@@ -113,7 +119,9 @@ test("Ajouter une valeur a 0.001% rate", async ({ page }) => {
     await vatadd.expectErrorMessage(vatadd.errMessages.add, 3_000);
 });
 
-test.describe("Tests valides liés a la localisation", () => {
+test.describe("Tests valides liés a la localisation", {
+    tag: "@invoices",
+}, () => {
     test.use({ locale: "fr-BE" });
 
     test("Ajouter une valeur a 0,01% réussit", async ({ page }) => {

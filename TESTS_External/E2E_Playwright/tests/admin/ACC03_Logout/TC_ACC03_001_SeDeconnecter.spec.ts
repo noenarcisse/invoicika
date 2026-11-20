@@ -3,7 +3,9 @@ import { ADMIN } from "@data/constants.ts";
 import { DashboardPage } from "@models/DashboardPage.ts";
 import { LoginPage } from "@models/LoginPage.ts";
 
-test("se deconnecter en tant qu'admin", async ({ page }) => {
+test("se deconnecter en tant qu'admin", {
+    tag: ["@users"],
+}, async ({ page }) => {
     const dp = new DashboardPage(page);
     const lp = new LoginPage(page);
     await dp.goto();

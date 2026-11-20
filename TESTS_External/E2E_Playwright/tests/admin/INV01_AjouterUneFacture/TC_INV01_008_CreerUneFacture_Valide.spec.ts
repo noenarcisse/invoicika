@@ -36,7 +36,9 @@ test.describe("Test positif d'ajout d'une facture", () => {
      * Adding an invoice with correct values
      * Cannot be mocked as the validation message appears after the click on the next page
      */
-    test(`Ajouter une facture correcte réussit`, async ({ page }) => {
+    test(`Ajouter une facture correcte réussit`, {
+        tag: "@invoices",
+    }, async ({ page }) => {
         const invAdd = new InvoicesAddPage(page);
         const invAll = new InvoicesAllPage(page);
 

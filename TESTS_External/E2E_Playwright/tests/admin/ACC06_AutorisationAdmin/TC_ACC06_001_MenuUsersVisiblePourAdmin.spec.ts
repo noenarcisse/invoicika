@@ -1,6 +1,8 @@
 import { expect, test } from "@playwright/test";
 
-test(`Le menu Settings/Users est visible par les admins`, async ({ page }) => {
+test(`Le menu Settings/Users est visible par les admins`, {
+    tag: ["@users"],
+}, async ({ page }) => {
     await page.goto("/");
     //recup du menu
     //on degage settings qui a un sous ul D:

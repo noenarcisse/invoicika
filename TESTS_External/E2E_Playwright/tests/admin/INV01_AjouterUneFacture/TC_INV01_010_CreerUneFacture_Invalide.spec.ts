@@ -4,7 +4,9 @@ import { expect, test } from "@playwright/test";
 /***
  * The frontend doesn't display any errors. Should be added later in the tests
  */
-test.describe("Tests négatifs d'ajout d'une facture", () => {
+test.describe("Tests négatifs d'ajout d'une facture", {
+    tag: "@invoices",
+}, () => {
     let guuidsSeenBefore = new Set<string>();
 
     test.beforeEach(async ({ page }) => {
@@ -38,7 +40,9 @@ test.describe("Tests négatifs d'ajout d'une facture", () => {
         }
     });
 
-    test(`Ajouter une facture sans objet échoue`, async ({ page }) => {
+    test(`Ajouter une facture sans objet échoue`, {
+        tag: ["@bugs", "@jira-IN-100"],
+    }, async ({ page }) => {
         const invAdd = new InvoicesAddPage(page);
         await invAdd.goto();
 
