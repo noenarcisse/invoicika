@@ -1,0 +1,117 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Backend/**"
+      - "Frontend/**"
+      - "TESTS_External/**"
+      - "docker-compose.yml"
+      - "_tools/**"
+      - ".github/workflows/ci.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - run: dotnet build Backend/Backend.slnx -c Release
+      - run: >
+          dotnet run --project Backend/Db.Tests -c Release --no-build
+          -- -result-html db-tests.html -result-junit db-tests.xml
+      # - run: dotnet run --project Backend/WebAPI.Tests -c Release --no-build
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: backend-report
+          if-no-files-found: warn
+          retention-days: 7
+          path: |
+            **/db-tests.html
+            **/db-tests.xml
+
+  e2e:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      CI: true
+      ADMIN_USER: ${{ secrets.ADMIN_USER }}
+      ADMIN_PWD: ${{ secrets.ADMIN_PWD }}
+      EMPLOYE_USER: ${{secrets.EMPLOYE_USER}}
+      EMPLOYE_PWD: ${{secrets.EMPLOYE_PWD}}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: _tools/go.mod
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: TESTS_External/E2E_Playwright/package-lock.json
+
+      - run: npm ci
+        working-directory: TESTS_External/E2E_Playwright
+      - run: npx playwright install --with-deps chromium
+        working-directory: TESTS_External/E2E_Playwright
+
+      #  see later, pour les navigateur moins utilisés
+      # - run: npx playwright install --with-deps chromium firefox
+      #   working-directory: TESTS_External/E2E_Playwright
+
+      - run: go build -C _tools -o ../cli ./cmd/cli
+      - run: ./cli -b # attention ca ping internet, faut presque un bf pour faire build force sans check internet pour git
+
+      - name: Attendre l'API et le front
+        run: |
+          for i in $(seq 1 40); do
+            api=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:5000/swagger/index.html || true)
+            front=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:4444 || true)
+            echo "tentative $i : api=$api front=$front"
+            if [ "$api" = "200" ] && [ "$front" = "200" ]; then exit 0; fi
+            sleep 5
+          done
+          docker compose ps -a
+          exit 1
+
+      - run: ./cli -r
+
+      - name: Tests API (Bruno)
+        run: |
+          npm install -g @usebruno/cli@4.3.0
+          bru run --env Invoicika_API --reporter-html bruno-report.html --reporter-junit bruno-report.xml 
+        working-directory: TESTS_External/API_bruno
+        continue-on-error: true
+
+      - run: ./cli -r
+
+      - run: npx playwright test --project=chromium-admin --project=chromium-employee --project=chromium
+        working-directory: TESTS_External/E2E_Playwright
+
+      - if: failure()
+        run: docker compose logs > compose.log
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-debug
+          path: |
+            compose.log
+            **/db-tests.html
+            **/db-tests.xml
+            TESTS_External/API_bruno/bruno-report.xml
+            TESTS_External/API_bruno/bruno-report.html
+            TESTS_External/E2E_Playwright/playwright-report/
+            TESTS_External/E2E_Playwright/test-results/
