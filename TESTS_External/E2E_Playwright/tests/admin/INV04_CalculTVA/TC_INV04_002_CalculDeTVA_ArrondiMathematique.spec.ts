@@ -2,7 +2,7 @@ import { InvoicesAddPage } from "@models/InvoicesAddPage.ts";
 import { expect, test } from "@playwright/test";
 
 test.describe("Tests d'arrondi mathématique", {
-    tag: "@invoices",
+    tag: ["@invoices", "@bug-IN-79"],
 }, () => {
     [
         { value: "0.105", expected: 0.11 },
