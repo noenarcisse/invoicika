@@ -45,7 +45,7 @@ public class TC_PRO01_Produits(PostgresFixture db)
     [Theory]
     [InlineData(0)]
     [InlineData(-1)]
-    public async Task TC_PRO01_007_Produits_QuantiteInvalide_Rejete(int quantity)
+    public async Task TC_PRO01_008_Produits_QuantiteInvalide_Rejete(int quantity)
     {
         await using var ctx = db.CreateContext();
 
@@ -91,7 +91,7 @@ public class TC_PRO01_Produits(PostgresFixture db)
     [Theory]
     [InlineData(0)]
     [InlineData(-1)]
-    public async Task TC_PRO01_008_Produits_PrixAchatInvalide_Rejete(int price)
+    public async Task TC_PRO01_009_Produits_PrixAchatInvalide_Rejete(int price)
     {
         await using var ctx = db.CreateContext();
 
@@ -137,7 +137,7 @@ public class TC_PRO01_Produits(PostgresFixture db)
     [Theory]
     [InlineData(0)]
     [InlineData(-1)]
-    public async Task TC_PRO01_008_Produits_PrixVenteInvalide_Rejete(int price)
+    public async Task TC_PRO01_010_Produits_PrixVenteInvalide_Rejete(int price)
     {
         await using var ctx = db.CreateContext();
 
