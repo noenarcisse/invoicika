@@ -1,0 +1,32 @@
+info:
+  name: GetEmployeeRole
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{apiUrl}}Roles"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status != 200) return;
+
+        const employeeRole = res.body.find(r => r.roleName == "Employee");
+
+        if (employeeRole == undefined) {
+          console.log("No employee role found")
+          return
+        }
+
+        bru.setVar("employeeRoleId", employeeRole.roleId)
+        console.log("employeeRoleId = " + bru.getVar("employeeRoleId"))
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

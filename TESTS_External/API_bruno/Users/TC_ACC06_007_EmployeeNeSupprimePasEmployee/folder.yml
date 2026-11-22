@@ -1,0 +1,7 @@
+info:
+  name: TC_ACC06_007_EmployeeNeSupprimePasEmployee
+  type: folder
+  seq: 2
+
+request:
+  auth: inherit
