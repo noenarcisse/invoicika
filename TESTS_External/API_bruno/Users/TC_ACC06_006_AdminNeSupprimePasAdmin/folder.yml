@@ -1,0 +1,7 @@
+info:
+  name: TC_ACC06_006_AdminNeSupprimePasAdmin
+  type: folder
+  seq: 1
+
+request:
+  auth: inherit

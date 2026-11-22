@@ -1,0 +1,49 @@
+info:
+  name: CreateDummyAdmin
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{apiUrl}}Users"
+  auth:
+    type: bearer
+    token: "{{jwt}}"
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        const { v4: uuidv4 } = require('uuid');
+
+        const suffix = uuidv4().slice(0, 8);
+        const data = {
+          userId: uuidv4(),
+          username: "dummyadmin_" + suffix,
+          emailAddress: "dummyadmin_" + suffix + "@test.com",
+          passwordHash: "dummyhash",
+          role_id: bru.getVar("adminRoleId")
+        };
+
+        console.log(data)
+
+        req.setHeader("Content-type", "application/json")
+        req.setBody(data)
+    - type: after-response
+      code: |-
+        if (res.status == 201) {
+          bru.setVar("dummyUserId", res.body.userId)
+          bru.setVar("dummyUsername", res.body.username)
+          console.log("dummyUserId = " + bru.getVar("dummyUserId"))
+        }
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,29 @@
+info:
+  name: DeleteDummyAdmin_AsAdmin
+  type: http
+  seq: 4
+
+http:
+  method: DELETE
+  url: "{{apiUrl}}Users/{{dummyUserId}}"
+  auth:
+    type: bearer
+    token: "{{jwt}}"
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "403"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: |-
+  Un admin ne doit pas pouvoir supprimer un autre admin.
+  Attendu : 403 Forbidden. Actuellement l'endpoint DELETE /api/Users/{id}
+  n'a aucun [Authorize] et retourne 204 : le bug est reproduit.
