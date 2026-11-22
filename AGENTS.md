@@ -20,7 +20,7 @@ The focus is a risk based testing strategy with a compliance check list. Test ca
 
 ### Testing
 
-- Whenever you're working on tests in .NET, use the dotnet command and target the exact class or method for the Test Case written. Do not launch others tests.
+- Whenever you're working on tests in .NET, use the dotnet command and target the exact class or method for the Test Case written. Do not launch others tests. For example:
 ```ps1
 dotnet run -- -method "*TC_PRO01_010*" -reporter verbose
 ```
