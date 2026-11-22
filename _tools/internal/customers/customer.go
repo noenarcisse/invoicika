@@ -32,21 +32,20 @@ func NewCustomer(name string, addr string, email string, phone string) *Customer
 		Address:      addr,
 		Email:        email,
 		PhoneNumber:  phone,
-		CreationDate: time.Time{}.UTC(),
-		UpdateDate:   time.Time{}.UTC(),
+		CreationDate: time.Now().UTC(),
+		// UpdateDate:   time.Time{}.UTC(),
 	}
 }
 
 func (db *DB) InjectCustomers(cs []Customer) {
 	for _, c := range cs {
-		_, err := db.Exec("insert into \"Customers\"(\"CustomerId\", \"Name\", \"Address\", \"PhoneNumber\", \"Email\", \"CreationDate\", \"UpdateDate\" ) values($1,$2,$3,$4,$5,$6,$7)",
+		_, err := db.Exec("insert into \"Customers\"(\"CustomerId\", \"Name\", \"Address\", \"PhoneNumber\", \"Email\", \"CreationDate\", \"UpdateDate\" ) values($1,$2,$3,$4,$5,$6,NULL)",
 			c.CustomerId,
 			c.Name,
 			c.Address,
 			c.PhoneNumber,
 			c.Email,
-			c.CreationDate,
-			c.UpdateDate)
+			c.CreationDate)
 		if err != nil {
 			panic(err)
 		}
