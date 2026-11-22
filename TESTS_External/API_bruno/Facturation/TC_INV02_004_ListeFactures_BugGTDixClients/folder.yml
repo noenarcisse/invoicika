@@ -1,0 +1,7 @@
+info:
+  name: TC_INV02_004_ListeFactures_BugGTDixClients
+  type: folder
+  seq: 8
+
+request:
+  auth: inherit

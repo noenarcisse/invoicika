@@ -1,0 +1,24 @@
+info:
+  name: GetVat
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: "{{apiUrl}}VAT"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status == 200 && res.body.length > 0) {
+          bru.setVar("vatId", res.body[0].vatId)
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

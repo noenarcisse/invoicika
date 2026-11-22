@@ -1,0 +1,54 @@
+info:
+  name: VerifyInvoiceCustomersResolvable
+  type: http
+  seq: 7
+
+http:
+  method: GET
+  url: "{{apiUrl}}CustomerInvoices"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status != 200) return;
+
+        const page1Ids = JSON.parse(bru.getVar("page1CustomerIds") || "[]");
+        const allCustomers = JSON.parse(bru.getVar("allCustomers") || "[]");
+        const nameById = {};
+        allCustomers.forEach(c => nameById[c.customerId] = c.name);
+
+        const invoices = Array.isArray(res.body) ? res.body : (res.body.items || []);
+
+        // Reproduit le frontend : getCustomerName() cherche dans customersList
+        // qui ne contient que la premiere page de 10 clients
+        const unknown = invoices
+          .filter(i => !page1Ids.includes(i.customer_id ?? i.customerId))
+          .map(i => ({
+            invoiceId: i.customerInvoiceId,
+            customerId: i.customer_id ?? i.customerId,
+            displayedName: 'Unknown',
+            realName: nameById[i.customer_id ?? i.customerId] || '?'
+          }));
+
+        console.log("invoices = " + invoices.length + ", clients non resolubles = " + unknown.length)
+        unknown.slice(0, 10).forEach(u => console.log("  " + u.realName + " affiche '" + u.displayedName + "'"))
+
+        test("tout client de facture est resolvable dans la liste customers par defaut", () => {
+          expect(unknown).to.have.length(0)
+        })
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: |-
+  BUG frontend: invoice-list.component.ts charge GET /api/Customers sans
+  parametres => le backend force pageSize=10. Les clients au-dela de la
+  premiere page ne sont pas dans customersList et getCustomerName() retourne
+  'Unknown'. Ce test verifie que chaque client reference par une facture est
+  present dans la reponse par defaut de GET /api/Customers.

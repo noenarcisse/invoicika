@@ -1,0 +1,54 @@
+info:
+  name: CreateInvoiceForFarCustomer
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: "{{apiUrl}}CustomerInvoices"
+  auth:
+    type: bearer
+    token: "{{jwt}}"
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        const { v4: uuidv4 } = require('uuid');
+
+        const data = {
+          customerInvoiceId: uuidv4(),
+          customer_id: bru.getVar("farCustomerId"),
+          user_id: bru.getVar("adminUserId"),
+          vat_id: bru.getVar("vatId"),
+          invoiceDate: new Date().toISOString(),
+          creationDate: new Date().toISOString(),
+          subTotalAmount: 0,
+          vatAmount: 0,
+          totalAmount: 0,
+          status: 0,
+          customerInvoiceLines: [],
+          customerInvoiceGroupLines: []
+        };
+
+        console.log(data)
+
+        req.setHeader("Content-type", "application/json")
+        req.setBody(data)
+    - type: after-response
+      code: |-
+        if (res.status == 201) {
+          bru.setVar("invoiceId", res.body.customerInvoiceId)
+          console.log("invoiceId = " + bru.getVar("invoiceId"))
+        }
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

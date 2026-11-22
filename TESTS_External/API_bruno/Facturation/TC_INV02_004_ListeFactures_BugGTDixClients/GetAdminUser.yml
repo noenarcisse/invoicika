@@ -1,0 +1,27 @@
+info:
+  name: GetAdminUser
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: "{{apiUrl}}Users"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status != 200) return;
+
+        const admin = res.body.find(u => u.roleName == "Admin") || res.body[0];
+        if (admin) {
+          bru.setVar("adminUserId", admin.userId)
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
