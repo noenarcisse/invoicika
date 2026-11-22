@@ -62,7 +62,13 @@ func main() {
 			conn := database.OpenDB(dblogs)
 			defer conn.Close()
 
-			cs, _ := customers.GetAllCustomers()
+			cs, _ := customers.GetAllCustomers(0)
+			customers.NewDB(conn).InjectCustomers(cs)
+		case 1:
+			conn := database.OpenDB(dblogs)
+			defer conn.Close()
+
+			cs, _ := customers.GetAllCustomers(1)
 			customers.NewDB(conn).InjectCustomers(cs)
 		default:
 			console.Printcln(console.RED, "DB injection not prepared for the state customers %d", cmd.Customers)
