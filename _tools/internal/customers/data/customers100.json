@@ -1,0 +1,644 @@
+[
+  {
+    "name": "Jotaro Kujo",
+    "address": "123 Morioh Street, Sendai, Japan",
+    "phone": "+81-90-1234-5678",
+    "email": "jotaro.kujo@spw-foundation.org"
+  },
+  {
+    "name": "Joseph Joestar",
+    "address": "742 Evergreen Terrace, New York, USA",
+    "phone": "+1-555-0199",
+    "email": "joseph.joestar@realestate.com"
+  },
+  {
+    "name": "Dio Brando",
+    "address": "Cairo Citadel, Cairo, Egypt",
+    "phone": "+20-2-2345-6789",
+    "email": "dio.brando@vampire-world.com"
+  },
+  {
+    "name": "Giorno Giovanna",
+    "address": "Piazza del Plebiscito, Naples, Italy",
+    "phone": "+39-081-555-0123",
+    "email": "giorno.giovanna@passione.it"
+  },
+  {
+    "name": "Josuke Higashikata",
+    "address": "45 Morioh Grand Hotel, Sendai, Japan",
+    "phone": "+81-90-9876-5432",
+    "email": "josuke.higashikata@crazy-d.jp"
+  },
+  {
+    "name": "Noriaki Kakyoin",
+    "address": "Green Dolphin Street, Hong Kong, China",
+    "phone": "+852-5555-0142",
+    "email": "kakyoin@standuser.com"
+  },
+  {
+    "name": "Jean Pierre Polnareff",
+    "address": "Chateau de Montserrat, France",
+    "phone": "+33-1-42-68-5300",
+    "email": "polnareff@silver-chariot.fr"
+  },
+  {
+    "name": "Muhammad Avdol",
+    "address": "45 Al-Haram Street, Cairo, Egypt",
+    "phone": "+20-2-2788-4410",
+    "email": "avdol@magician-red.com"
+  },
+  {
+    "name": "Iggy",
+    "address": "The Beast, airborne, USA",
+    "phone": "+1-555-0100",
+    "email": "iggy@beast-pet.com"
+  },
+  {
+    "name": "Kira Yoshikage",
+    "address": "Morioh, Japan",
+    "phone": "+81-90-1111-2222",
+    "email": "yoshikage.kira@hand.com"
+  },
+  {
+    "name": "Okuyasu Nijimura",
+    "address": "Sakae, Nagoya, Japan",
+    "phone": "+81-90-3333-4444",
+    "email": "okuyasu.nijimura@jotaro-team.jp"
+  },
+  {
+    "name": "Jolyne Cujoh",
+    "address": "Morioh, Japan",
+    "phone": "+81-90-5555-6666",
+    "email": "jolyne.cujoh@stonefree.jp"
+  },
+  {
+    "name": "Ermes Costello",
+    "address": "Terminal, Rome, Italy",
+    "phone": "+39-06-555-7788",
+    "email": "ermes.costello@terminal.it"
+  },
+  {
+    "name": "Gwess",
+    "address": "Terminal, Rome, Italy",
+    "phone": "+39-06-555-9900",
+    "email": "gwess@terminal.it"
+  },
+  {
+    "name": "Mista",
+    "address": "Chicago, IL, USA",
+    "phone": "+1-312-555-0145",
+    "email": "mista@bucci.com"
+  },
+  {
+    "name": "SpongeBob SquarePants",
+    "address": "124 Conch Street, Bikini Bottom, Pacific Ocean",
+    "phone": "+1-555-0202",
+    "email": "spongebob@squarepants.com"
+  },
+  {
+    "name": "Patrick Star",
+    "address": "124 Conch Street, Bikini Bottom, Pacific Ocean",
+    "phone": "+1-555-0203",
+    "email": "patrick@star.com"
+  },
+  {
+    "name": "Squidward Tentacles",
+    "address": "124 Conch Street, Bikini Bottom, Pacific Ocean",
+    "phone": "+1-555-0204",
+    "email": "squidward@clarinetist.net"
+  },
+  {
+    "name": "Eugene Krabs",
+    "address": "Anchor Way, Bikini Bottom, Pacific Ocean",
+    "phone": "+1-555-0205",
+    "email": "eugene.krabs@krustykrab.com"
+  },
+  {
+    "name": "Sandy Cheeks",
+    "address": "124 Conch Street, Bikini Bottom, Pacific Ocean",
+    "phone": "+1-555-0206",
+    "email": "sandy@treedome.net"
+  },
+  {
+    "name": "Sheldon J. Plankton",
+    "address": "Chum Bucket, Bikini Bottom, Pacific Ocean",
+    "phone": "+1-555-0207",
+    "email": "plankton@chumbucket.com"
+  },
+  {
+    "name": "Karen Plankton",
+    "address": "Chum Bucket, Bikini Bottom, Pacific Ocean",
+    "phone": "+1-555-0208",
+    "email": "karen@computerwife.com"
+  },
+  {
+    "name": "Pearl Krabs",
+    "address": "Anchor Way, Bikini Bottom, Pacific Ocean",
+    "phone": "+1-555-0209",
+    "email": "pearl@krustykrab.com"
+  },
+  {
+    "name": "Mrs. Puff",
+    "address": "Bikini Bottom, Pacific Ocean",
+    "phone": "+1-555-0210",
+    "email": "puff@boating-school.net"
+  },
+  {
+    "name": "Gary the Snail",
+    "address": "124 Conch Street, Bikini Bottom, Pacific Ocean",
+    "phone": "+1-555-0211",
+    "email": "gary@snailmail.com"
+  },
+  {
+    "name": "Mickey Mouse",
+    "address": "1 Castle Drive, Anaheim, CA, USA",
+    "phone": "+1-714-555-0301",
+    "email": "mickey@disney.com"
+  },
+  {
+    "name": "Minnie Mouse",
+    "address": "1 Castle Drive, Anaheim, CA, USA",
+    "phone": "+1-714-555-0302",
+    "email": "minnie@disney.com"
+  },
+  {
+    "name": "Donald Duck",
+    "address": "1 Castle Drive, Anaheim, CA, USA",
+    "phone": "+1-714-555-0303",
+    "email": "donald@disney.com"
+  },
+  {
+    "name": "Cinderella",
+    "address": "Chateau de la Cendrillon, France",
+    "phone": "+33-1-40-20-5000",
+    "email": "cinderella@royal-palace.fr"
+  },
+  {
+    "name": "Snow White",
+    "address": "Dwarfs cottage, Seven Dwarfs Lane, Germany",
+    "phone": "+49-30-5555-0401",
+    "email": "snowwhite@enchantedforest.de"
+  },
+  {
+    "name": "Ariel",
+    "address": "Under the Sea, Atlantica",
+    "phone": "+1-407-555-0402",
+    "email": "ariel@underthesea.com"
+  },
+  {
+    "name": "Belle",
+    "address": "Village de la Belle, France",
+    "phone": "+33-4-90-555-0403",
+    "email": "belle@beast-castle.com"
+  },
+  {
+    "name": "Jasmine",
+    "address": "Agrabah, Agrabah, Agrabah",
+    "phone": "+1-407-555-0404",
+    "email": "jasmine@agrabah-palace.com"
+  },
+  {
+    "name": "Aladdin",
+    "address": "Agrabah, Agrabah",
+    "phone": "+1-407-555-0405",
+    "email": "aladdin@magic-carpet.com"
+  },
+  {
+    "name": "Simba",
+    "address": "Pride Lands, Lion King",
+    "phone": "+1-407-555-0407",
+    "email": "simba@pridelands.com"
+  },
+  {
+    "name": "Nala",
+    "address": "Pride Lands, Lion King",
+    "phone": "+1-407-555-0408",
+    "email": "nala@pridelands.com"
+  },
+  {
+    "name": "Timon",
+    "address": "Pride Lands, Lion King",
+    "phone": "+1-407-555-0409",
+    "email": "timon@pridelands.com"
+  },
+  {
+    "name": "Pumbaa",
+    "address": "Pride Lands, Lion King",
+    "phone": "+1-407-555-0410",
+    "email": "pumbaa@pridelands.com"
+  },
+  {
+    "name": "Woody",
+    "address": "Andy Room, Sid House, USA",
+    "phone": "+1-555-0501",
+    "email": "woody@toy-story.com"
+  },
+  {
+    "name": "Buzz Lightyear",
+    "address": "Andy Room, Sid House, USA",
+    "phone": "+1-555-0502",
+    "email": "buzz@toy-story.com"
+  },
+  {
+    "name": "Elsa",
+    "address": "Arendelle Castle, Norway",
+    "phone": "+47-2-555-0503",
+    "email": "elsa@arendelle.com"
+  },
+  {
+    "name": "Anna",
+    "address": "Arendelle Castle, Norway",
+    "phone": "+47-2-555-0504",
+    "email": "anna@arendelle.com"
+  },
+  {
+    "name": "Olaf",
+    "address": "Arendelle Castle, Norway",
+    "phone": "+47-2-555-0505",
+    "email": "olaf@snowman.com"
+  },
+  {
+    "name": "Moana",
+    "address": "Motunui Island, Pacific Ocean",
+    "phone": "+1-555-0506",
+    "email": "moana@wayfinders.com"
+  },
+  {
+    "name": "Jack Skellington",
+    "address": "Halloween Town, Nether-World",
+    "phone": "+1-555-0508",
+    "email": "jack@halloweentown.com"
+  },
+  {
+    "name": "Sulley",
+    "address": "Monsters Inc, Monsters, Inc.",
+    "phone": "+1-555-0509",
+    "email": "sulley@monstersinc.com"
+  },
+  {
+    "name": "Mike Wazowski",
+    "address": "Monsters Inc, Monsters, Inc.",
+    "phone": "+1-555-0510",
+    "email": "mike@monstersinc.com"
+  },
+  {
+    "name": "Dory",
+    "address": "The EAC, Pacific Ocean",
+    "phone": "+1-555-0511",
+    "email": "dory@fishmemory.com"
+  },
+  {
+    "name": "Marlin",
+    "address": "The EAC, Pacific Ocean",
+    "phone": "+1-555-0512",
+    "email": "marlin@clownfish.com"
+  },
+  {
+    "name": "Nemo",
+    "address": "The EAC, Pacific Ocean",
+    "phone": "+1-555-0513",
+    "email": "nemo@clownfish.com"
+  },
+  {
+    "name": "Lightning McQueen",
+    "address": "Radiator Springs, Route 66, USA",
+    "phone": "+1-555-0514",
+    "email": "lightning@cars.com"
+  },
+  {
+    "name": "Winnie the Pooh",
+    "address": "Hundred Acre Wood",
+    "phone": "+1-555-0517",
+    "email": "pooh@hundredacrewood.com"
+  },
+  {
+    "name": "Mario",
+    "address": "Mushroom Kingdom, Layer 1-1",
+    "phone": "+81-75-555-0601",
+    "email": "mario@mushroomkingdom.com"
+  },
+  {
+    "name": "Luigi",
+    "address": "Mushroom Kingdom, Layer 1-1",
+    "phone": "+81-75-555-0602",
+    "email": "luigi@mushroomkingdom.com"
+  },
+  {
+    "name": "Princess Peach",
+    "address": "Peach's Castle, Mushroom Kingdom",
+    "phone": "+81-75-555-0603",
+    "email": "peach@mushroomkingdom.com"
+  },
+  {
+    "name": "Bowser",
+    "address": "Bowser Castle, Mushroom Kingdom",
+    "phone": "+81-75-555-0604",
+    "email": "bowser@bowsercastle.com"
+  },
+  {
+    "name": "Yoshi",
+    "address": "Yoshi's Island, Mushroom Kingdom",
+    "phone": "+81-75-555-0605",
+    "email": "yoshi@mushroomkingdom.com"
+  },
+  {
+    "name": "Donkey Kong",
+    "address": "Jungle Beat, Donkey Kong Island",
+    "phone": "+1-555-0606",
+    "email": "dk@banana-island.com"
+  },
+  {
+    "name": "Diddy Kong",
+    "address": "Jungle Beat, Donkey Kong Island",
+    "phone": "+1-555-0607",
+    "email": "diddy@banana-island.com"
+  },
+  {
+    "name": "Link",
+    "address": "Hyrule Castle Town, Hyrule",
+    "phone": "+81-75-555-0608",
+    "email": "link@hyruleheroes.com"
+  },
+  {
+    "name": "Zelda",
+    "address": "Hyrule Castle, Hyrule",
+    "phone": "+81-75-555-0609",
+    "email": "zelda@hyrule.com"
+  },
+  {
+    "name": "Kirby",
+    "address": "Dream Land, Planet Popstar",
+    "phone": "+81-75-555-0611",
+    "email": "kirby@dreamland.com"
+  },
+  {
+    "name": "Samus Aran",
+    "address": "SR388, Zebes",
+    "phone": "+1-555-0612",
+    "email": "samus@bountyhunter.com"
+  },
+  {
+    "name": "Fox McCloud",
+    "address": "Foxconn, Star Fox Base",
+    "phone": "+81-75-555-0613",
+    "email": "fox@starfox.com"
+  },
+  {
+    "name": "Pikachu",
+    "address": "Pallet Town, Kanto",
+    "phone": "+81-75-555-0614",
+    "email": "pikachu@pokemoncenter.jp"
+  },
+  {
+    "name": "Eevee",
+    "address": "Pallet Town, Kanto",
+    "phone": "+81-75-555-0615",
+    "email": "eevee@pokemoncenter.jp"
+  },
+  {
+    "name": "Ash Ketchum",
+    "address": "Pallet Town, Kanto",
+    "phone": "+81-75-555-0616",
+    "email": "ash@pokemon-league.com"
+  },
+  {
+    "name": "Mewtwo",
+    "address": "Cerulean Cave, Kanto",
+    "phone": "+81-75-555-0617",
+    "email": "mewtwo@pokemon-league.com"
+  },
+  {
+    "name": "Ness",
+    "address": "Onett, Eagleland",
+    "phone": "+1-555-0619",
+    "email": "ness@earthbound.com"
+  },
+  {
+    "name": "King K. Rool",
+    "address": "Cro-Mistral, Isle of Nibe",
+    "phone": "+1-555-0620",
+    "email": "krool@kremlings.com"
+  },
+  {
+    "name": "Bart Simpson",
+    "address": "742 Evergreen Terrace, Springfield",
+    "phone": "+1-555-0701",
+    "email": "bart@simpsons.com"
+  },
+  {
+    "name": "Homer Simpson",
+    "address": "742 Evergreen Terrace, Springfield",
+    "phone": "+1-555-0702",
+    "email": "homer@simpsons.com"
+  },
+  {
+    "name": "Marge Simpson",
+    "address": "742 Evergreen Terrace, Springfield",
+    "phone": "+1-555-0703",
+    "email": "marge@simpsons.com"
+  },
+  {
+    "name": "Lisa Simpson",
+    "address": "742 Evergreen Terrace, Springfield",
+    "phone": "+1-555-0704",
+    "email": "lisa@simpsons.com"
+  },
+  {
+    "name": "Maggie Simpson",
+    "address": "742 Evergreen Terrace, Springfield",
+    "phone": "+1-555-0705",
+    "email": "maggie@simpsons.com"
+  },
+  {
+    "name": "Finn the Human",
+    "address": "The Land of Ooo, Adventure Time",
+    "phone": "+1-555-0801",
+    "email": "finn@sword.com"
+  },
+  {
+    "name": "Jake the Dog",
+    "address": "The Land of Ooo, Adventure Time",
+    "phone": "+1-555-0802",
+    "email": "jake@stretchy.com"
+  },
+  {
+    "name": "Marceline",
+    "address": "The Land of Ooo, Adventure Time",
+    "phone": "+1-555-0803",
+    "email": "marceline@vampirequeen.com"
+  },
+  {
+    "name": "Ice King",
+    "address": "The Land of Ooo, Adventure Time",
+    "phone": "+1-555-0804",
+    "email": "iceking@simon.com"
+  },
+  {
+    "name": "Rick Sanchez",
+    "address": "Citadel of Ricks, C-137",
+    "phone": "+1-555-0901",
+    "email": "rick@wubbalubbadubdub.com"
+  },
+  {
+    "name": "Morty Smith",
+    "address": "Citadel of Ricks, C-137",
+    "phone": "+1-555-0902",
+    "email": "morty@dimensionc137.com"
+  },
+  {
+    "name": "Sora",
+    "address": "Destiny Islands, Kingdom Hearts",
+    "phone": "+81-75-555-0903",
+    "email": "sora@keyblade.com"
+  },
+  {
+    "name": "Riku",
+    "address": "Destiny Islands, Kingdom Hearts",
+    "phone": "+81-75-555-0904",
+    "email": "riku@keyblade.com"
+  },
+  {
+    "name": "Naruto Uzumaki",
+    "address": "Konoha, Hidden Leaf Village, Japan",
+    "phone": "+81-90-5555-1001",
+    "email": "naruto@konoha.jp"
+  },
+  {
+    "name": "Sasuke Uchiha",
+    "address": "Konoha, Hidden Leaf Village, Japan",
+    "phone": "+81-90-5555-1002",
+    "email": "sasuke@konohagakure.jp"
+  },
+  {
+    "name": "Monkey D. Luffy",
+    "address": "Shell Town, East Blue",
+    "phone": "+81-90-5555-1003",
+    "email": "luffy@strawhatcrew.com"
+  },
+  {
+    "name": "Roronoa Zoro",
+    "address": "Shell Town, East Blue",
+    "phone": "+81-90-5555-1004",
+    "email": "zoro@strawhatcrew.com"
+  },
+  {
+    "name": "Nami",
+    "address": "Shell Town, East Blue",
+    "phone": "+81-90-5555-1005",
+    "email": "nami@strawhatcrew.com"
+  },
+  {
+    "name": "Sanji",
+    "address": "Shell Town, East Blue",
+    "phone": "+81-90-5555-1006",
+    "email": "sanji@strawhatcrew.com"
+  },
+  {
+    "name": "Usopp",
+    "address": "Shell Town, East Blue",
+    "phone": "+81-90-5555-1007",
+    "email": "usopp@strawhatcrew.com"
+  },
+  {
+    "name": "Tony Tony Chopper",
+    "address": "Shell Town, East Blue",
+    "phone": "+81-90-5555-1008",
+    "email": "chopper@strawhatcrew.com"
+  },
+  {
+    "name": "Nico Robin",
+    "address": "Shell Town, East Blue",
+    "phone": "+81-90-5555-1009",
+    "email": "robin@strawhatcrew.com"
+  },
+  {
+    "name": "Franky",
+    "address": "Shell Town, East Blue",
+    "phone": "+81-90-5555-1010",
+    "email": "franky@strawhatcrew.com"
+  },
+  {
+    "name": "Brook",
+    "address": "Shell Town, East Blue",
+    "phone": "+81-90-5555-1011",
+    "email": "brook@strawhatcrew.com"
+  },
+  {
+    "name": "Jinbe",
+    "address": "Shell Town, East Blue",
+    "phone": "+81-90-5555-1012",
+    "email": "jinbe@strawhatcrew.com"
+  },
+  {
+    "name": "Sabo",
+    "address": "Reverie, Dressrosa",
+    "phone": "+81-90-5555-1013",
+    "email": "sabo@strawhatcrew.com"
+  },
+  {
+    "name": "Portgas D. Ace",
+    "address": "Reverie, Dressrosa",
+    "phone": "+81-90-5555-1014",
+    "email": "ace@whitebeardpirates.com"
+  },
+  {
+    "name": "Edward Newgate",
+    "address": "Fish-Man Island, New World",
+    "phone": "+81-90-5555-1015",
+    "email": "whitebeard@pirates.com"
+  },
+  {
+    "name": "Boa Hancock",
+    "address": "Amazon Lily, New World",
+    "phone": "+81-90-5555-1016",
+    "email": "hancock@amazonlily.com"
+  },
+  {
+    "name": "Shanks",
+    "address": "Foosha Village, East Blue",
+    "phone": "+81-90-5555-1017",
+    "email": "shanks@redhairpirates.com"
+  },
+  {
+    "name": "Eustass Kid",
+    "address": "Wano Country, New World",
+    "phone": "+81-90-5555-1018",
+    "email": "kid@worstgeneration.com"
+  },
+  {
+    "name": "Trafalgar D. Water Law",
+    "address": "Wano Country, New World",
+    "phone": "+81-90-5555-1019",
+    "email": "law@heartpirates.com"
+  },
+  {
+    "name": "Dracule Mihawk",
+    "address": "Wano Country, New World",
+    "phone": "+81-90-5555-1020",
+    "email": "mihawk@hawkeyes.com"
+  },
+  {
+    "name": "Tashigi",
+    "address": "Marineford, Navy HQ",
+    "phone": "+81-90-5555-1028",
+    "email": "tashigi@marines.com"
+  },
+  {
+    "name": "Smoker",
+    "address": "Marineford, Navy HQ",
+    "phone": "+81-90-5555-1029",
+    "email": "smoker@marines.com"
+  },
+  {
+    "name": "Monkey D. Garp",
+    "address": "Marineford, Navy HQ",
+    "phone": "+81-90-5555-1030",
+    "email": "garp@marines.com"
+  },
+  {
+    "name": "Coby",
+    "address": "Marineford, Navy HQ",
+    "phone": "+81-90-5555-1031",
+    "email": "coby@marines.com"
+  }
+]
