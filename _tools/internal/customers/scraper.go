@@ -1,19 +1,18 @@
 package customers
 
 import (
+	"dbinjector/internal/dataloader"
 	_ "embed"
 	"encoding/json"
 	"errors"
 )
 
-//go:embed data/customers.json
-var jasonCustomers string
+func GetAll(state int) ([]Customer, error) {
 
-//go:embed data/customers100.json
-var jasonCustomers100 string
-
-func GetAllCustomers(state int) ([]Customer, error) {
-	jsondatasets := []string{jasonCustomers, jasonCustomers100}
+	jsondatasets, err := dataloader.LoadData(dataloader.Customers)
+	if err != nil {
+		return []Customer{}, err
+	}
 
 	if state >= len(jsondatasets) {
 		return []Customer{}, errors.New("state off limit")
@@ -21,7 +20,7 @@ func GetAllCustomers(state int) ([]Customer, error) {
 
 	raw := []Customer{}
 
-	err := json.Unmarshal([]byte(jsondatasets[state]), &raw)
+	err = json.Unmarshal([]byte(jsondatasets[state]), &raw)
 	if err != nil {
 		return nil, err
 	}

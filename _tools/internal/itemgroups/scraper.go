@@ -1,18 +1,25 @@
 package itemgroups
 
 import (
+	"dbinjector/internal/dataloader"
 	_ "embed"
 	"encoding/json"
+	"errors"
 )
 
-//go:embed data/itemgroups.json
-var jasonItems string
+func GetAll(state int) ([]ItemGroup, error) {
 
-func GetAll() ([]ItemGroup, error) {
+	jsondatasets, err := dataloader.LoadData(dataloader.Customers)
+	if err != nil {
+		return []ItemGroup{}, err
+	}
+
+	if state >= len(jsondatasets) {
+		return []ItemGroup{}, errors.New("state off limit")
+	}
 
 	raw := []ItemGroup{}
-
-	err := json.Unmarshal([]byte(jasonItems), &raw)
+	err = json.Unmarshal([]byte(jsondatasets[state]), &raw)
 	if err != nil {
 		return nil, err
 	}

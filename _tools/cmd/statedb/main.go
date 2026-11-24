@@ -51,7 +51,7 @@ func main() {
 
 		database.NewDB(conn).Trunc("Users")
 
-		us, err := users.GetAll()
+		us, err := users.GetAll(0)
 		if err != nil {
 			console.Printcln(console.RED, err.Error())
 			os.Exit(1)
@@ -70,7 +70,7 @@ func main() {
 		defer conn.Close()
 
 		database.NewDB(conn).Trunc("Customers")
-		cs, _ := customers.GetAllCustomers(0)
+		cs, _ := customers.GetAll(1)
 		customers.NewDB(conn).InjectCustomers(cs)
 		console.Printcln(console.GREEN, "\nDB state changed to %d, DONE!", state)
 

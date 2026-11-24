@@ -1,18 +1,26 @@
 package items
 
 import (
+	"dbinjector/internal/dataloader"
 	_ "embed"
 	"encoding/json"
+	"errors"
 )
 
-//go:embed data/items.json
-var jasonItems string
+func GetAll(state int) ([]Item, error) {
 
-func GetAllItems() ([]Item, error) {
+	jsondatasets, err := dataloader.LoadData(dataloader.Customers)
+	if err != nil {
+		return []Item{}, err
+	}
+
+	if state >= len(jsondatasets) {
+		return []Item{}, errors.New("state off limit")
+	}
 
 	raw := []Item{}
 
-	err := json.Unmarshal([]byte(jasonItems), &raw)
+	err = json.Unmarshal([]byte(jsondatasets[state]), &raw)
 	if err != nil {
 		return nil, err
 	}

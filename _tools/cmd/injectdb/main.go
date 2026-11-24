@@ -62,13 +62,13 @@ func main() {
 			conn := database.OpenDB(dblogs)
 			defer conn.Close()
 
-			cs, _ := customers.GetAllCustomers(0)
+			cs, _ := customers.GetAll(0)
 			customers.NewDB(conn).InjectCustomers(cs)
 		case 1:
 			conn := database.OpenDB(dblogs)
 			defer conn.Close()
 
-			cs, _ := customers.GetAllCustomers(1)
+			cs, _ := customers.GetAll(1)
 			customers.NewDB(conn).InjectCustomers(cs)
 		default:
 			console.Printcln(console.RED, "DB injection not prepared for the state customers %d", cmd.Customers)
@@ -78,7 +78,7 @@ func main() {
 	if cmd.Items != -1 {
 		switch cmd.Items {
 		case 0:
-			is, _ := items.GetAllItems()
+			is, _ := items.GetAll(0)
 			for _, u := range is {
 				fmt.Printf("%+v\n", u)
 				fmt.Println()
@@ -96,7 +96,7 @@ func main() {
 	if cmd.Users != -1 {
 		switch cmd.Users {
 		case 0:
-			us, _ := users.GetAll()
+			us, _ := users.GetAll(0)
 			for _, u := range us {
 				fmt.Printf("%+v\n", u)
 				fmt.Println()
@@ -107,7 +107,7 @@ func main() {
 			database.NewDB(conn).Trunc("Users")
 			users.NewDB(conn).InjectUsers(us)
 		case 1:
-			us, _ := users.GetAll2()
+			us, _ := users.GetAll(1)
 			for _, u := range us {
 				fmt.Printf("%+v\n", u)
 				fmt.Println()
@@ -126,7 +126,7 @@ func main() {
 	if cmd.ItemGroups != -1 {
 		switch cmd.ItemGroups {
 		case 0:
-			groups, _ := itemgroups.GetAll()
+			groups, _ := itemgroups.GetAll(0)
 			for _, u := range groups {
 				fmt.Printf("%+v\n", u)
 				fmt.Println()

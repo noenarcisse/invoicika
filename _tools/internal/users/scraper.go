@@ -1,22 +1,25 @@
 package users
 
 import (
+	"dbinjector/internal/dataloader"
 	_ "embed"
 	"encoding/json"
-	"fmt"
+	"errors"
 )
 
-//go:embed data/users.json
-var jasonUsers string
+func GetAll(state int) ([]User, error) {
 
-//go:embed data/users2.json
-var jasonUsers2 string
+	jsondatasets, err := dataloader.LoadData(dataloader.Customers)
+	if err != nil {
+		return []User{}, err
+	}
 
-func GetAll() ([]User, error) {
-
+	if state >= len(jsondatasets) {
+		return []User{}, errors.New("state off limit")
+	}
 	raw := []User{}
 
-	err := json.Unmarshal([]byte(jasonUsers), &raw)
+	err = json.Unmarshal([]byte(jsondatasets[state]), &raw)
 	if err != nil {
 		return nil, err
 	}
@@ -30,22 +33,22 @@ func GetAll() ([]User, error) {
 	return us, nil
 }
 
-func GetAll2() ([]User, error) {
+// func GetAll2() ([]User, error) {
 
-	fmt.Println(2)
+// 	fmt.Println(2)
 
-	raw := []User{}
+// 	raw := []User{}
 
-	err := json.Unmarshal([]byte(jasonUsers2), &raw)
-	if err != nil {
-		return nil, err
-	}
+// 	err := json.Unmarshal([]byte(jasonUsers2), &raw)
+// 	if err != nil {
+// 		return nil, err
+// 	}
 
-	us := make([]User, 0)
-	for _, ur := range raw {
-		u := NewUser(ur.Username, ur.EmailAdress, ur.PasswordHash, ur.RoleName)
-		us = append(us, *u)
-	}
+// 	us := make([]User, 0)
+// 	for _, ur := range raw {
+// 		u := NewUser(ur.Username, ur.EmailAdress, ur.PasswordHash, ur.RoleName)
+// 		us = append(us, *u)
+// 	}
 
-	return us, nil
-}
+// 	return us, nil
+// }
