@@ -40,6 +40,7 @@ jobs:
           /k:"noenarcisse_invoicika"
           /o:"noenarcisse"
           /d:sonar.token="$SONAR_TOKEN"
+          /d:sonar.projectBaseDir="${{ github.workspace }}"
           /d:sonar.exclusions="**/bin/**,**/obj/**,**/node_modules/**"
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
