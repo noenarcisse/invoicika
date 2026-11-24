@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     types: [opened, synchronize, reopened]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -18,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -27,10 +28,12 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          distribution: temurin
-          java-version: 17
+          node-version: 20
+
+      - run: npm ci --ignore-scripts
+        working-directory: Frontend
 
       - run: dotnet tool install --global dotnet-sonarscanner
 
@@ -41,7 +44,10 @@ jobs:
           /o:"noenarcisse"
           /d:sonar.token="$SONAR_TOKEN"
           /d:sonar.projectBaseDir="${{ github.workspace }}"
-          /d:sonar.exclusions="**/bin/**,**/obj/**,**/node_modules/**"
+          /d:sonar.sources="."
+          /d:sonar.exclusions="**/bin/**,**/obj/**,**/node_modules/**,TESTS_External/**"
+          /d:sonar.typescript.tsconfigPaths="Frontend/tsconfig.json"
+          /d:sonar.verbose=true
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
