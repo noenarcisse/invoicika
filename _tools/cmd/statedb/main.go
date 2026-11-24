@@ -70,7 +70,7 @@ func main() {
 		defer conn.Close()
 
 		database.NewDB(conn).Trunc("Customers")
-		cs, _ := customers.GetAllCustomers()
+		cs, _ := customers.GetAllCustomers(0)
 		customers.NewDB(conn).InjectCustomers(cs)
 		console.Printcln(console.GREEN, "\nDB state changed to %d, DONE!", state)
 

@@ -11,7 +11,7 @@ func main() {
 	fmt.Printf("%+v\n", u)
 	fmt.Println()
 
-	us, _ := users.GetAllUsers()
+	us, _ := users.GetAll()
 	for _, u := range us {
 		fmt.Printf("%+v\n", u)
 		fmt.Println()
