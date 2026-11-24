@@ -14,8 +14,11 @@ In this testing campaign, the mailing system is out of scope. Anything that's no
 The focus is a risk based testing strategy with a compliance check list. Test case are sorted by dev experience as a lot of critical bugs exists in the current state of the app.
 
 ### Authorization
+- You always work on the worktree "invoicika-devin" on your branch "test-qa-devin"
 - You are never allowed to read .env files
 - You are never allowed to delete files
+- You are not allowed to rm rf, if you ask for some deletion command, you MUST use "Add-Type -AssemblyName Microsoft.VisualBasic
+[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile($file, 'OnlyErrorDialogs', 'SendToRecycleBin')"
 - You are never allowed to install dependencies unless asked to do so
 
 ### Testing
