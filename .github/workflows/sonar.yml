@@ -37,8 +37,8 @@ jobs:
       - name: Begin
         run: >
           dotnet sonarscanner begin
-          /k:"ton-org_dataqa"
-          /o:"ton-org"
+          /k:"noenarcisse_invoicika"
+          /o:"noenarcisse"
           /d:sonar.token="$SONAR_TOKEN"
           /d:sonar.exclusions="**/bin/**,**/obj/**,**/node_modules/**"
         env:
