@@ -1,0 +1,30 @@
+info:
+  name: GetItems
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: "{{apiUrl}}Items?pageSize=500"
+  auth:
+    type: bearer
+    token: "{{jwt}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status != 200) return;
+
+        // Map itemId -> name pour vérifier les lignes de facture
+        const map = {};
+        res.body.items.forEach(i => map[i.itemId] = i.name);
+        bru.setVar("itemsById", JSON.stringify(map));
+        console.log("itemsById = " + JSON.stringify(map));
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

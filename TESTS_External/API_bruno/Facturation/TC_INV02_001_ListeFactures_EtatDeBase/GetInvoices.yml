@@ -1,0 +1,103 @@
+info:
+  name: GetInvoices
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: "{{apiUrl}}CustomerInvoices"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status != 200) return;
+
+        const customersById = JSON.parse(bru.getVar("customersById") || "{}");
+        const itemsById = JSON.parse(bru.getVar("itemsById") || "{}");
+
+        // Etat de base apres ./cli.exe -r (Backup_invoicika_003.sql) : 3 factures
+        const expected = [
+          {
+            customerInvoiceId: "02e64fac-d396-46f0-866c-3c9449269e52",
+            customerName: "Jotaro Kujo",
+            status: 0,
+            subTotalAmount: 49.0,
+            vatAmount: 4.9,
+            totalAmount: 53.9,
+            lines: [{ itemName: "Dark souls : Prepare to die edition", quantity: 1, price: 49.0 }]
+          },
+          {
+            customerInvoiceId: "74811128-2f5c-4351-80b7-701e488c2630",
+            customerName: "Dio Brando",
+            status: 1,
+            subTotalAmount: 25.0,
+            vatAmount: 2.5,
+            totalAmount: 27.5,
+            lines: [{ itemName: "Armoire Billy", quantity: 1, price: 25.0 }]
+          },
+          {
+            customerInvoiceId: "71c5d71f-5e14-4a0c-87db-9b7f91a8583c",
+            customerName: "Joseph Joestar",
+            status: 2,
+            subTotalAmount: 84.0,
+            vatAmount: 8.4,
+            totalAmount: 92.4,
+            lines: [{ itemName: "Harry Potter et la chambre des secrets", quantity: 2, price: 42.0 }]
+          }
+        ];
+
+        const invoices = res.body;
+        const byId = {};
+        invoices.forEach(i => byId[i.customerInvoiceId] = i);
+
+        test("status 200", () => {
+          expect(res.status).to.eq(200)
+        })
+
+        test("exactement 3 factures dans l'etat de base", () => {
+          expect(invoices).to.have.lengthOf(3)
+        })
+
+        expected.forEach(exp => {
+          test("facture " + exp.customerInvoiceId + " : client, lignes et montants corrects", () => {
+            const inv = byId[exp.customerInvoiceId];
+            expect(inv, "facture manquante").to.not.be.undefined;
+
+            // client résolu via GET /api/Customers comme le frontend
+            expect(customersById[inv.customer_id], "customer_id inconnu: " + inv.customer_id)
+              .to.eq(exp.customerName);
+
+            expect(inv.status).to.eq(exp.status);
+            expect(inv.subTotalAmount).to.eq(exp.subTotalAmount);
+            expect(inv.vatAmount).to.eq(exp.vatAmount);
+            expect(inv.totalAmount).to.eq(exp.totalAmount);
+
+            const lines = inv.customerInvoiceLines;
+            expect(lines).to.have.lengthOf(exp.lines.length);
+
+            exp.lines.forEach((expLine, idx) => {
+              const line = lines[idx];
+              // item_id -> nom en base (GET /api/Items) doit matcher ItemName
+              expect(itemsById[line.item_id]).to.eq(expLine.itemName);
+              expect(line.itemName).to.eq(expLine.itemName);
+              expect(line.quantity).to.eq(expLine.quantity);
+              expect(line.price).to.eq(expLine.price);
+            });
+          });
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: |-
+  TC_INV02_001 - Lister les factures : GET /api/CustomerInvoices retourne les
+  3 factures de l'etat de base (./cli.exe -r). Pour chaque facture on vérifie
+  que le customer_id se résout vers le bon client (via GET /api/Customers,
+  comme le frontend) et que chaque ligne référence le bon item
+  (vérifié via GET /api/Items et le champ itemName de la ligne).

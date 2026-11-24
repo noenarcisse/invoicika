@@ -1,0 +1,28 @@
+info:
+  name: GetCustomers
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{apiUrl}}Customers?pageSize=500"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status != 200) return;
+
+        // Map customerId -> name pour résoudre les factures comme le frontend
+        const map = {};
+        res.body.items.forEach(c => map[c.customerId] = c.name);
+        bru.setVar("customersById", JSON.stringify(map));
+        console.log("customersById = " + JSON.stringify(map));
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
