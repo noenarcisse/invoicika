@@ -1,0 +1,52 @@
+name: SonarQube Cloud
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sonar-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sonar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Begin
+        run: >
+          dotnet sonarscanner begin
+          /k:"ton-org_dataqa"
+          /o:"ton-org"
+          /d:sonar.token="$SONAR_TOKEN"
+          /d:sonar.exclusions="**/bin/**,**/obj/**,**/node_modules/**"
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - run: dotnet build Backend/Backend.slnx -c Release
+
+      - name: End
+        run: dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
