@@ -36,7 +36,7 @@ jobs:
         working-directory: Frontend
 
         # le scanner .net prend tres mal les autres lang ... go semble pas reagir, TS doit etre forcé
-      - run: dotnet tool install --global dotnet-sonarscanner
+      - run: dotnet tool restore
 
       - name: Begin
         run: >
@@ -46,7 +46,7 @@ jobs:
           /d:sonar.token="$SONAR_TOKEN"
           /d:sonar.projectBaseDir="${{ github.workspace }}"
           /d:sonar.sources="."
-          /d:sonar.exclusions="**/bin/**,**/obj/**,**/node_modules/**,TESTS_External/**"
+          /d:sonar.exclusions="**/bin/**,**/obj/**,**/node_modules/**"
           /d:sonar.typescript.tsconfigPaths="Frontend/tsconfig.json"
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
