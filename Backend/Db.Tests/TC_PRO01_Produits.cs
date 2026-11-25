@@ -180,4 +180,50 @@ public class TC_PRO01_Produits(PostgresFixture db)
         );
     }
 
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2147483647)]
+    public async Task TC_PRO01_011_Produits_QuantiteValide_Accepte(int quantity)
+    {
+        var itemId = await CreateItemWithStockAsync(quantity);
+
+        await using var ctx = db.CreateContext();
+        var item = await ctx.Items.FindAsync([itemId], TestContext.Current.CancellationToken);
+
+        item.ShouldNotBeNull();
+        item.Quantity.ShouldBe(quantity);
+    }
+
+    //INTERNAL HELPERS
+    private async Task<Guid> CreateItemWithStockAsync(int quantity)
+    {
+        await using var ctx = db.CreateContext();
+
+        var item = new Item
+        {
+            ItemId = Guid.NewGuid(),
+            Name = $"TestObject_{Guid.NewGuid()}",
+            Description = "Nothing to see here",
+            PurchasePrice = 1,
+            SalePrice = 1,
+            Quantity = quantity,
+            User = new User
+            {
+                UserId = Guid.NewGuid(),
+                Username = $"TestUser_{Guid.NewGuid()}",
+                EmailAddress = $"{Guid.NewGuid()}@test.com",
+                PasswordHash = "a",
+                CreationDate = DateTime.UtcNow,
+                Role = new Role { RoleName = $"TestRole_{Guid.NewGuid()}" }
+            }
+        };
+
+        ctx.Items.Add(item);
+        await ctx.SaveChangesAsync(TestContext.Current.CancellationToken);
+
+        return item.ItemId;
+    }
+
+
 }
