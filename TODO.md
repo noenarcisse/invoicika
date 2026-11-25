@@ -1,5 +1,7 @@
 # PREP:
 
+Michael : il faut montrer des exemples de corrections -> de codes, avec IA pour montrer des tests quu reportent et corrigent les problemes
+
 report les vulnes en tant que bugs
 
 setup a faire : 
