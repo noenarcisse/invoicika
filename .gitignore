@@ -9,8 +9,8 @@
 
 # added
 *.exe
-drafts/*
-datasets/*
+**/drafts/
+**/datasets/
 
 # dotenv files
 .env
