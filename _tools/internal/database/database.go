@@ -56,14 +56,11 @@ func (db DB) GetUserIds() []uuid.UUID {
 		if err != nil {
 			panic(err)
 		}
-
-		fmt.Printf("ID: %v\n", id)
-
 		ids = append(ids, id)
+	}
 
-		if rows.Err() != nil {
-			panic(rows.Err())
-		}
+	if rows.Err() != nil {
+		panic(rows.Err())
 	}
 
 	return ids
