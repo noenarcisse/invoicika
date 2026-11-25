@@ -57,6 +57,8 @@ func (db *DB) InjectUsers(us []User) {
 
 	for _, u := range us {
 
+		fmt.Println("USER:", u)
+
 		if _, ok := roles[u.RoleName]; !ok {
 			panic("Role not found")
 		}

@@ -7,15 +7,17 @@ import (
 	"errors"
 )
 
+var ErrorStateOutOfBound = errors.New("state off limit")
+
 func GetAll(state int) ([]User, error) {
 
-	jsondatasets, err := dataloader.LoadData(dataloader.Customers)
+	jsondatasets, err := dataloader.LoadData(dataloader.Users)
 	if err != nil {
 		return []User{}, err
 	}
 
 	if state >= len(jsondatasets) {
-		return []User{}, errors.New("state off limit")
+		return []User{}, ErrorStateOutOfBound
 	}
 	raw := []User{}
 

@@ -9,8 +9,8 @@ import (
 	vats "dbinjector/internal/vat"
 	"dbinjector/internal/yamlparser"
 	"dbinjector/pkg/console"
+	"errors"
 	"flag"
-	"fmt"
 	"os"
 	"path/filepath"
 )
@@ -62,99 +62,81 @@ func main() {
 		panic(err)
 	}
 
-	if cmd.Customers != -1 {
-		switch cmd.Customers {
-		case 0:
-			conn := database.OpenDB(dblogs)
-			defer conn.Close()
+	if cmd.Customers > -1 {
+		conn := database.OpenDB(dblogs)
+		defer conn.Close()
 
-			cs, _ := customers.GetAll(0)
-			customers.NewDB(conn).InjectCustomers(cs)
-		case 1:
-			conn := database.OpenDB(dblogs)
-			defer conn.Close()
+		cs, err := customers.GetAll(cmd.Customers)
 
-			cs, _ := customers.GetAll(1)
-			customers.NewDB(conn).InjectCustomers(cs)
-		default:
-			console.Printcln(console.RED, "DB injection not prepared for the state customers %d", cmd.Customers)
+		if err != nil {
+			if errors.Is(err, customers.ErrorStateOutOfBound) {
+				console.Printcln(console.RED, "DB injection not prepared for the state customers %d", cmd.Customers)
+			} else {
+				console.Printcln(console.RED, err.Error())
+			}
+			return
 		}
+		customers.NewDB(conn).InjectCustomers(cs)
 	}
 
-	if cmd.Items != -1 {
-		switch cmd.Items {
-		case 0:
-			is, _ := items.GetAll(0)
-			for _, u := range is {
-				fmt.Printf("%+v\n", u)
-				fmt.Println()
-			}
-			conn := database.OpenDB(dblogs)
-			defer conn.Close()
+	if cmd.Items > -1 {
 
-			database.NewDB(conn).Trunc("Items")
-			items.NewDB(conn).InjectItems(is)
-		default:
-			console.Printcln(console.RED, "DB injection not prepared for the state items %d", cmd.Items)
+		is, err := items.GetAll(cmd.Items)
+		if err != nil {
+			if errors.Is(err, items.ErrorStateOutOfBound) {
+				console.Printcln(console.RED, "DB injection not prepared for the state customers %d", cmd.Items)
+			} else {
+				console.Printcln(console.RED, err.Error())
+			}
+			return
 		}
+
+		conn := database.OpenDB(dblogs)
+		defer conn.Close()
+		items.NewDB(conn).InjectItems(is)
+
 	}
 
-	if cmd.Users != -1 {
-		switch cmd.Users {
-		case 0:
-			us, _ := users.GetAll(0)
-			for _, u := range us {
-				fmt.Printf("%+v\n", u)
-				fmt.Println()
+	if cmd.Users > -1 {
+
+		us, err := users.GetAll(cmd.Users)
+		if err != nil {
+			if errors.Is(err, users.ErrorStateOutOfBound) {
+				console.Printcln(console.RED, "DB injection not prepared for the state customers %d", cmd.Users)
+			} else {
+				console.Printcln(console.RED, err.Error())
 			}
-			conn := database.OpenDB(dblogs)
-			defer conn.Close()
-
-			database.NewDB(conn).Trunc("Users")
-			users.NewDB(conn).InjectUsers(us)
-		case 1:
-			us, _ := users.GetAll(1)
-			for _, u := range us {
-				fmt.Printf("%+v\n", u)
-				fmt.Println()
-			}
-			conn := database.OpenDB(dblogs)
-			defer conn.Close()
-
-			database.NewDB(conn).Trunc("Users")
-			users.NewDB(conn).InjectUsers(us)
-
-		default:
-			console.Printcln(console.RED, "DB injection not prepared for the stat users %d", cmd.Users)
+			return
 		}
+
+		conn := database.OpenDB(dblogs)
+		defer conn.Close()
+		users.NewDB(conn).InjectUsers(us)
 	}
 
-	if cmd.ItemGroups != -1 {
-		switch cmd.ItemGroups {
-		case 0:
-			groups, _ := itemgroups.GetAll(0)
-			for _, u := range groups {
-				fmt.Printf("%+v\n", u)
-				fmt.Println()
+	if cmd.ItemGroups > -1 {
+
+		groups, err := itemgroups.GetAll(cmd.ItemGroups)
+		if err != nil {
+			if errors.Is(err, itemgroups.ErrorStateOutOfBound) {
+				console.Printcln(console.RED, "DB injection not prepared for the state customers %d", cmd.ItemGroups)
+			} else {
+				console.Printcln(console.RED, err.Error())
 			}
-			conn := database.OpenDB(dblogs)
-			defer conn.Close()
-
-			database.NewDB(conn).Trunc("ItemGroups")
-			itemgroups.NewDB(conn).Inject(groups)
-
-		default:
-			console.Printcln(console.RED, "DB injection not prepared for the state ItemGroups %d", cmd.ItemGroups)
+			return
 		}
+
+		conn := database.OpenDB(dblogs)
+		defer conn.Close()
+		itemgroups.NewDB(conn).Inject(groups)
+
 	}
 
-	if cmd.Vats != -1 {
+	if cmd.Vats > -1 {
 		switch cmd.Vats {
 		case 0:
 			conn := database.OpenDB(dblogs)
 			defer conn.Close()
-
-			// database.NewDB(conn).Trunc("VATs")
 			vats.NewDB(conn).InjectVATs(100)
 
 		default:
