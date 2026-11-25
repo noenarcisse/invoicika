@@ -6,7 +6,7 @@ import (
 	"dbinjector/internal/itemgroups"
 	"dbinjector/internal/items"
 	"dbinjector/internal/users"
-	vats "dbinjector/internal/vat"
+	"dbinjector/internal/vats"
 	"dbinjector/internal/yamlparser"
 	"dbinjector/pkg/console"
 	"errors"
@@ -31,7 +31,7 @@ func main() {
 	flag.IntVar(&cmd.Customers, "customers", -1, customersrmsg)
 	flag.IntVar(&cmd.Customers, "c", -1, customersrmsg)
 
-	itemsmsg := "Inject Customers table in DB"
+	itemsmsg := "Inject Items table in DB"
 	flag.IntVar(&cmd.Items, "items", -1, itemsmsg)
 	flag.IntVar(&cmd.Items, "i", -1, itemsmsg)
 
@@ -43,7 +43,7 @@ func main() {
 	flag.IntVar(&cmd.ItemGroups, "groups", -1, groupsmsg)
 	flag.IntVar(&cmd.ItemGroups, "g", -1, groupsmsg)
 
-	vatmsg := "Inject vat table in DB"
+	vatmsg := "Inject VAT table in DB"
 	flag.IntVar(&cmd.Vats, "vats", -1, vatmsg)
 	flag.IntVar(&cmd.Vats, "v", -1, vatmsg)
 
@@ -84,7 +84,7 @@ func main() {
 		is, err := items.GetAll(cmd.Items)
 		if err != nil {
 			if errors.Is(err, items.ErrorStateOutOfBound) {
-				console.Printcln(console.RED, "DB injection not prepared for the state customers %d", cmd.Items)
+				console.Printcln(console.RED, "DB injection not prepared for the state items %d", cmd.Items)
 			} else {
 				console.Printcln(console.RED, err.Error())
 			}
@@ -102,7 +102,7 @@ func main() {
 		us, err := users.GetAll(cmd.Users)
 		if err != nil {
 			if errors.Is(err, users.ErrorStateOutOfBound) {
-				console.Printcln(console.RED, "DB injection not prepared for the state customers %d", cmd.Users)
+				console.Printcln(console.RED, "DB injection not prepared for the state users %d", cmd.Users)
 			} else {
 				console.Printcln(console.RED, err.Error())
 			}
@@ -119,7 +119,7 @@ func main() {
 		groups, err := itemgroups.GetAll(cmd.ItemGroups)
 		if err != nil {
 			if errors.Is(err, itemgroups.ErrorStateOutOfBound) {
-				console.Printcln(console.RED, "DB injection not prepared for the state customers %d", cmd.ItemGroups)
+				console.Printcln(console.RED, "DB injection not prepared for the state itemGroups %d", cmd.ItemGroups)
 			} else {
 				console.Printcln(console.RED, err.Error())
 			}
@@ -140,7 +140,7 @@ func main() {
 			vats.NewDB(conn).InjectVATs(100)
 
 		default:
-			console.Printcln(console.RED, "DB injection not prepared for the state ItemGroups %d", cmd.ItemGroups)
+			console.Printcln(console.RED, "DB injection not prepared for the state VATs %d", cmd.ItemGroups)
 		}
 	}
 }

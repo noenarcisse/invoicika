@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"dbinjector/internal/yamlparser"
 	"fmt"
+	"uuid"
 
 	"github.com/lib/pq"
 )
@@ -37,4 +38,33 @@ func (db DB) Trunc(tablename string) error {
 	query := fmt.Sprintf("truncate table %s cascade", pq.QuoteIdentifier(tablename))
 	_, err := db.Exec(query)
 	return err
+}
+
+func (db DB) GetUserIds() []uuid.UUID {
+
+	ids := []uuid.UUID{}
+
+	rows, err := db.Query("select \"UserId\" from \"Users\"")
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var id uuid.UUID
+		err := rows.Scan(&id)
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Printf("ID: %v\n", id)
+
+		ids = append(ids, id)
+
+		if rows.Err() != nil {
+			panic(rows.Err())
+		}
+	}
+
+	return ids
 }

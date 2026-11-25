@@ -38,7 +38,6 @@ func LoadData(sub subfolder) (files []string, err error) {
 		}
 		fp := path.Join(p, f.Name())
 		ext := filepath.Ext(fp)
-		fmt.Println(ext)
 		if ext != ".json" {
 			continue
 		}

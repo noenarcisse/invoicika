@@ -13,11 +13,7 @@ import (
 
 // requiert docker et psql ? y'a un ApplyDbBackup en v1 ici
 func main() {
-
-	// statemsg := "Swap the state of the Database"
-
 	args := os.Args[1:]
-
 	if len(args) < 1 {
 		panic("Err args, state required")
 	}
@@ -27,12 +23,14 @@ func main() {
 		panic("Couldn't parse int value from the state entered")
 	}
 
+	dbStateMsg := "\nDB state changed to %d, DONE!"
+
 	dblogs, err := yamlparser.GetDBInfosFromYml("./docker-compose.yml")
 	if err != nil {
 		//todo err management
 		panic(err)
 	}
-	console.Printcln(console.BLUE, "\nChanging DB state to %d", state)
+	console.Printcln(console.BLUE, dbStateMsg, state)
 	switch state {
 
 	// DB vide sauf les users de base
@@ -58,7 +56,7 @@ func main() {
 		}
 		users.NewDB(conn).InjectUsers(us)
 
-		console.Printcln(console.GREEN, "\nDB state changed to %d, DONE!", state)
+		console.Printcln(console.GREEN, dbStateMsg, state)
 
 	case 1:
 		err := testcli.ResetDB(dblogs)
@@ -72,7 +70,7 @@ func main() {
 		database.NewDB(conn).Trunc("Customers")
 		cs, _ := customers.GetAll(1)
 		customers.NewDB(conn).InjectCustomers(cs)
-		console.Printcln(console.GREEN, "\nDB state changed to %d, DONE!", state)
+		console.Printcln(console.GREEN, dbStateMsg, state)
 
 	case 2:
 		//todo : is this normal behavior? requires psql for no other reason than this line
@@ -81,7 +79,7 @@ func main() {
 			console.Printcln(console.RED, err.Error())
 			os.Exit(1)
 		}
-		console.Printcln(console.GREEN, "\nDB state changed to %d, DONE!", state)
+		console.Printcln(console.GREEN, dbStateMsg, state)
 
 	default:
 		console.Printcln(console.RED, "State not implemented yet")

@@ -2,7 +2,6 @@ package vats
 
 import (
 	"database/sql"
-	"fmt"
 	"time"
 
 	"github.com/google/uuid"
@@ -28,35 +27,6 @@ func NewItem(percentage float64) *VAT {
 		Percentage:   percentage,
 		CreationDate: time.Now().UTC(),
 	}
-}
-
-func (db DB) getIds() []uuid.UUID {
-
-	ids := []uuid.UUID{}
-
-	rows, err := db.Query("select \"VatId\" from \"VATs\"")
-	if err != nil {
-		panic(err)
-	}
-	defer rows.Close()
-
-	for rows.Next() {
-		var id uuid.UUID
-		err := rows.Scan(&id)
-		if err != nil {
-			panic(err)
-		}
-
-		fmt.Printf("ID: %v\n", id)
-
-		ids = append(ids, id)
-
-		if rows.Err() != nil {
-			panic(rows.Err())
-		}
-	}
-
-	return ids
 }
 
 func (db DB) InjectVATs(nb int) {

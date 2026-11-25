@@ -2,6 +2,7 @@ package itemgroups
 
 import (
 	"database/sql"
+	"dbinjector/internal/database"
 	"fmt"
 	"math/rand/v2"
 
@@ -32,38 +33,9 @@ func NewItemGroup(title string, descr string) *ItemGroup {
 	}
 }
 
-func (db DB) getUserIds() []uuid.UUID {
-
-	ids := []uuid.UUID{}
-
-	rows, err := db.Query("select \"UserId\" from \"Users\"")
-	if err != nil {
-		panic(err)
-	}
-	defer rows.Close()
-
-	for rows.Next() {
-		var id uuid.UUID
-		err := rows.Scan(&id)
-		if err != nil {
-			panic(err)
-		}
-
-		fmt.Printf("ID: %v\n", id)
-
-		ids = append(ids, id)
-
-		if rows.Err() != nil {
-			panic(rows.Err())
-		}
-	}
-
-	return ids
-}
-
 func (db DB) Inject(groups []ItemGroup) {
 
-	userIds := db.getUserIds()
+	userIds := database.NewDB(db.DB).GetUserIds()
 	fmt.Println(userIds)
 
 	for _, g := range groups {

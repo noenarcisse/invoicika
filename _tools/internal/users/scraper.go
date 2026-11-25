@@ -34,23 +34,3 @@ func GetAll(state int) ([]User, error) {
 
 	return us, nil
 }
-
-// func GetAll2() ([]User, error) {
-
-// 	fmt.Println(2)
-
-// 	raw := []User{}
-
-// 	err := json.Unmarshal([]byte(jasonUsers2), &raw)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	us := make([]User, 0)
-// 	for _, ur := range raw {
-// 		u := NewUser(ur.Username, ur.EmailAdress, ur.PasswordHash, ur.RoleName)
-// 		us = append(us, *u)
-// 	}
-
-// 	return us, nil
-// }

@@ -2,6 +2,7 @@ package items
 
 import (
 	"database/sql"
+	"dbinjector/internal/database"
 	"fmt"
 	"math/rand/v2"
 	"time"
@@ -40,38 +41,9 @@ func NewItem(name string, descr string, purchase int, sale int) *Item {
 	}
 }
 
-func (db DB) getUserIds() []uuid.UUID {
-
-	ids := []uuid.UUID{}
-
-	rows, err := db.Query("select \"UserId\" from \"Users\"")
-	if err != nil {
-		panic(err)
-	}
-	defer rows.Close()
-
-	for rows.Next() {
-		var id uuid.UUID
-		err := rows.Scan(&id)
-		if err != nil {
-			panic(err)
-		}
-
-		fmt.Printf("ID: %v\n", id)
-
-		ids = append(ids, id)
-
-		if rows.Err() != nil {
-			panic(rows.Err())
-		}
-	}
-
-	return ids
-}
-
 func (db DB) InjectItems(is []Item) {
 
-	userIds := db.getUserIds()
+	userIds := database.NewDB(db.DB).GetUserIds()
 	fmt.Println(userIds)
 
 	for _, i := range is {
