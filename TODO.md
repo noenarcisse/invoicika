@@ -1,12 +1,8 @@
 # PREP:
 
+Michael : il faut montrer des exemples de corrections -> de codes, avec IA pour montrer des tests quu reportent et corrigent les problemes
+
 report les vulnes en tant que bugs
-
-oubli des tests de valeurs sur les stocks :d
-
-j'ai pas des mass de zone d'attaques pour les tests en backend
-y'a les services qui requiert de pop une DB en RAM a la limite mais c'est du full CRUD
-y'a un helper de pagination (low prio)
 
 setup a faire : 
 External tests -> sql pur, test manuel d'exploration dans la DB pour voir les reactions possibles et trouver des bugs de schema

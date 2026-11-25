@@ -6,6 +6,7 @@ import (
 	"dbinjector/internal/itemgroups"
 	"dbinjector/internal/items"
 	"dbinjector/internal/users"
+	vats "dbinjector/internal/vat"
 	"dbinjector/internal/yamlparser"
 	"dbinjector/pkg/console"
 	"flag"
@@ -19,6 +20,7 @@ type cmd struct {
 	Items      int
 	Users      int
 	ItemGroups int
+	Vats       int
 }
 
 func main() {
@@ -40,6 +42,10 @@ func main() {
 	groupsmsg := "Inject ItemGroups table in DB"
 	flag.IntVar(&cmd.ItemGroups, "groups", -1, groupsmsg)
 	flag.IntVar(&cmd.ItemGroups, "g", -1, groupsmsg)
+
+	vatmsg := "Inject vat table in DB"
+	flag.IntVar(&cmd.Vats, "vats", -1, vatmsg)
+	flag.IntVar(&cmd.Vats, "v", -1, vatmsg)
 
 	flag.Parse()
 
@@ -142,4 +148,17 @@ func main() {
 		}
 	}
 
+	if cmd.Vats != -1 {
+		switch cmd.Vats {
+		case 0:
+			conn := database.OpenDB(dblogs)
+			defer conn.Close()
+
+			// database.NewDB(conn).Trunc("VATs")
+			vats.NewDB(conn).InjectVATs(100)
+
+		default:
+			console.Printcln(console.RED, "DB injection not prepared for the state ItemGroups %d", cmd.ItemGroups)
+		}
+	}
 }

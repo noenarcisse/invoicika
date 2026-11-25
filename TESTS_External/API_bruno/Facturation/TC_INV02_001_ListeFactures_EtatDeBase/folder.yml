@@ -2,6 +2,8 @@ info:
   name: TC_INV02_001_ListeFactures_EtatDeBase
   type: folder
   seq: 9
+  tags:
+    - devin
 
 request:
   auth: inherit
