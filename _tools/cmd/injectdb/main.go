@@ -74,7 +74,7 @@ func main() {
 			} else {
 				console.Printcln(console.RED, err.Error())
 			}
-			return
+			os.Exit(1)
 		}
 		customers.NewDB(conn).InjectCustomers(cs)
 	}
@@ -88,7 +88,7 @@ func main() {
 			} else {
 				console.Printcln(console.RED, err.Error())
 			}
-			return
+			os.Exit(1)
 		}
 
 		conn := database.OpenDB(dblogs)
@@ -106,7 +106,7 @@ func main() {
 			} else {
 				console.Printcln(console.RED, err.Error())
 			}
-			return
+			os.Exit(1)
 		}
 
 		conn := database.OpenDB(dblogs)
@@ -123,7 +123,7 @@ func main() {
 			} else {
 				console.Printcln(console.RED, err.Error())
 			}
-			return
+			os.Exit(1)
 		}
 
 		conn := database.OpenDB(dblogs)
