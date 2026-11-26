@@ -4,7 +4,6 @@ import (
 	"crypto/sha256"
 	"database/sql"
 	"encoding/base64"
-	"fmt"
 	"time"
 
 	"github.com/google/uuid"
@@ -53,12 +52,7 @@ func (db *DB) InjectUsers(us []User) {
 		panic(err)
 	}
 
-	fmt.Println(roles)
-
 	for _, u := range us {
-
-		fmt.Println("USER:", u)
-
 		if _, ok := roles[u.RoleName]; !ok {
 			panic("Role not found")
 		}
@@ -94,8 +88,6 @@ func (db DB) getRoleIds() (roles map[string]uuid.UUID, err error) {
 		if err != nil {
 			return
 		}
-
-		fmt.Printf("ID: %v\n", id)
 
 		roles[roleName] = id
 

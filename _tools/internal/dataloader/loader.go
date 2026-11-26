@@ -32,7 +32,6 @@ func LoadData(sub subfolder) (files []string, err error) {
 	}
 
 	for _, f := range d {
-		fmt.Println(f.Name())
 		if f.IsDir() {
 			continue
 		}

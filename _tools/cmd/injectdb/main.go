@@ -26,6 +26,7 @@ type cmd struct {
 func main() {
 
 	var cmd cmd
+	validationMsg := "DB injection DONE"
 
 	customersrmsg := "Inject Customers table in DB"
 	flag.IntVar(&cmd.Customers, "customers", -1, customersrmsg)
@@ -74,9 +75,10 @@ func main() {
 			} else {
 				console.Printcln(console.RED, err.Error())
 			}
-			return
+			os.Exit(1)
 		}
 		customers.NewDB(conn).InjectCustomers(cs)
+		console.Printcln(console.GREEN, "CUSTOMERS: %s", validationMsg)
 	}
 
 	if cmd.Items > -1 {
@@ -88,12 +90,13 @@ func main() {
 			} else {
 				console.Printcln(console.RED, err.Error())
 			}
-			return
+			os.Exit(1)
 		}
 
 		conn := database.OpenDB(dblogs)
 		defer conn.Close()
 		items.NewDB(conn).InjectItems(is)
+		console.Printcln(console.GREEN, "ITEMS: %s", validationMsg)
 
 	}
 
@@ -106,12 +109,13 @@ func main() {
 			} else {
 				console.Printcln(console.RED, err.Error())
 			}
-			return
+			os.Exit(1)
 		}
 
 		conn := database.OpenDB(dblogs)
 		defer conn.Close()
 		users.NewDB(conn).InjectUsers(us)
+		console.Printcln(console.GREEN, "USERS: %s", validationMsg)
 	}
 
 	if cmd.ItemGroups > -1 {
@@ -123,12 +127,13 @@ func main() {
 			} else {
 				console.Printcln(console.RED, err.Error())
 			}
-			return
+			os.Exit(1)
 		}
 
 		conn := database.OpenDB(dblogs)
 		defer conn.Close()
 		itemgroups.NewDB(conn).Inject(groups)
+		console.Printcln(console.GREEN, "ITEMGROUPS: %s", validationMsg)
 
 	}
 
@@ -138,6 +143,7 @@ func main() {
 			conn := database.OpenDB(dblogs)
 			defer conn.Close()
 			vats.NewDB(conn).InjectVATs(100)
+			console.Printcln(console.GREEN, "VATS: %s", validationMsg)
 
 		default:
 			console.Printcln(console.RED, "DB injection not prepared for the state VATs %d", cmd.ItemGroups)
