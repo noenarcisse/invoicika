@@ -3,7 +3,6 @@ package items
 import (
 	"database/sql"
 	"dbinjector/internal/database"
-	"fmt"
 	"math/rand/v2"
 	"time"
 
@@ -44,7 +43,6 @@ func NewItem(name string, descr string, purchase int, sale int) *Item {
 func (db DB) InjectItems(is []Item) {
 
 	userIds := database.NewDB(db.DB).GetUserIds()
-	fmt.Println(userIds)
 
 	for _, i := range is {
 		randomUser := rand.IntN(len(userIds))

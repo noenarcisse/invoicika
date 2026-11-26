@@ -3,7 +3,6 @@ package itemgroups
 import (
 	"database/sql"
 	"dbinjector/internal/database"
-	"fmt"
 	"math/rand/v2"
 
 	"github.com/google/uuid"
@@ -36,7 +35,6 @@ func NewItemGroup(title string, descr string) *ItemGroup {
 func (db DB) Inject(groups []ItemGroup) {
 
 	userIds := database.NewDB(db.DB).GetUserIds()
-	fmt.Println(userIds)
 
 	for _, g := range groups {
 		randomUser := rand.IntN(len(userIds))
