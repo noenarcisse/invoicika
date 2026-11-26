@@ -10,7 +10,7 @@
 **/datasets/
 *.zip
 
-*.properties
+*/**/*.properties
 **/.scannerwork
 **/.sonarqube
 
