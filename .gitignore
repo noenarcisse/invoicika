@@ -3,14 +3,16 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
-*.properties
-**/.scannerwork
-**/.sonarqube
 
 # added
 *.exe
 **/drafts/
 **/datasets/
+*.zip
+
+*.properties
+**/.scannerwork
+**/.sonarqube
 
 # dotenv files
 .env
