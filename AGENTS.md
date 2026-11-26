@@ -16,10 +16,72 @@ The focus is a risk based testing strategy with a compliance check list. Test ca
 ### Authorization
 - You always work on the worktree "invoicika-devin" on your branch "test-qa-devin"
 - You are never allowed to read .env files
-- You are never allowed to delete files
-- You are not allowed to rm rf, if you ask for some deletion command, you MUST use "Add-Type -AssemblyName Microsoft.VisualBasic
+- never delete files directly; if a deletion is required, use only the recycle-bin command:  "Add-Type -AssemblyName Microsoft.VisualBasic
 [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile($file, 'OnlyErrorDialogs', 'SendToRecycleBin')"
 - You are never allowed to install dependencies unless asked to do so
+
+## Roles
+
+You work in ONE role per session. The role is given in the task prompt ("role: QA" or "role: DEV").
+If no role is given, ask before acting. Never mix both roles in the same session or the same commit.
+
+| | QA | DEV |
+|---|---|---|
+| Goal | Write tests, report bugs, prove bugs with reproducible steps | Fix app bugs reported by QA |
+| Allowed to modify | `TESTS_External/`, `Backend/*.Tests` | `Backend/` (except `*.Tests`), `Frontend/` |
+| Forbidden to modify | `Backend/` (app code), `Frontend/` | Tests, to make them pass (unless explicitly asked) |
+| Start from | `test-qa` | `main` |
+| Branch name | `qa-agent/TC_XXX_XXX-slug` | `dev/TC_XXX_XXX-slug` |
+| Merges into | `test-qa` (via PR validated by the user) | `main` (via PR validated by the user) |
+| Commit type | `test` | `fix` |
+
+Hard rules:
+- `dev` branches are NEVER merged into `test-qa`. Fixes reach `test-qa` only through `main`, when the user starts a new cycle.
+- Never edit `AGENTS.md` unless asked. It lives on `main`.
+- Only the user creates, merges or deletes long-lived branches (`main`, `test-qa`, `develop`).
+
+## Switching role (same worktree)
+
+Before changing role or branch:
+1. `git status` must be clean. Commit or stash first, ask the user if unsure.
+2. Create or checkout the branch of the new role from the right base (see table).
+3. Rebuild and reset: `./cli.exe -b` then `./cli.exe -r`. Containers may still run the code of the other branch.
+4. Confirm the current branch and role in your first message.
+
+## Role QA
+
+Context: waterflow setup. The app is frozen during the current cycle, so bugs must stay reproducible.
+We report bugs and write tests proving them (validation, then regression in the long run).
+
+- Never modify app code (`Backend/` except `*.Tests`, `Frontend/`). If a test fails because of an app bug, document it, do not fix it.
+- A test that proves a bug must FAIL while the bug exists. Do not weaken assertions to make it green.
+- Test cases come from files prepared by the user or from Squash TM when available. Keep the TC id (`TC_XXX_XXX`) in the test name.
+- Retrieve data for a test through API calls, never rely on backend seeds.
+- Run `./cli.exe -r` before any Bruno or Playwright run. Use `injectdb` flags only when the test needs a specific DB state.
+- Run only the targeted test (class, method, file), never the whole suite unless asked.
+- Out of scope: mailing system, anything not implemented (does not satisfy entry criteria).
+
+## Role DEV
+
+Context: fix bugs in the app, starting from a failing test that acts as the specification.
+
+- Input required: a TC id or a failing test (Bruno, Playwright or .NET). Without it, ask.
+- Workflow:
+  1. Reproduce: `./cli.exe -r`, run the targeted test, confirm it fails.
+  2. Fix the smallest possible scope in `Backend/` or `Frontend/`.
+  3. Rerun the targeted test, then the neighbouring tests of the same feature to detect regressions.
+  4. One bug per branch and per commit.
+- Do not modify tests to make them pass. If a test seems wrong, stop and explain why to the user.
+- Ask for validation before: EF migrations, DB schema changes, API contract changes (Bruno tests depend on it), dependency changes.
+- Frontend: Angular 16 with NgModules. Do not modernize (no standalone, signals, `@if`/`@for`) unless asked.
+- If the fix needs the test to travel with it, the user will cherry-pick the test commit. Do not copy test files from `test-qa` yourself.
+
+## Versions and constraints
+
+Source of truth: `Backend/*.csproj`, `Frontend/package.json`.
+- Frontend: Angular 16 + NG-Zorro
+- Backend: .NET 10, EF Core, PostgreSQL, tests in xunit v3 with Testcontainers
+- Node 20, Playwright (chromium), Bruno CLI 4.3.0
 
 ### Testing
 
