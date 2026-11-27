@@ -29,6 +29,10 @@ The focus is a risk based testing strategy with a compliance check list. Test ca
 ## JIRA
 - API base: https://onepushman.atlassian.net/rest/api/3/
 - Auth: Basic auth with `$JIRA_EMAIL:$AGENTS_DEVIN_JIRA_TOKEN`
+- JIRA_EMAIL: [Environment]::GetEnvironmentVariable("JIRA_EMAIL", "User")
+- JIRA_TOKEN: [Environment]::GetEnvironmentVariable("AGENTS_DEVIN_JIRA_TOKEN", "User")
+- Sprints endpoint : `GET /rest/agile/1.0/board/68/sprint`
+- Issues endpoint : `GET /rest/api/3/issue/IN-XX`
 
 ## Roles
 
