@@ -26,6 +26,10 @@ The focus is a risk based testing strategy with a compliance check list. Test ca
 - Endpoints documentation: http://localhost:8090/squash/api/rest/latest/docs/api-documentation.html
 - test cases endpoint and method: `GET /test-cases`
 
+## JIRA
+- API base: https://onepushman.atlassian.net/rest/api/3/
+- Auth: Basic auth with `$JIRA_EMAIL:$AGENTS_DEVIN_JIRA_TOKEN`
+
 ## Roles
 
 You work in ONE role per session. The role is given in the task prompt ("role: QA" or "role: DEV").
