@@ -51,7 +51,7 @@ public class TC_DB01_004_SuppressionClient(PostgresFixture db)
     [Fact]
     [Trait("Tag", "bugs")]
     [Trait("Tag", "jira-IN-42")]
-    public async Task TC_DB01_002_SuppressionClient_FactureSupprimee_Bug()
+    public async Task TC_DB01_004_SuppressionClient_FactureSupprimee_Bug()
     {
         var (customerId, _, invoiceId) = await SeedInvoiceAsync();
 
