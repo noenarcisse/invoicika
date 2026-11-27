@@ -103,14 +103,6 @@ test.describe("Tests positifs de modification de client", {
 
         await cusedit.submit();
 
-        // the point of this?
-        // const id = page.url().split("/").at(-1) ?? "";
-        // if (id === "") {
-        //     throw new Error("Couldn't get customer ID from the link");
-        // }
-        // console.log(id);
-        //END  the point of this?
-
         await cusall.expectReached();
         await cusall.expectErrorMessage(cusall.validationMessage.edit);
     });

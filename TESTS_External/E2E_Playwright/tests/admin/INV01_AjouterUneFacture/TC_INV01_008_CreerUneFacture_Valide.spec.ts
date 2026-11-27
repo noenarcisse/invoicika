@@ -2,7 +2,9 @@ import { expect, test } from "@playwright/test";
 import { InvoicesAddPage } from "@models/InvoicesAddPage.ts";
 import { InvoicesAllPage } from "@models/InvoicesAllPage.ts";
 
-test.describe("Test positif d'ajout d'une facture", () => {
+test.describe("Test positif d'ajout d'une facture", {
+    tag: ["@invoices"],
+}, () => {
     let guuidsSeenBefore = new Set<string>();
 
     test.beforeEach(async ({ page }) => {
@@ -36,9 +38,7 @@ test.describe("Test positif d'ajout d'une facture", () => {
      * Adding an invoice with correct values
      * Cannot be mocked as the validation message appears after the click on the next page
      */
-    test(`Ajouter une facture correcte réussit`, {
-        tag: "@invoices",
-    }, async ({ page }) => {
+    test(`Ajouter une facture correcte réussit`, async ({ page }) => {
         const invAdd = new InvoicesAddPage(page);
         const invAll = new InvoicesAllPage(page);
 

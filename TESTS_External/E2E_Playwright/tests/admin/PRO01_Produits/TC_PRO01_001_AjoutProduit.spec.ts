@@ -111,7 +111,9 @@ Vestibulum vel ex at metus pulvinar euismod. Nulla sodales tempor libero quis fe
 });
 
 //todo : wip
-test.describe.fixme("Tests négatifs d'ajout d'un produit", () => {
+test.describe.fixme("Tests négatifs d'ajout d'un produit", {
+    tag: "@items",
+}, () => {
     const cases = [
         {
             title: "Ajouter un produit sans nom affiche une erreur",
