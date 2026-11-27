@@ -10,39 +10,10 @@ namespace Db.Tests;
 [Collection("db")]
 public class TC_DB01_005_SuppressionUser(PostgresFixture db)
 {
-    private async Task<(Guid UserId, Guid ItemId, Guid ItemGroupId)> SeedUserItemGroupAsync()
-    {
-        await using var ctx = db.CreateContext();
-
-        var user = new User
-        {
-            Username = $"user_{Guid.NewGuid()}",
-            EmailAddress = $"{Guid.NewGuid()}@test.com",
-            PasswordHash = "hash",
-            Role = new Role { RoleName = $"Role_{Guid.NewGuid()}" }
-        };
-        var item = new Item
-        {
-            Name = $"Item_{Guid.NewGuid()}",
-            PurchasePrice = 10.00m,
-            SalePrice = 15.00m,
-            Quantity = 1,
-            User = user
-        };
-        var itemGroup = new ItemGroup
-        {
-            Title = $"Group_{Guid.NewGuid()}",
-            User = user
-        };
-
-        ctx.Items.Add(item);
-        ctx.ItemGroups.Add(itemGroup);
-        await ctx.SaveChangesAsync(TestContext.Current.CancellationToken);
-
-        return (user.UserId, item.ItemId, itemGroup.ItemGroupId);
-    }
 
     [Fact]
+    [Trait("Tag", "bugs")]
+    [Trait("Tag", "jira-IN-42")]
     public async Task TC_DB01_005_SuppressionUser_ItemSupprime_Bug()
     {
         var (userId, itemId, _) = await SeedUserItemGroupAsync();
@@ -71,6 +42,8 @@ public class TC_DB01_005_SuppressionUser(PostgresFixture db)
     }
 
     [Fact]
+    [Trait("Tag", "bugs")]
+    [Trait("Tag", "jira-IN-42")]
     public async Task TC_DB01_005_SuppressionUser_ItemGroupSupprime_Bug()
     {
         var (userId, _, itemGroupId) = await SeedUserItemGroupAsync();
@@ -99,6 +72,8 @@ public class TC_DB01_005_SuppressionUser(PostgresFixture db)
     }
 
     [Fact]
+    [Trait("Tag", "bugs")]
+    [Trait("Tag", "jira-IN-42")]
     public async Task TC_DB01_005_SuppressionUser_FactureSupprime_Bug()
     {
         Guid userId;
@@ -153,5 +128,38 @@ public class TC_DB01_005_SuppressionUser(PostgresFixture db)
             "BUG: la facture du user a ete supprimee en cascade avec lui. " +
             "La FK CustomerInvoices.User_id devrait etre en Restrict, pas Cascade."
         );
+    }
+
+    //PRIVATES
+    private async Task<(Guid UserId, Guid ItemId, Guid ItemGroupId)> SeedUserItemGroupAsync()
+    {
+        await using var ctx = db.CreateContext();
+
+        var user = new User
+        {
+            Username = $"user_{Guid.NewGuid()}",
+            EmailAddress = $"{Guid.NewGuid()}@test.com",
+            PasswordHash = "hash",
+            Role = new Role { RoleName = $"Role_{Guid.NewGuid()}" }
+        };
+        var item = new Item
+        {
+            Name = $"Item_{Guid.NewGuid()}",
+            PurchasePrice = 10.00m,
+            SalePrice = 15.00m,
+            Quantity = 1,
+            User = user
+        };
+        var itemGroup = new ItemGroup
+        {
+            Title = $"Group_{Guid.NewGuid()}",
+            User = user
+        };
+
+        ctx.Items.Add(item);
+        ctx.ItemGroups.Add(itemGroup);
+        await ctx.SaveChangesAsync(TestContext.Current.CancellationToken);
+
+        return (user.UserId, item.ItemId, itemGroup.ItemGroupId);
     }
 }
