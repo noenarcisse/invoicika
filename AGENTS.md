@@ -20,6 +20,12 @@ The focus is a risk based testing strategy with a compliance check list. Test ca
 [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile($file, 'OnlyErrorDialogs', 'SendToRecycleBin')"
 - You are never allowed to install dependencies unless asked to do so
 
+## SquashTM
+- API base: http://localhost:8090/squash/api/rest/latest
+- Auth: `Authorization: Bearer $AGENTS_DEVIN_SQUASH_TOKEN`
+- Endpoints documentation: http://localhost:8090/squash/api/rest/latest/docs/api-documentation.html
+- test cases endpoint and method: `GET /test-cases`
+
 ## Roles
 
 You work in ONE role per session. The role is given in the task prompt ("role: QA" or "role: DEV").
