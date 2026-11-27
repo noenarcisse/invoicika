@@ -49,6 +49,8 @@ public class TC_DB01_003_SuppressionTVA(PostgresFixture db)
     }
 
     [Fact]
+    [Trait("Tag", "bugs")]
+    [Trait("Tag", "jira-IN-42")]
     public async Task TC_DB01_002_SuppressionTVA_FactureSupprimee_Bug()
     {
         var (_, vatId, invoiceId) = await SeedInvoiceAsync();
