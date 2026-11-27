@@ -1,6 +1,11 @@
 import { expect, test } from "@playwright/test";
 import { randomUUID as uuid } from "node:crypto";
 
+const description1025chars =
+    `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a diam venenatis, faucibus dui a, luctus nisi. Nullam elementum, lectus at consectetur facilisis, lorem risus auctor urna, non varius libero elit a dolor. Fusce at posuere justo, quis feugiat lectus. Quisque faucibus arcu a feugiat gravida. Vivamus sed consequat felis, non malesuada sem. Cras mollis, tellus eget faucibus interdum, erat leo imperdiet est, eu faucibus tortor magna eu dolor. Nam vel massa faucibus, venenatis ex eget, suscipit quam. Aenean sed ornare tellus. Cras pretium tortor dui, eget dapibus ligula iaculis at. Sed lobortis tristique pharetra. Suspendisse scelerisque, elit quis iaculis accumsan, nunc est consectetur tellus, eu semper tellus tellus at neque. Praesent finibus vehicula mi sed finibus.
+Vestibulum vel ex at metus pulvinar euismod. Nulla sodales tempor libero quis feugiat. Vivamus vel euismod felis, eget blandit elit. Vivamus non tempus nunc. Mauris hendrerit justo eu ligula luctus, at varius dolor sodales. Sed iaculis od`;
+const description1024chars = description1025chars.slice(0, 1024);
+
 test.describe("Tests positifs d'ajout d'un produit", {
     tag: "@items",
 }, () => {
@@ -27,9 +32,7 @@ test.describe("Tests positifs d'ajout d'un produit", {
         {
             title: "Ajouter un produit valide avec description de 1024 réussit",
             name: `TestItem_${uuid()}`,
-            description:
-                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a diam venenatis, faucibus dui a, luctus nisi. Nullam elementum, lectus at consectetur facilisis, lorem risus auctor urna, non varius libero elit a dolor. Fusce at posuere justo, quis feugiat lectus. Quisque faucibus arcu a feugiat gravida. Vivamus sed consequat felis, non malesuada sem. Cras mollis, tellus eget faucibus interdum, erat leo imperdiet est, eu faucibus tortor magna eu dolor. Nam vel massa faucibus, venenatis ex eget, suscipit quam. Aenean sed ornare tellus. Cras pretium tortor dui, eget dapibus ligula iaculis at. Sed lobortis tristique pharetra. Suspendisse scelerisque, elit quis iaculis accumsan, nunc est consectetur tellus, eu semper tellus tellus at neque. Praesent finibus vehicula mi sed finibus.
-Vestibulum vel ex at metus pulvinar euismod. Nulla sodales tempor libero quis feugiat. Vivamus vel euismod felis, eget blandit elit. Vivamus non tempus nunc. Mauris hendrerit justo eu ligula luctus, at varius dolor sodales. Sed iaculis o`,
+            description: description1024chars,
             purchasePrice: "1",
             salePrice: "2",
             quantity: "1",
@@ -111,7 +114,7 @@ Vestibulum vel ex at metus pulvinar euismod. Nulla sodales tempor libero quis fe
 });
 
 //todo : wip
-test.describe.fixme("Tests négatifs d'ajout d'un produit", {
+test.describe("Tests négatifs d'ajout d'un produit", {
     tag: "@items",
 }, () => {
     const cases = [
@@ -126,9 +129,7 @@ test.describe.fixme("Tests négatifs d'ajout d'un produit", {
         {
             title: "Ajouter un produit avec une description de 1025 caractères affiche une erreur",
             name: `TestItem_${uuid()}`,
-            description:
-                `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a diam venenatis, faucibus dui a, luctus nisi. Nullam elementum, lectus at consectetur facilisis, lorem risus auctor urna, non varius libero elit a dolor. Fusce at posuere justo, quis feugiat lectus. Quisque faucibus arcu a feugiat gravida. Vivamus sed consequat felis, non malesuada sem. Cras mollis, tellus eget faucibus interdum, erat leo imperdiet est, eu faucibus tortor magna eu dolor. Nam vel massa faucibus, venenatis ex eget, suscipit quam. Aenean sed ornare tellus. Cras pretium tortor dui, eget dapibus ligula iaculis at. Sed lobortis tristique pharetra. Suspendisse scelerisque, elit quis iaculis accumsan, nunc est consectetur tellus, eu semper tellus tellus at neque. Praesent finibus vehicula mi sed finibus.
-Vestibulum vel ex at metus pulvinar euismod. Nulla sodales tempor libero quis feugiat. Vivamus vel euismod felis, eget blandit elit. Vivamus non tempus nunc. Mauris hendrerit justo eu ligula luctus, at varius dolor sodales. Sed iaculis od`,
+            description: description1025chars,
             purchasePrice: "1",
             salePrice: "2",
             quantity: "1",
