@@ -97,4 +97,61 @@ public class TC_DB01_005_SuppressionUser(PostgresFixture db)
             "La FK ItemGroups.User_id devrait etre en Restrict, pas Cascade."
         );
     }
+
+    [Fact]
+    public async Task TC_DB01_005_SuppressionUser_FactureSupprime_Bug()
+    {
+        Guid userId;
+        Guid invoiceId;
+
+        await using (var ctx = db.CreateContext())
+        {
+            var user = new User
+            {
+                Username = $"user_{Guid.NewGuid()}",
+                EmailAddress = $"{Guid.NewGuid()}@test.com",
+                PasswordHash = "hash",
+                Role = new Role { RoleName = $"Role_{Guid.NewGuid()}" }
+            };
+            var customer = new Customer { Name = $"Customer_{Guid.NewGuid()}" };
+            var vat = new VAT { Percentage = 20.00m };
+            var invoice = new CustomerInvoice
+            {
+                Customer = customer,
+                User = user,
+                VAT = vat,
+                SubTotalAmount = 100.00m,
+                VatAmount = 20.00m,
+                TotalAmount = 120.00m
+            };
+
+            ctx.CustomerInvoices.Add(invoice);
+            await ctx.SaveChangesAsync(TestContext.Current.CancellationToken);
+
+            userId = user.UserId;
+            invoiceId = invoice.CustomerInvoiceId;
+        }
+
+        await using (var ctx = db.CreateContext())
+        {
+            var user = await ctx.Users.FindAsync([userId], TestContext.Current.CancellationToken);
+            user.ShouldNotBeNull();
+            ctx.Users.Remove(user);
+
+            var ex = await Should.ThrowAsync<DbUpdateException>(async () =>
+                await ctx.SaveChangesAsync(TestContext.Current.CancellationToken));
+
+            PostgresException psqlEx = ex.InnerException.ShouldBeOfType<PostgresException>();
+            psqlEx.SqlState.ShouldBe(PostgresErrorCodes.ForeignKeyViolation);
+        }
+
+        await using var check = db.CreateContext();
+        var savedInvoice = await check.CustomerInvoices
+            .FirstOrDefaultAsync(i => i.CustomerInvoiceId == invoiceId, TestContext.Current.CancellationToken);
+
+        savedInvoice.ShouldNotBeNull(
+            "BUG: la facture du user a ete supprimee en cascade avec lui. " +
+            "La FK CustomerInvoices.User_id devrait etre en Restrict, pas Cascade."
+        );
+    }
 }
