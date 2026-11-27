@@ -38,6 +38,8 @@ public class TC_DB01_002_SuppressionRole(PostgresFixture db)
     }
 
     [Fact]
+    [Trait("Tag", "bugs")]
+    [Trait("Tag", "jira-IN-42")]
     public async Task TC_DB01_002_SuppressionRole_UserSupprime_Bug()
     {
         var (roleId, userId, _) = await SeedRoleUserItemAsync();
@@ -68,6 +70,8 @@ public class TC_DB01_002_SuppressionRole(PostgresFixture db)
     }
 
     [Fact(Skip = "Répétition du test précédent en SQL pur")]
+    [Trait("Tag", "bugs")]
+    [Trait("Tag", "jira-IN-42")]
     public async Task TC_DB01_002_SuppressionRole_SQL_UserSupprime_Bug()
     {
         var (roleId, userId, _) = await SeedRoleUserItemAsync();
@@ -90,6 +94,8 @@ public class TC_DB01_002_SuppressionRole(PostgresFixture db)
     }
 
     [Fact]
+    [Trait("Tag", "bugs")]
+    [Trait("Tag", "jira-IN-42")]
     public async Task TC_DB01_002_SuppressionRole_ItemSupprime_Bug()
     {
         var (roleId, _, itemId) = await SeedRoleUserItemAsync();
